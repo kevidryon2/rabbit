@@ -1,0 +1,45 @@
+#Rabbit, a small, lightwight, fast, and customizable web server.
+#Copyright (C) 2023 kevidryon2
+#
+#This program is free software: you can redistribute it and/or modify
+#it under the terms of the GNU Affero General Public License as
+#published by the Free Software Foundation, either version 3 of the
+#License, or (at your option) any later version.
+#
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU Affero General Public License for more details.
+#
+#You should have received a copy of the GNU Affero General Public License
+#along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+all: build/rabbit-riscv build/netc-riscv
+dynamic: build/rabbit-riscv_dynamic build/netc-riscv_dynamic
+
+CFLAGS=-pedantic -Wall -O0
+RISCVCC=riscv64-linux-gnu-gcc
+
+build/rabbit-riscv_dynamic: build/httpserver-riscv.o build/main-riscv.o \
+		 build/bnsload-riscv.o build/librsl-riscv.o
+	$(RISCVCC) -g build/httpserver-riscv.o build/main-riscv.o \
+		    build/bnsload-riscv.o build/librsl-riscv.o \
+		    -o build/rabbit-riscv_dynamic $(CFLAGS)
+	
+build/rabbit-riscv: build/httpserver-riscv.o build/main-riscv.o \
+			build/bnsload-riscv.o build/librsl-riscv.o
+	$(RISCVCC) -g build/httpserver-riscv.o build/main-riscv.o \
+		build/bnsload-riscv.o build/librsl-riscv.o \
+		-o build/rabbit-riscv $(CFLAGS) -static
+
+build/netc-riscv_dynamic: build/netc-riscv.o build/libnetc-riscv.o build/librsl-riscv.o
+	$(RISCVCC) -g build/*netc-riscv.o build/librsl-riscv.o \
+		 -o build/netc-riscv
+
+build/netc-riscv: build/netc-riscv.o build/libnetc-riscv.o build/librsl-riscv.o
+	$(RISCVCC) -g build/*netc-riscv.o build/librsl-riscv.o \
+		 -o build/netc-riscv -static
+
+build/%-riscv.o: src/%.c
+	$(RISCVCC) -g -c -o $@ $<
+
