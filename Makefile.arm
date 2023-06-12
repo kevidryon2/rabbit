@@ -17,29 +17,28 @@
 all: build/rabbit-arm build/netc-arm
 dynamic: build/rabbit-arm_dynamic build/netc-arm_dynamic
 
-CFLAGS=-pedantic -Wall -O0
-ARMCC=arm-linux-gnueabi-gcc
+OBJS= \
+		build/main-arm.o \
+		 build/bnsload-arm.o \
+		 build/librsl-arm.o \
+		 build/rabbit-arm.o \
+		 build/hirolib-arm.o
 
-build/rabbit-arm_dynamic: build/httpserver-arm.o build/main-arm.o \
-		 build/bnsload-arm.o build/librsl-arm.o
-	$(ARMCC) -g build/httpserver-arm.o build/main-arm.o \
-		    build/bnsload-arm.o build/librsl-arm.o \
-		    -o build/rabbit-arm_dynamic $(CFLAGS)
+CFLAGS+=-pedantic -Wall -O0
+CC=arm-linux-gnueabi-gcc
+
+build/rabbit-arm_dynamic: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-arm_dynamic $(CFLAGS)
 	
-build/rabbit-arm: build/httpserver-arm.o build/main-arm.o \
-			build/bnsload-arm.o build/librsl-arm.o
-	$(ARMCC) -g build/httpserver-arm.o build/main-arm.o \
-		build/bnsload-arm.o build/librsl-arm.o \
-		-o build/rabbit-arm $(CFLAGS) -static
+build/rabbit-arm: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-arm $(CFLAGS) -static
 
-build/netc-arm_dynamic: build/netc-arm.o build/libnetc-arm.o build/librsl-arm.o
-	$(ARMCC) -g build/*netc-arm.o build/librsl-arm.o \
-		 -o build/netc-arm
+build/netc-arm_dynamic: $(OBJS)
+		$(CC) -g  $(OBJS) -o build/netc-arm
 
-build/netc-arm: build/netc-arm.o build/libnetc-arm.o build/librsl-arm.o
-	$(ARMCC) -g build/*netc-arm.o build/librsl-arm.o \
-		 -o build/netc-arm -static
+build/netc-arm: $(OBJS)
+		$(CC) -g  $(OBJS) -static
 
 build/%-arm.o: src/%.c
-	$(ARMCC) -g -c -o $@ $<
+	$(CC) -g -c -o $@ $<
 

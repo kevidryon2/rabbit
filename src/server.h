@@ -18,4 +18,40 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include "bns.h"
 
-LoadedScript scripts[256];
+/* Rabbit Version String */
+#define RABBIT_VERS "Argente 2"
+
+LoadedScript *scripts;
+int nloadedscripts;
+
+#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((b)>(a)?(a):(b))
+
+typedef struct {
+	char protocol[8];
+	char rverb[8];
+	char path[4096];
+	struct {
+		char key[32];
+		char value[32];
+	} headers[64];
+	char *body;
+	
+	int verb;
+} RequestData;
+
+typedef struct {
+	int type; //0 = invalid, 1 = cached file, 2 = public file
+	int datalen;
+	char *data;
+} loadFile_returnData;
+
+typedef enum {
+	VERB_GET,
+	VERB_POST,
+	VERB_PUT,
+	VERB_PATCH,
+	VERB_DELETE,
+	VERB_HEAD,
+	VERB_OPTIONS
+} HTTPVerb;

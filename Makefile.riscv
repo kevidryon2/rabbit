@@ -17,29 +17,28 @@
 all: build/rabbit-riscv build/netc-riscv
 dynamic: build/rabbit-riscv_dynamic build/netc-riscv_dynamic
 
-CFLAGS=-pedantic -Wall -O0
-RISCVCC=riscv64-linux-gnu-gcc
+OBJS= \
+		build/main-riscv.o \
+		 build/bnsload-riscv.o \
+		 build/librsl-riscv.o \
+		 build/rabbit-riscv.o \
+		 build/hirolib-riscv.o
 
-build/rabbit-riscv_dynamic: build/httpserver-riscv.o build/main-riscv.o \
-		 build/bnsload-riscv.o build/librsl-riscv.o
-	$(RISCVCC) -g build/httpserver-riscv.o build/main-riscv.o \
-		    build/bnsload-riscv.o build/librsl-riscv.o \
-		    -o build/rabbit-riscv_dynamic $(CFLAGS)
+CFLAGS+=-pedantic -Wall -O0
+CC=riscv64-linux-gnu-gcc
+
+build/rabbit-riscv_dynamic: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-riscv_dynamic $(CFLAGS)
 	
-build/rabbit-riscv: build/httpserver-riscv.o build/main-riscv.o \
-			build/bnsload-riscv.o build/librsl-riscv.o
-	$(RISCVCC) -g build/httpserver-riscv.o build/main-riscv.o \
-		build/bnsload-riscv.o build/librsl-riscv.o \
-		-o build/rabbit-riscv $(CFLAGS) -static
+build/rabbit-riscv: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-riscv $(CFLAGS) -static
 
-build/netc-riscv_dynamic: build/netc-riscv.o build/libnetc-riscv.o build/librsl-riscv.o
-	$(RISCVCC) -g build/*netc-riscv.o build/librsl-riscv.o \
-		 -o build/netc-riscv
+build/netc-riscv_dynamic: $(OBJS)
+		$(CC) -g  $(OBJS) -o build/netc-riscv
 
-build/netc-riscv: build/netc-riscv.o build/libnetc-riscv.o build/librsl-riscv.o
-	$(RISCVCC) -g build/*netc-riscv.o build/librsl-riscv.o \
-		 -o build/netc-riscv -static
+build/netc-riscv: $(OBJS)
+		$(CC) -g  $(OBJS) -static
 
 build/%-riscv.o: src/%.c
-	$(RISCVCC) -g -c -o $@ $<
+	$(CC) -g -c -o $@ $<
 

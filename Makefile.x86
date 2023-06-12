@@ -17,29 +17,28 @@
 all: build/rabbit-x86 build/netc-x86
 dynamic: build/rabbit-x86_dynamic build/netc-x86_dynamic
 
-CFLAGS=-pedantic -Wall -O0
-X86CC=x86_64-linux-gnu-gcc
+OBJS= \
+		build/main-x86.o \
+		 build/bnsload-x86.o \
+		 build/librsl-x86.o \
+		 build/rabbit-x86.o \
+		 build/hirolib-x86.o
 
-build/rabbit-x86_dynamic: build/httpserver-x86.o build/main-x86.o \
-		 build/bnsload-x86.o build/librsl-x86.o
-	$(X86CC) -g build/httpserver-x86.o build/main-x86.o \
-		    build/bnsload-x86.o build/librsl-x86.o \
-		    -o build/rabbit-x86_dynamic $(CFLAGS)
+CFLAGS+=-pedantic -Wall -O0
+CC=x86_64-linux-gnu-gcc
+
+build/rabbit-x86_dynamic: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-x86_dynamic $(CFLAGS)
 	
-build/rabbit-x86: build/httpserver-x86.o build/main-x86.o \
-			build/bnsload-x86.o build/librsl-x86.o
-	$(X86CC) -g build/httpserver-x86.o build/main-x86.o \
-		build/bnsload-x86.o build/librsl-x86.o \
-		-o build/rabbit-x86 $(CFLAGS) -static
+build/rabbit-x86: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-x86 $(CFLAGS) -static
 
-build/netc-x86_dynamic: build/netc-x86.o build/libnetc-x86.o build/librsl-x86.o
-	$(X86CC) -g build/*netc-x86.o build/librsl-x86.o \
-		 -o build/netc-x86
+build/netc-x86_dynamic: $(OBJS)
+		$(CC) -g  $(OBJS) -o build/netc-x86
 
-build/netc-x86: build/netc-x86.o build/libnetc-x86.o build/librsl-x86.o
-	$(X86CC) -g build/*netc-x86.o build/librsl-x86.o \
-		 -o build/netc-x86 -static
+build/netc-x86: $(OBJS)
+		$(CC) -g  $(OBJS) -static
 
 build/%-x86.o: src/%.c
-	$(X86CC) -g -c -o $@ $<
+	$(CC) -g -c -o $@ $<
 

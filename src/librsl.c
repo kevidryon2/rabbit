@@ -17,6 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((b)>(a)?(a):(b))
@@ -64,4 +66,17 @@ char *combine(char *restrict a, char *restrict b) {
 	strcpy(buffer, a);
 	strcat(buffer, b);
 	return buffer;
+}
+
+char *ntoken(char *const s, char *d, int t) {
+	char *tk = malloc(strlen(s)+1);
+	if (!tk) {
+		perror("malloc");
+	}
+	strcpy(tk, s);
+	strtok(tk, d);
+	for (int i=0; i<t; i++) {
+		tk = strtok(0, d);
+	}
+	return tk;
 }
