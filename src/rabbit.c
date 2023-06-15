@@ -52,15 +52,12 @@ RequestData *RabbitParseRequest(const char *const reqbuff) {
 	/* Read request data */
 	tmp = ntoken(line, " ", 0);
 	strncpy(reqdata->rverb, tmp, 7);
-	free(tmp);
 	
 	tmp = ntoken(line, " ", 1);
 	strncpy(reqdata->path, tmp, 4096);
-	free(tmp-4);
 	
 	tmp = ntoken(line, " ", 2);
 	strncpy(reqdata->protocol, tmp, 8);
-	free(tmp-6);
 	
 	free(line);
 	
