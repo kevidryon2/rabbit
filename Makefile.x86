@@ -34,10 +34,10 @@ build/rabbit-x86: $(OBJS)
 	$(CC) -g $(OBJS) -o build/rabbit-x86 $(CFLAGS) -static
 
 build/netc-x86_dynamic: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-x86
+		$(CC) -g  $(OBJS) -o build/netc-x86_dynamic
 
 build/netc-x86: $(OBJS)
-		$(CC) -g  $(OBJS) -static
+		$(CC) -g  $(OBJS) -o build/netc-x86 -static
 
 build/%-x86.o: src/%.c
 	$(CC) -g -c -o $@ $<

@@ -34,10 +34,10 @@ build/rabbit-arm: $(OBJS)
 	$(CC) -g $(OBJS) -o build/rabbit-arm $(CFLAGS) -static
 
 build/netc-arm_dynamic: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-arm
+		$(CC) -g  $(OBJS) -o build/netc-arm_dynamic
 
 build/netc-arm: $(OBJS)
-		$(CC) -g  $(OBJS) -static
+		$(CC) -g  $(OBJS) -o build/netc-arm -static
 
 build/%-arm.o: src/%.c
 	$(CC) -g -c -o $@ $<

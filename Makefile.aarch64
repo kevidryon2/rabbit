@@ -34,10 +34,10 @@ build/rabbit-aarch64: $(OBJS)
 	$(CC) -g $(OBJS) -o build/rabbit-aarch64 $(CFLAGS) -static
 
 build/netc-aarch64_dynamic: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-aarch64
+		$(CC) -g  $(OBJS) -o build/netc-aarch64_dynamic
 
 build/netc-aarch64: $(OBJS)
-		$(CC) -g  $(OBJS) -static
+		$(CC) -g  $(OBJS) -o build/netc-aarch64 -static
 
 build/%-aarch64.o: src/%.c
 	$(CC) -g -c -o $@ $<
