@@ -34,6 +34,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "server.h"
 
 extern char *verbs[];
+extern LoadedScript *scripts;
+extern int nloadedscripts;
 
 void sigpipe() {
 	SetColor16(COLOR_RED);
@@ -115,7 +117,7 @@ int main(int argc, char **argv, char **envp) {
 	unsigned short port;
 	char *tmp;
 	
-	printf("Rabbit "RABBIT_VERS" %d\n", getpid());
+	printf("Rabbit "RABBIT_VERS" (PID = %d)\n", getpid());
 	
 	signal(SIGPIPE, sigpipe);
 	

@@ -14,6 +14,9 @@
 #include "bns.h"
 #include "server.h"
 
+LoadedScript *scripts;
+int nloadedscripts = 1;
+
 const char *verbs[] = {"GET","POST","PUT","PATCH","DELETE","HEAD","OPTIONS"};
 
 char *ntoken(char *const s, char *d, int t);
