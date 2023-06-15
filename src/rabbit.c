@@ -49,8 +49,6 @@ RequestData *RabbitParseRequest(const char *const reqbuff) {
 		errno=1; return NULL;
 	}
 	
-	free(tmp-6);
-	
 	/* Read request data */
 	tmp = ntoken(line, " ", 0);
 	strncpy(reqdata->rverb, tmp, 7);
