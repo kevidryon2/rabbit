@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bns.h"
 
 /* Rabbit Version String */
-#define RABBIT_VERS "Beveren 1"
+#define RABBIT_VERS "Cinnamon 1"
 
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((b)>(a)?(a):(b))

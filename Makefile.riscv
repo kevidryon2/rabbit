@@ -14,31 +14,40 @@
 #You should have received a copy of the GNU Affero General Public License
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-all: build/rabbit-riscv build/netc-riscv
-dynamic: build/rabbit-riscv_dynamic build/netc-riscv_dynamic
+ARCH=riscv64
+
+all: build/rabbit-$(ARCH) build/netc-$(ARCH)
+dynamic: build/rabbit-$(ARCH)_dynamic build/netc-$(ARCH)_dynamic
 
 OBJS= \
-		build/main-riscv.o \
-		 build/bnsload-riscv.o \
-		 build/librsl-riscv.o \
-		 build/rabbit-riscv.o \
-		 build/hirolib-riscv.o
+		build/main-$(ARCH).o \
+		 build/bnsload-$(ARCH).o \
+		 build/librsl-$(ARCH).o \
+		 build/rabbit-$(ARCH).o \
+		 build/hirolib-$(ARCH).o
+
+NETCOBJS= \
+		build/netc-$(ARCH).o \
+		 build/bnsload-$(ARCH).o \
+		 build/librsl-$(ARCH).o \
+		 build/libnetc-$(ARCH).o \
+		 build/hirolib-$(ARCH).o
 
 CFLAGS+=-pedantic -Wall -O0
-CC=riscv64-linux-gnu-gcc
+CC=$(ARCH)-linux-gnu-gcc
 
-build/rabbit-riscv_dynamic: $(OBJS)
-	$(CC) -g $(OBJS) -o build/rabbit-riscv_dynamic $(CFLAGS)
+build/rabbit-$(ARCH)_dynamic: $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-$(ARCH)_dynamic $(CFLAGS)
 	
-build/rabbit-riscv: $(OBJS)
-	$(CC) -g $(OBJS) -o build/rabbit-riscv $(CFLAGS) -static
+build/rabbit-$(ARCH): $(OBJS)
+	$(CC) -g $(OBJS) -o build/rabbit-$(ARCH) $(CFLAGS) -static
 
-build/netc-riscv_dynamic: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-riscv_dynamic
+build/netc-$(ARCH)_dynamic: $(NETCOBJS)
+		$(CC) -g  $(NETCOBJS) -o build/netc-$(ARCH)_dynamic
 
-build/netc-riscv: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-riscv -static
+build/netc-$(ARCH): $(NETCOBJS)
+		$(CC) -g  $(NETCOBJS) -o build/netc-$(ARCH) -static
 
-build/%-riscv.o: src/%.c
+build/%-$(ARCH).o: src/%.c
 	$(CC) -g -c -o $@ $<
 

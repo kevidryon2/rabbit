@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <signal.h>
+#include <fnmatch.h>
 #include "hirolib.h"
 #include "bns.h"
 #include "server.h"
@@ -18,6 +19,24 @@ LoadedScript *scripts;
 int nloadedscripts = 1;
 
 const char *verbs[] = {"GET","POST","PUT","PATCH","DELETE","HEAD","OPTIONS"};
+
+const char *httpcodes[] = {
+	[200]="OK",
+	[204]="No Content",
+	[206]="Partial Content",
+	[301]="Moved Permentently",
+	[302]="Found",
+	[400]="Bad Request",
+	[401]="Unauthorized",
+	[403]="Forbidden",
+	[404]="Not Found",
+	[418]="I'm A Teapot",
+	[500]="Internal Server Error",
+	[501]="Not Implemented",
+	[503]="Service Unavailable",
+	[505]="HTTP Version Not Supported",
+	[507]="Insufficient Storage"
+};
 
 char *ntoken(char *const s, char *d, int t);
 int startswith(char *s, char *c);
@@ -30,6 +49,19 @@ bool exists(char *path) {
 		return true;
 	}
 	return false;
+}
+
+int RabbitSearchScript(char *path, int pathlen) {
+	for (int i=0; i<nloadedscripts; i++) {
+		for (int j=0; j<16; j++) {
+			if (scripts[i].paths[j]) {
+				if (fnmatch(scripts[i].paths[j], path, 0) != FNM_NOMATCH) {
+					return i;
+				}
+			}
+		}
+	}
+	return -1;
 }
 
 RequestData *RabbitParseRequest(const char *const reqbuff) {
@@ -84,7 +116,7 @@ RequestData *RabbitParseRequest(const char *const reqbuff) {
 }
 
 //Returns a socket fd
-int initserver(unsigned short port) {
+int RabbitInit(unsigned short port) {
 	
 	int sock;
 	struct sockaddr_in addr = {
@@ -118,7 +150,7 @@ int initserver(unsigned short port) {
 	return sock;
 }
 
-loadFile_returnData loadFile(char *pubpath, char *cachepath, int csock) {
+loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
 	if (!pubpath) {errno=EINVAL; return (loadFile_returnData){0};};
 	loadFile_returnData data;
 
@@ -150,6 +182,7 @@ loadFile_returnData loadFile(char *pubpath, char *cachepath, int csock) {
 
 		fclose(pubfile);
 		fclose(cachefile);
+		putchar('N');
 	} else {
 		cachefile = fopen(cachepath, "r");
 
@@ -162,6 +195,14 @@ loadFile_returnData loadFile(char *pubpath, char *cachepath, int csock) {
 
 		fread(data.data, 1, data.datalen, cachefile);
 		fclose(cachefile);
+		putchar('C');
 	}
 	return data;
+}
+
+void RabbitErrorHandler(int status, char *response, RequestData reqdata) {;
+	sprintf(response, "HTTP/1.0 %d %s", status, httpcodes[status]);
+	switch (status) {
+
+	}
 }

@@ -59,20 +59,22 @@ void logdata(char *data) {
 	}
 }
 
-LoadedScript *loadScript(char *data, int len);
+
 int needle(char *n, char **h, int lh);
 char *compile(char *script);
 void exec(char *binscript);
-int initserver();
-void execscript(LoadedScript script, RequestData reqdata, char *resbuff);
 int search_begin(char **restrict array, int num_elements, char *restrict string);
 int startswith(char *s, char *c);
 int endswith(char *restrict s, char *restrict end);
 char *combine(char *restrict a, char *restrict b);
 char *ntoken(char *const s, char *d, int t);
 
-loadFile_returnData loadFile(char *pubpath, char *cachepath, int csock);
+int RabbitInit(unsigned short port);
+LoadedScript *RabbitLoadScript(char *data, int len);
+loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock);
 RequestData *RabbitParseRequest(const char *reqbuff);
+void RabbitExecScript(LoadedScript script, RequestData reqdata, char *resbuff);
+int RabbitSearchScript(char *path, int pathlen);
 
 char *escapestr(unsigned char *s) {
 	unsigned char *o = malloc(BUFSIZ);
@@ -132,7 +134,7 @@ int main(int argc, char **argv, char **envp) {
 
 	printf("Using port %d\n\n", port);
 	
-	int serversock = initserver(port);
+	int serversock = RabbitInit(port);
 	char rootpath[PATH_MAX];
 	char cwdbuffer[PATH_MAX];
 	char *fullpath;
@@ -147,8 +149,8 @@ int main(int argc, char **argv, char **envp) {
 		return 127;
 	}
 	
-	strcpy(rootpath, fullpath);
-	strcat(rootpath, "/");
+	strncpy(rootpath, fullpath, PATH_MAX);
+	strncat(rootpath, "/", PATH_MAX);
 	
 	printf("Using directory %s\n", rootpath);
 	
@@ -193,7 +195,7 @@ int main(int argc, char **argv, char **envp) {
 				fread(buffer, 1, len, fp);
 				
 				/* Load file */
-				tmp = loadScript(buffer, len);
+				tmp = RabbitLoadScript(buffer, len);
 				if (!tmp) {
 					printf("can't load :( (Error %d)\n", errno);
 					return 1;
@@ -282,7 +284,7 @@ int main(int argc, char **argv, char **envp) {
 					SetColor16(COLOR_RED);
 					printf("V (Bad verb %s)", reqdata->rverb);
 					ResetColor16();
-					sprintf(resbuff, "HTTP/1.0 501 Not Implemented\nServer: Rabbit/"RABBIT_VERS"\n\nInvalid Verb.\n");
+					RabbitErrorHandler(501, resbuff, reqdata);
 					write(csock, resbuff, strlen(resbuff));
 					goto endreq;
 			}
@@ -291,15 +293,8 @@ int main(int argc, char **argv, char **envp) {
 		putchar('H');
 		
 		/* Search for a script to handle the request */
-		for (int i=0; i<nloadedscripts; i++) {
-			for (int j=0; j<16; j++) {
-				if (scripts[i].paths[j])
-				if (!strcmp(scripts[i].paths[j], reqdata->path)) {
-					goto script;
-				}
-			}
-		};
-		
+		script = RabbitSearchScript(reqdata->path, strlen(reqdata->path));
+		if (script > -1) goto script;
 		
 		/* TODO: Parse headers */
 		
@@ -309,15 +304,15 @@ script:
 			printf("Ts");
 			/* TODO: Return verbs supported by script */
 		}
-		putchar('S');
-		execscript(scripts[script], *reqdata, resbuff);
-		goto response;
+		printf("S%d", script);
+		RabbitExecScript(scripts[script], *reqdata, resbuff);
+		goto endreq;
 		
 noscript:
 		/* If verb is OPTIONS return allowed options (GET, OPTIONS, HEAD) */
 		if (reqdata->verb == VERB_OPTIONS) {
 			printf("T");
-			sprintf(resbuff, "HTTP/1.0 200 OK\r\nServer: Rabbit/"RABBIT_VERS"\r\nAllow: OPTIONS, GET, HEAD\r\n");
+			snprintf(resbuff, BUFSIZ, "HTTP/1.0 200 OK\r\nServer: Rabbit/"RABBIT_VERS"\r\nAllow: OPTIONS, GET, HEAD\r\n");
 			write(csock, resbuff, strlen(resbuff));
 			goto endreq;
 			
@@ -326,7 +321,7 @@ noscript:
 		/* Fetch file */
 		putchar('F');
 		memset(public_path, 0, PATH_MAX);
-		sprintf(public_path, "%s/public/%s", rootpath, reqdata->path);
+		snprintf(public_path, sizeof public_path, "%s/public/%s", rootpath, reqdata->path);
 		
 		/* If file doesn't exist in public directory return 404 Not Found */
 		if (!(publicfp = fopen(public_path, "r"))) {
@@ -335,9 +330,9 @@ noscript:
 			printf("%s ", reqdata->path);
 			ResetColor16();
 			if (errno == 2) {
-				sprintf(resbuff, "HTTP/1.0 404 Not Found\nServer: Rabbit/"RABBIT_VERS"\n\nError: File %s not found.\n", reqdata->path);
+				snprintf(resbuff, BUFSIZ, "HTTP/1.0 404 Not Found\nServer: Rabbit/"RABBIT_VERS"\n\nError: File %s not found.\n", reqdata->path);
 			} else {
-				sprintf(resbuff, "HTTP/1.0 500 Internal Server Error\nServer: Rabbit/"RABBIT_VERS"\n\nError: Recieved errno %d while trying to read file %s.\n", errno, reqdata->path);
+				snprintf(resbuff, BUFSIZ, "HTTP/1.0 500 Internal Server Error\nServer: Rabbit/"RABBIT_VERS"\n\nError: Recieved errno %d while trying to read file %s.\n", errno, reqdata->path);
 			}
 			write(csock, resbuff, strlen(resbuff));
 			goto endreq;
@@ -348,12 +343,12 @@ noscript:
 		/* File exists */
 		printf(" %s ", reqdata->path);
 		memset(cached_path, 0, PATH_MAX);
-		sprintf(cached_path, "%s/cache/%s", rootpath,
+		snprintf(cached_path, sizeof cached_path, "%s/cache/%s", rootpath,
 				tmp = escapestr(reqdata->path));
 		
 		free(tmp);
 										 
-		read_data = loadFile(public_path, cached_path, csock);
+		read_data = RabbitLoadFile(public_path, cached_path, csock);
 
 		printf("%d ", read_data.datalen);
 		
@@ -364,6 +359,9 @@ response:
 		sprintf(resbuff,"HTTP/1.0 200 OK\r\nServer: Rabbit/"RABBIT_VERS"\r\n\r\n");
 		write(csock, resbuff, strlen(resbuff));
 		
+		/* Finish and flush */
+		fflush(stdout);
+
 		write(csock, read_data.data, read_data.datalen);
 		free(read_data.data);
 		free(reqdata);

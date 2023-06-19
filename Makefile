@@ -14,8 +14,8 @@
 #You should have received a copy of the GNU Affero General Public License
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+dynamic: clean x86-arch-dynamic
 all: clean x86-arch
-static: clean x86-arch-static
 
 arm-dynamic: clean arm-arch-dynamic
 arm: clean arm-arch
@@ -26,11 +26,9 @@ arm64: clean aarch64
 riscv-dynamic: clean riscv-arch-dynamic
 riscv: clean riscv-arch
 
-everything-static: clean x86-arch arm-arch aarch64 riscv-arch
-everything-dynamic: clean x86-arch-dynamic arm-arch-dynamic \
-							aarch64-dynamic riscv-arch-dynamic
-
-everything: clean everything-static everything-dynamic
+everything-static: x86-arch arm-arch aarch64 riscv-arch
+everything-dynamic: x86-arch-dynamic arm-arch-dynamic aarch64-dynamic riscv-arch-dynamic
+everything: everything-static everything-dynamic
 
 clean:
 	rm -f build/*

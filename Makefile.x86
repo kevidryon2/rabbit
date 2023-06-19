@@ -14,31 +14,40 @@
 #You should have received a copy of the GNU Affero General Public License
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-all: build/rabbit-x86 build/netc-x86
-dynamic: build/rabbit-x86_dynamic build/netc-x86_dynamic
+ARCH=x86_64
+
+all: build/rabbit-$(ARCH) build/netc-$(ARCH)
+dynamic: build/rabbit-$(ARCH)_dynamic build/netc-$(ARCH)_dynamic
 
 OBJS= \
-		build/main-x86.o \
-		 build/bnsload-x86.o \
-		 build/librsl-x86.o \
-		 build/rabbit-x86.o \
-		 build/hirolib-x86.o
+		build/main-$(ARCH).o \
+		 build/bnsload-$(ARCH).o \
+		 build/librsl-$(ARCH).o \
+		 build/rabbit-$(ARCH).o \
+		 build/hirolib-$(ARCH).o
 
-CFLAGS+=-pedantic -Wall -O0
-CC=x86_64-linux-gnu-gcc
+NETCOBJS= \
+		build/netc-$(ARCH).o \
+		 build/bnsload-$(ARCH).o \
+		 build/librsl-$(ARCH).o \
+		 build/libnetc-$(ARCH).o \
+		 build/hirolib-$(ARCH).o
 
-build/rabbit-x86_dynamic: $(OBJS)
-	$(CC) -g $(OBJS) -o build/rabbit-x86_dynamic $(CFLAGS)
+CCFLAGS=-pedantic -Wall -O0
+CC=$(ARCH)-linux-gnu-gcc
+
+build/rabbit-$(ARCH)_dynamic: $(OBJS)
+	$(CC) -g3 $(CFLAGS) $(OBJS) -o build/rabbit-$(ARCH)_dynamic $(CCFLAGS)
 	
-build/rabbit-x86: $(OBJS)
-	$(CC) -g $(OBJS) -o build/rabbit-x86 $(CFLAGS) -static
+build/rabbit-$(ARCH): $(OBJS)
+	$(CC) -g3 $(CFLAGS) $(OBJS) -o build/rabbit-$(ARCH) $(CCFLAGS) -static
 
-build/netc-x86_dynamic: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-x86_dynamic
+build/netc-$(ARCH)_dynamic: $(NETCOBJS)
+	$(CC) -g3 $(NETCOBJS) -o build/netc-$(ARCH)_dynamic $(CCFLAGS) $(CFLAGS)
 
-build/netc-x86: $(OBJS)
-		$(CC) -g  $(OBJS) -o build/netc-x86 -static
+build/netc-$(ARCH): $(NETCOBJS)
+	$(CC) -g3 $(NETCOBJS) -o build/netc-$(ARCH) -static $(CCFLAGS) $(CFLAGS)
 
-build/%-x86.o: src/%.c
-	$(CC) -g -c -o $@ $<
+build/%-$(ARCH).o: src/%.c
+	$(CC) -g3 $(CFLAGS) -c -o $@ $<
 

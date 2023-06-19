@@ -19,19 +19,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bns.h"
 #include <errno.h>
 #include <string.h>
+#include "server.h"
 
-typedef struct {
-	char protocol[8];
-	char rverb[8];
-	char path[4096];
-	struct {
-		char key[32];
-		char value[32];
-	} headers[64];
-	char *body;
-} RequestData;
-
-LoadedScript *loadScript(char *data, int len) {
+LoadedScript *RabbitLoadScript(char *data, int len) {
 	
 	//If not enough bytes are contained in the file error out
 	if (len < sizeof(NSHeader))
@@ -73,6 +63,6 @@ notscript:
 	return NULL;
 }
 
-void execscript(LoadedScript scripts, RequestData reqdata, char *resbuff) {
+void RabbitExecScript(LoadedScript scripts, RequestData reqdata, char *resbuff) {
 	
 }
