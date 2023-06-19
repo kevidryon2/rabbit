@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bns.h"
 
 /* Rabbit Version String */
-#define RABBIT_VERS "Cinnamon 1"
+#define RABBIT_VERS "Cinnamon 2"
 
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((b)>(a)?(a):(b))
@@ -28,6 +28,8 @@ typedef struct {
 	char protocol[8];
 	char rverb[8];
 	char path[4096];
+  char *truepath;
+
 	struct {
 		char key[32];
 		char value[32];

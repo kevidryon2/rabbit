@@ -33,21 +33,21 @@ NETCOBJS= \
 		 build/libnetc-$(ARCH).o \
 		 build/hirolib-$(ARCH).o
 
-CFLAGS+=-pedantic -Wall -O0
+CCFLAGS=-pedantic -Wall -O0 -rdynamic
 CC=$(ARCH)-linux-gnueabi-gcc
 
 build/rabbit-$(ARCH)_dynamic: $(OBJS)
-	$(CC) -g $(OBJS) -o build/rabbit-$(ARCH)_dynamic $(CFLAGS)
+	$(CC) -g3 $(CFLAGS) $(OBJS) -o build/rabbit-$(ARCH)_dynamic $(CCFLAGS)
 	
 build/rabbit-$(ARCH): $(OBJS)
-	$(CC) -g $(OBJS) -o build/rabbit-$(ARCH) $(CFLAGS) -static
+	$(CC) -g3 $(CFLAGS) $(OBJS) -o build/rabbit-$(ARCH) $(CCFLAGS) -static
 
 build/netc-$(ARCH)_dynamic: $(NETCOBJS)
-		$(CC) -g  $(NETCOBJS) -o build/netc-$(ARCH)_dynamic
+	$(CC) -g3 $(NETCOBJS) -o build/netc-$(ARCH)_dynamic $(CCFLAGS) $(CFLAGS)
 
 build/netc-$(ARCH): $(NETCOBJS)
-		$(CC) -g  $(NETCOBJS) -o build/netc-$(ARCH) -static
+	$(CC) -g3 $(NETCOBJS) -o build/netc-$(ARCH) -static $(CCFLAGS) $(CFLAGS)
 
 build/%-$(ARCH).o: src/%.c
-	$(CC) -g -c -o $@ $<
+	$(CC) -g3 $(CFLAGS) -c -o $@ $<
 

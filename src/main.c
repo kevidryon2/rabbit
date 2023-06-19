@@ -32,6 +32,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "hirolib.h"
 #include "bns.h"
 #include "server.h"
+#include "c-stacktrace.h"
 
 extern char *verbs[];
 extern LoadedScript *scripts;
@@ -41,6 +42,13 @@ void sigpipe() {
 	SetColor16(COLOR_RED);
 	printf("EPIPE");
 	ResetColor16();
+}
+
+void segfault() {
+	printf("\nWhoops! Rabbit crashed.\n\
+Please sent all this information in an issue to the Rabbit Github repo \
+( https://github.com/kevidryon2/rabbit ):\n");
+	CRITICAL("Recieved signal 11 (SIGSEGV)!");
 }
 
 int filesize(FILE *fp) {
@@ -75,6 +83,7 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock);
 RequestData *RabbitParseRequest(const char *reqbuff);
 void RabbitExecScript(LoadedScript script, RequestData reqdata, char *resbuff);
 int RabbitSearchScript(char *path, int pathlen);
+int RabbitCallPHP(char *source_path, char *output_path, RequestData data, loadFile_returnData *output);
 
 char *escapestr(unsigned char *s) {
 	unsigned char *o = malloc(BUFSIZ);
@@ -121,7 +130,10 @@ int main(int argc, char **argv, char **envp) {
 	
 	printf("Rabbit "RABBIT_VERS" (PID = %d)\n", getpid());
 	
+	init_exceptions(argv[0]);
+
 	signal(SIGPIPE, sigpipe);
+	signal(SIGSEGV, segfault);
 	
 	/* Seed RNG */
 	srand(time(NULL));
@@ -238,6 +250,7 @@ int main(int argc, char **argv, char **envp) {
 	
 	char public_path[PATH_MAX];
 	char cached_path[PATH_MAX];
+	char phpoutput_path[PATH_MAX];
 	char *line;
 	char *body;
 	
@@ -290,10 +303,12 @@ int main(int argc, char **argv, char **envp) {
 			}
 		}
 		
-		putchar('H');
+		reqdata->truepath = ntoken(reqdata->path, "?", 0);
 		
+		putchar('H');
+
 		/* Search for a script to handle the request */
-		script = RabbitSearchScript(reqdata->path, strlen(reqdata->path));
+		script = RabbitSearchScript(reqdata->truepath, strlen(reqdata->truepath));
 		if (script > -1) goto script;
 		
 		/* TODO: Parse headers */
@@ -321,18 +336,17 @@ noscript:
 		/* Fetch file */
 		putchar('F');
 		memset(public_path, 0, PATH_MAX);
-		snprintf(public_path, sizeof public_path, "%s/public/%s", rootpath, reqdata->path);
+		snprintf(public_path, sizeof public_path, "%s/public/%s", rootpath, reqdata->truepath);
 		
 		/* If file doesn't exist in public directory return 404 Not Found */
 		if (!(publicfp = fopen(public_path, "r"))) {
 			SetColor16(COLOR_RED);
-			printf("%d ", errno);
-			printf("%s ", reqdata->path);
+			printf("%d %s ", errno, reqdata->path);
 			ResetColor16();
 			if (errno == 2) {
-				snprintf(resbuff, BUFSIZ, "HTTP/1.0 404 Not Found\nServer: Rabbit/"RABBIT_VERS"\n\nError: File %s not found.\n", reqdata->path);
+				snprintf(resbuff, BUFSIZ, "HTTP/1.0 404 Not Found\nServer: Rabbit/"RABBIT_VERS"\n\nError: File %s not found.\n", reqdata->truepath);
 			} else {
-				snprintf(resbuff, BUFSIZ, "HTTP/1.0 500 Internal Server Error\nServer: Rabbit/"RABBIT_VERS"\n\nError: Recieved errno %d while trying to read file %s.\n", errno, reqdata->path);
+				snprintf(resbuff, BUFSIZ, "HTTP/1.0 500 Internal Server Error\nServer: Rabbit/"RABBIT_VERS"\n\nError: Recieved errno %d while trying to read file %s.\n", errno, reqdata->truepath);
 			}
 			write(csock, resbuff, strlen(resbuff));
 			goto endreq;
@@ -341,17 +355,29 @@ noscript:
 		fclose(publicfp);
 		
 		/* File exists */
-		printf(" %s ", reqdata->path);
+		printf(" %s ", reqdata->truepath);
 		memset(cached_path, 0, PATH_MAX);
-		snprintf(cached_path, sizeof cached_path, "%s/cache/%s", rootpath,
-				tmp = escapestr(reqdata->path));
-		
+		snprintf(cached_path, sizeof cached_path, "%s/cache/%s", rootpath, tmp = escapestr(reqdata->truepath));
 		free(tmp);
-										 
-		read_data = RabbitLoadFile(public_path, cached_path, csock);
+		snprintf(phpoutput_path, sizeof cached_path, "%s/cache/%s.html", rootpath, tmp = escapestr(reqdata->truepath));
 
-		printf("%d ", read_data.datalen);
+
+		read_data = RabbitLoadFile(public_path, cached_path, csock);
 		
+		if (endswith(reqdata->truepath, ".php")) {
+			free(read_data.data);
+#ifdef DISABLE_CACHE
+			if (RabbitCallPHP(public_path, phpoutput_path, *reqdata, csock)) {
+#else
+			if (RabbitCallPHP(cached_path, phpoutput_path, *reqdata, &read_data)) {
+#endif
+				goto response;
+			} else {
+				snprintf(resbuff, BUFSIZ, "HTTP/1.0 500 Internal Server Error\nServer: Rabbit/"RABBIT_VERS"\n\nCan't compile PHP file");
+				goto endreq;
+			}
+		}
+
 response:
 		/* Send response */
 		putchar('O');
@@ -364,6 +390,7 @@ response:
 
 		write(csock, read_data.data, read_data.datalen);
 		free(read_data.data);
+		free(reqdata->truepath);
 		free(reqdata);
 		
 endreq:

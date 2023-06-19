@@ -24,8 +24,6 @@ const char *httpcodes[] = {
 	[200]="OK",
 	[204]="No Content",
 	[206]="Partial Content",
-	[301]="Moved Permentently",
-	[302]="Found",
 	[400]="Bad Request",
 	[401]="Unauthorized",
 	[403]="Forbidden",
@@ -150,7 +148,7 @@ int RabbitInit(unsigned short port) {
 	return sock;
 }
 
-loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
+loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath) {
 	if (!pubpath) {errno=EINVAL; return (loadFile_returnData){0};};
 	loadFile_returnData data;
 
@@ -166,8 +164,8 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
 		pubfile = fopen(pubpath, "r");
 		cachefile = fopen(cachepath, "w");
 		if (!cachefile) {
-			printf("can't open file %s :( (Error %d)\n", cachepath, errno);
-			exit(1);
+			printf("E%d %s ", errno, cachepath);
+			return (loadFile_returnData){0};
 		}
 
 		data.datalen = filesize(pubfile);
@@ -200,9 +198,74 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
 	return data;
 }
 
-void RabbitErrorHandler(int status, char *response, RequestData reqdata) {;
-	sprintf(response, "HTTP/1.0 %d %s", status, httpcodes[status]);
-	switch (status) {
+void RabbitErrorHandler(int status, char *response, RequestData reqdata, char *rootpath) {;
+	sprintf(response, "HTTP/1.0 %d %s\nServer: Rabbit/"RABBIT_VERS"\r\n\r\n", status, httpcodes[status]);
+	char *filename = malloc(9); //<status>.html
+	sprintf(filename, "%03d.html", status);
 
+	void *tmp1, *tmp2;
+
+	loadFile_returnData data = RabbitLoadFile(tmp1 = combine(rootpath, "/public/404.html"), tmp2 = combine(rootpath, "/public/404.html"));
+	if (errno) {
+		printf("E%d %s ", errno, cachepath);
+		return (loadFile_returnData){0};
 	}
+
+	free(tmp1);
+	free(tmp2);
 }
+
+int RabbitCallPHP(char *source_path, char *output_path, RequestData data, loadFile_returnData *output) {
+	char *php_argv_s = "";
+	char *php_argv;
+	char *command;
+	void *tmp;
+
+	//"php ø ø > ø"
+	//4+1+3+1 = 9
+	//9+strlen(source_path)+strlen(php_argv)+strlen(output_path)
+
+	putchar('P');
+	php_argv_s = ntoken(data.path, "?", 1);
+
+	if (!php_argv_s) {
+		php_argv = "";
+		goto execphp;
+	}
+
+	php_argv = malloc(strlen(php_argv_s)+1);
+	memset(php_argv, 0, strlen(php_argv_s)+1);
+
+
+	for (int i=0; i<strlen(php_argv_s); i++) {
+		switch (php_argv_s[i]) {
+		case '&':
+			php_argv[i] = ' ';
+			break;
+		default:
+			php_argv[i] = php_argv_s[i];
+		}
+	}
+
+execphp:
+	command = malloc(9+strlen(source_path)+strlen(php_argv)+strlen(output_path));
+	sprintf(command, "php %s %s > %s", source_path, php_argv, output_path);
+
+	if (system(command)) {
+		return false;
+	}
+
+	printf("S");
+
+	FILE *fp = fopen(output_path, "r");
+
+	char *htmlfile = malloc(filesize(fp));
+	fread(htmlfile, 1, filesize(fp), fp);
+	output->data = htmlfile;
+	output->datalen = filesize(fp);
+
+	fclose(fp);
+
+	free(command);
+	return true;
+};

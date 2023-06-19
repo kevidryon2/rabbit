@@ -33,7 +33,7 @@ NETCOBJS= \
 		 build/libnetc-$(ARCH).o \
 		 build/hirolib-$(ARCH).o
 
-CCFLAGS=-pedantic -Wall -O0
+CCFLAGS=-pedantic -Wall -O0 -rdynamic
 CC=$(ARCH)-linux-gnu-gcc
 
 build/rabbit-$(ARCH)_dynamic: $(OBJS)
