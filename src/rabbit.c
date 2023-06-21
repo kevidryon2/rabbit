@@ -207,7 +207,7 @@ void RabbitErrorHandler(int status, char *response, RequestData reqdata, char *r
 
 	loadFile_returnData data = RabbitLoadFile(tmp1 = combine(rootpath, "/public/404.html"), tmp2 = combine(rootpath, "/public/404.html"));
 	if (errno) {
-		printf("E%d %s ", errno, cachepath);
+		printf("E%d %s ", errno, reqdata.path);
 		return (loadFile_returnData){0};
 	}
 
