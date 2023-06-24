@@ -260,6 +260,12 @@ execphp:
 	FILE *fp = fopen(output_path, "r");
 
 	char *htmlfile = malloc(filesize(fp));
+								   
+	if (!htmlfile) {
+		perror("malloc");
+		exit(255);
+	}
+	
 	fread(htmlfile, 1, filesize(fp), fp);
 	output->data = htmlfile;
 	output->datalen = filesize(fp);

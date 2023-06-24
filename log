@@ -13,8 +13,8 @@ Disassembly of section .text:
     376d:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
     3771:	50                   	push   %rax
     3772:	54                   	push   %rsp
-    3773:	4c 8d 05 86 2a 00 00 	lea    0x2a86(%rip),%r8        # 6200 <__libc_csu_fini>
-    377a:	48 8d 0d 0f 2a 00 00 	lea    0x2a0f(%rip),%rcx        # 6190 <__libc_csu_init>
+    3773:	4c 8d 05 86 2b 00 00 	lea    0x2b86(%rip),%r8        # 6300 <__libc_csu_fini>
+    377a:	48 8d 0d 0f 2b 00 00 	lea    0x2b0f(%rip),%rcx        # 6290 <__libc_csu_init>
     3781:	48 8d 3d d0 09 00 00 	lea    0x9d0(%rip),%rdi        # 4158 <main>
     3788:	ff 15 52 68 00 00    	callq  *0x6852(%rip)        # 9fe0 <__libc_start_main@GLIBC_2.2.5>
     378e:	f4                   	hlt    
@@ -597,14 +597,14 @@ void sigpipe() {
     3e06:	48 89 e5             	mov    %rsp,%rbp
 	SetColor16(COLOR_RED);
     3e09:	bf 01 00 00 00       	mov    $0x1,%edi
-    3e0e:	e8 a3 21 00 00       	callq  5fb6 <SetColor16>
+    3e0e:	e8 9b 22 00 00       	callq  60ae <SetColor16>
 	printf("EPIPE");
     3e13:	48 8d 3d b6 33 00 00 	lea    0x33b6(%rip),%rdi        # 71d0 <_IO_stdin_used+0x1d0>
     3e1a:	b8 00 00 00 00       	mov    $0x0,%eax
     3e1f:	e8 ec f6 ff ff       	callq  3510 <printf@plt>
 	ResetColor16();
     3e24:	b8 00 00 00 00       	mov    $0x0,%eax
-    3e29:	e8 6c 21 00 00       	callq  5f9a <ResetColor16>
+    3e29:	e8 64 22 00 00       	callq  6092 <ResetColor16>
 }
     3e2e:	90                   	nop
     3e2f:	5d                   	pop    %rbp
@@ -1013,7 +1013,7 @@ int main(int argc, char **argv, char **envp) {
 	int serversock = RabbitInit(port);
     425a:	0f b7 85 4e 7f ff ff 	movzwl -0x80b2(%rbp),%eax
     4261:	89 c7                	mov    %eax,%edi
-    4263:	e8 19 15 00 00       	callq  5781 <RabbitInit>
+    4263:	e8 18 15 00 00       	callq  5780 <RabbitInit>
     4268:	89 85 58 7f ff ff    	mov    %eax,-0x80a8(%rbp)
 	char cwdbuffer[PATH_MAX];
 	char *fullpath;
@@ -1056,7 +1056,7 @@ int main(int argc, char **argv, char **envp) {
     42f4:	e8 c7 f3 ff ff       	callq  36c0 <perror@plt>
 		return 127;
     42f9:	b8 7f 00 00 00       	mov    $0x7f,%eax
-    42fe:	e9 c0 0b 00 00       	jmpq   4ec3 <main+0xd6b>
+    42fe:	e9 bf 0b 00 00       	jmpq   4ec2 <main+0xd6a>
 	}
 	
 	strncpy(rootpath, fullpath, PATH_MAX);
@@ -1142,7 +1142,7 @@ int main(int argc, char **argv, char **envp) {
     4426:	48 83 c0 13          	add    $0x13,%rax
     442a:	48 8d 35 03 30 00 00 	lea    0x3003(%rip),%rsi        # 7434 <_IO_stdin_used+0x434>
     4431:	48 89 c7             	mov    %rax,%rdi
-    4434:	e8 9a 0e 00 00       	callq  52d3 <endswith>
+    4434:	e8 99 0e 00 00       	callq  52d2 <endswith>
     4439:	85 c0                	test   %eax,%eax
     443b:	0f 84 04 02 00 00    	je     4645 <main+0x4ed>
 				
@@ -1153,7 +1153,7 @@ int main(int argc, char **argv, char **envp) {
     444c:	48 8d 85 d0 7f ff ff 	lea    -0x8030(%rbp),%rax
     4453:	48 89 d6             	mov    %rdx,%rsi
     4456:	48 89 c7             	mov    %rax,%rdi
-    4459:	e8 d8 0e 00 00       	callq  5336 <combine>
+    4459:	e8 d7 0e 00 00       	callq  5335 <combine>
     445e:	48 89 85 a0 7f ff ff 	mov    %rax,-0x8060(%rbp)
 				printf("Loading file %s... ", ent->d_name);
     4465:	48 8b 85 80 7f ff ff 	mov    -0x8080(%rbp),%rax
@@ -1182,7 +1182,7 @@ int main(int argc, char **argv, char **envp) {
     44c0:	e8 4b f0 ff ff       	callq  3510 <printf@plt>
 					return 1;
     44c5:	b8 01 00 00 00       	mov    $0x1,%eax
-    44ca:	e9 f4 09 00 00       	jmpq   4ec3 <main+0xd6b>
+    44ca:	e9 f3 09 00 00       	jmpq   4ec2 <main+0xd6a>
 				}
 				
 				/* Allocate script */
@@ -1244,7 +1244,7 @@ int main(int argc, char **argv, char **envp) {
     459d:	48 8b 85 a0 7f ff ff 	mov    -0x8060(%rbp),%rax
     45a4:	89 d6                	mov    %edx,%esi
     45a6:	48 89 c7             	mov    %rax,%rdi
-    45a9:	e8 34 09 00 00       	callq  4ee2 <RabbitLoadScript>
+    45a9:	e8 33 09 00 00       	callq  4ee1 <RabbitLoadScript>
     45ae:	48 89 85 98 7f ff ff 	mov    %rax,-0x8068(%rbp)
 				if (!tmp) {
     45b5:	48 83 bd 98 7f ff ff 	cmpq   $0x0,-0x8068(%rbp)
@@ -1259,7 +1259,7 @@ int main(int argc, char **argv, char **envp) {
     45d4:	e8 37 ef ff ff       	callq  3510 <printf@plt>
 					return 1;
     45d9:	b8 01 00 00 00       	mov    $0x1,%eax
-    45de:	e9 e0 08 00 00       	jmpq   4ec3 <main+0xd6b>
+    45de:	e9 df 08 00 00       	jmpq   4ec2 <main+0xd6a>
 				}
 				
 				scripts[sn] = *(LoadedScript*)tmp;
@@ -1326,7 +1326,7 @@ int main(int argc, char **argv, char **envp) {
     46a6:	e8 15 f0 ff ff       	callq  36c0 <perror@plt>
 		return -1;
     46ab:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-    46b0:	e9 0e 08 00 00       	jmpq   4ec3 <main+0xd6b>
+    46b0:	e9 0d 08 00 00       	jmpq   4ec2 <main+0xd6a>
 	char *line;
 	char *body;
 	
@@ -1416,7 +1416,7 @@ int main(int argc, char **argv, char **envp) {
 		if (!(reqdata = RabbitParseRequest(reqbuff))) {
     479f:	48 8d 85 d0 df ff ff 	lea    -0x2030(%rbp),%rax
     47a6:	48 89 c7             	mov    %rax,%rdi
-    47a9:	e8 8a 0d 00 00       	callq  5538 <RabbitParseRequest>
+    47a9:	e8 89 0d 00 00       	callq  5537 <RabbitParseRequest>
     47ae:	48 89 85 68 7f ff ff 	mov    %rax,-0x8098(%rbp)
     47b5:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
     47bc:	48 85 c0             	test   %rax,%rax
@@ -1437,13 +1437,13 @@ int main(int argc, char **argv, char **envp) {
 				case 2:
 					SetColor16(COLOR_RED);
     47e8:	bf 01 00 00 00       	mov    $0x1,%edi
-    47ed:	e8 c4 17 00 00       	callq  5fb6 <SetColor16>
+    47ed:	e8 bc 18 00 00       	callq  60ae <SetColor16>
 					printf("H");
     47f2:	bf 48 00 00 00       	mov    $0x48,%edi
     47f7:	e8 f4 eb ff ff       	callq  33f0 <putchar@plt>
 					ResetColor16();
     47fc:	b8 00 00 00 00       	mov    $0x0,%eax
-    4801:	e8 94 17 00 00       	callq  5f9a <ResetColor16>
+    4801:	e8 8c 18 00 00       	callq  6092 <ResetColor16>
 					printf(" (Data: ");
     4806:	48 8d 3d ec 2c 00 00 	lea    0x2cec(%rip),%rdi        # 74f9 <_IO_stdin_used+0x4f9>
     480d:	b8 00 00 00 00       	mov    $0x0,%eax
@@ -1472,13 +1472,13 @@ int main(int argc, char **argv, char **envp) {
     486d:	89 c7                	mov    %eax,%edi
     486f:	e8 0c ec ff ff       	callq  3480 <write@plt>
 					goto endreq;
-    4874:	e9 1f 06 00 00       	jmpq   4e98 <main+0xd40>
+    4874:	e9 1e 06 00 00       	jmpq   4e97 <main+0xd3f>
 				
 				//Invalid verb
 				case 3:
 					SetColor16(COLOR_RED);
     4879:	bf 01 00 00 00       	mov    $0x1,%edi
-    487e:	e8 33 17 00 00       	callq  5fb6 <SetColor16>
+    487e:	e8 2b 18 00 00       	callq  60ae <SetColor16>
 					printf("V (Bad verb %s)", reqdata->rverb);
     4883:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
     488a:	48 83 c0 08          	add    $0x8,%rax
@@ -1488,7 +1488,7 @@ int main(int argc, char **argv, char **envp) {
     489d:	e8 6e ec ff ff       	callq  3510 <printf@plt>
 					ResetColor16();
     48a2:	b8 00 00 00 00       	mov    $0x0,%eax
-    48a7:	e8 ee 16 00 00       	callq  5f9a <ResetColor16>
+    48a7:	e8 e6 17 00 00       	callq  6092 <ResetColor16>
 					RabbitErrorHandler(501, resbuff, reqdata);
     48ac:	48 8b 95 68 7f ff ff 	mov    -0x8098(%rbp),%rdx
     48b3:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
@@ -1507,7 +1507,7 @@ int main(int argc, char **argv, char **envp) {
     48ee:	89 c7                	mov    %eax,%edi
     48f0:	e8 8b eb ff ff       	callq  3480 <write@plt>
 					goto endreq;
-    48f5:	e9 9e 05 00 00       	jmpq   4e98 <main+0xd40>
+    48f5:	e9 9d 05 00 00       	jmpq   4e97 <main+0xd3f>
 			}
 		}
 		
@@ -1518,7 +1518,7 @@ int main(int argc, char **argv, char **envp) {
     490c:	ba 00 00 00 00       	mov    $0x0,%edx
     4911:	48 8d 35 56 2c 00 00 	lea    0x2c56(%rip),%rsi        # 756e <_IO_stdin_used+0x56e>
     4918:	48 89 c7             	mov    %rax,%rdi
-    491b:	e8 8a 0a 00 00       	callq  53aa <ntoken>
+    491b:	e8 89 0a 00 00       	callq  53a9 <ntoken>
     4920:	48 89 83 10 10 00 00 	mov    %rax,0x1010(%rbx)
 		
 		putchar('H');
@@ -1536,7 +1536,7 @@ int main(int argc, char **argv, char **envp) {
     4950:	48 8b 80 10 10 00 00 	mov    0x1010(%rax),%rax
     4957:	89 d6                	mov    %edx,%esi
     4959:	48 89 c7             	mov    %rax,%rdi
-    495c:	e8 2d 0b 00 00       	callq  548e <RabbitSearchScript>
+    495c:	e8 2c 0b 00 00       	callq  548d <RabbitSearchScript>
     4961:	89 85 60 7f ff ff    	mov    %eax,-0x80a0(%rbp)
 		if (script > -1) goto script;
     4967:	83 bd 60 7f ff ff 00 	cmpl   $0x0,-0x80a0(%rbp)
@@ -1589,10 +1589,10 @@ script:
     4a14:	48 89 c7             	mov    %rax,%rdi
     4a17:	e8 f4 eb ff ff       	callq  3610 <memcpy@plt>
     4a1c:	48 89 df             	mov    %rbx,%rdi
-    4a1f:	e8 bb 06 00 00       	callq  50df <RabbitExecScript>
+    4a1f:	e8 ba 06 00 00       	callq  50de <RabbitExecScript>
     4a24:	48 81 c4 d0 40 00 00 	add    $0x40d0,%rsp
 		goto endreq;
-    4a2b:	e9 68 04 00 00       	jmpq   4e98 <main+0xd40>
+    4a2b:	e9 67 04 00 00       	jmpq   4e97 <main+0xd3f>
 		goto noscript;
     4a30:	90                   	nop
     4a31:	f3 0f 1e fa          	endbr64 
@@ -1625,7 +1625,7 @@ noscript:
     4a93:	89 c7                	mov    %eax,%edi
     4a95:	e8 e6 e9 ff ff       	callq  3480 <write@plt>
 			goto endreq;
-    4a9a:	e9 f9 03 00 00       	jmpq   4e98 <main+0xd40>
+    4a9a:	e9 f8 03 00 00       	jmpq   4e97 <main+0xd3f>
 			
 		}
 		
@@ -1664,7 +1664,7 @@ noscript:
     4b22:	0f 85 e3 00 00 00    	jne    4c0b <main+0xab3>
 			SetColor16(COLOR_RED);
     4b28:	bf 01 00 00 00       	mov    $0x1,%edi
-    4b2d:	e8 84 14 00 00       	callq  5fb6 <SetColor16>
+    4b2d:	e8 7c 15 00 00       	callq  60ae <SetColor16>
 			printf("%d %s ", errno, reqdata->path);
     4b32:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
     4b39:	48 8d 58 10          	lea    0x10(%rax),%rbx
@@ -1677,7 +1677,7 @@ noscript:
     4b55:	e8 b6 e9 ff ff       	callq  3510 <printf@plt>
 			ResetColor16();
     4b5a:	b8 00 00 00 00       	mov    $0x0,%eax
-    4b5f:	e8 36 14 00 00       	callq  5f9a <ResetColor16>
+    4b5f:	e8 2e 15 00 00       	callq  6092 <ResetColor16>
 			if (errno == 2) {
     4b64:	e8 97 e8 ff ff       	callq  3400 <__errno_location@plt>
     4b69:	8b 00                	mov    (%rax),%eax
@@ -1720,7 +1720,7 @@ noscript:
     4bff:	89 c7                	mov    %eax,%edi
     4c01:	e8 7a e8 ff ff       	callq  3480 <write@plt>
 			goto endreq;
-    4c06:	e9 8d 02 00 00       	jmpq   4e98 <main+0xd40>
+    4c06:	e9 8c 02 00 00       	jmpq   4e97 <main+0xd3f>
 		}
 		
 		fclose(publicfp);
@@ -1786,7 +1786,7 @@ noscript:
     4d13:	48 8d 85 d0 af ff ff 	lea    -0x5030(%rbp),%rax
     4d1a:	48 89 ce             	mov    %rcx,%rsi
     4d1d:	48 89 c7             	mov    %rax,%rdi
-    4d20:	e8 cc 0b 00 00       	callq  58f1 <RabbitLoadFile>
+    4d20:	e8 cb 0b 00 00       	callq  58f0 <RabbitLoadFile>
     4d25:	48 89 85 b0 7f ff ff 	mov    %rax,-0x8050(%rbp)
     4d2c:	48 89 95 b8 7f ff ff 	mov    %rdx,-0x8048(%rbp)
 		
@@ -1795,9 +1795,9 @@ noscript:
     4d3a:	48 8b 80 10 10 00 00 	mov    0x1010(%rax),%rax
     4d41:	48 8d 35 78 29 00 00 	lea    0x2978(%rip),%rsi        # 76c0 <_IO_stdin_used+0x6c0>
     4d48:	48 89 c7             	mov    %rax,%rdi
-    4d4b:	e8 83 05 00 00       	callq  52d3 <endswith>
+    4d4b:	e8 82 05 00 00       	callq  52d2 <endswith>
     4d50:	85 c0                	test   %eax,%eax
-    4d52:	0f 84 8b 00 00 00    	je     4de3 <main+0xc8b>
+    4d52:	0f 84 8a 00 00 00    	je     4de2 <main+0xc8a>
 			free(read_data.data);
     4d58:	48 8b 85 b8 7f ff ff 	mov    -0x8048(%rbp),%rax
     4d5f:	48 89 c7             	mov    %rax,%rdi
@@ -1821,1113 +1821,1114 @@ noscript:
     4da4:	4c 89 ea             	mov    %r13,%rdx
     4da7:	4c 89 e6             	mov    %r12,%rsi
     4daa:	48 89 df             	mov    %rbx,%rdi
-    4dad:	e8 72 0d 00 00       	callq  5b24 <RabbitCallPHP>
+    4dad:	e8 38 0e 00 00       	callq  5bea <RabbitCallPHP>
     4db2:	48 81 c4 30 20 00 00 	add    $0x2030,%rsp
     4db9:	85 c0                	test   %eax,%eax
-    4dbb:	0f 85 d6 00 00 00    	jne    4e97 <main+0xd3f>
+    4dbb:	75 28                	jne    4de5 <main+0xc8d>
 #endif
-				goto endreq;
+				goto response;
 			} else {
 				snprintf(resbuff, BUFSIZ, "HTTP/1.0 500 Internal Server Error\nServer: Rabbit/"RABBIT_VERS"\n\nCan't compile PHP file");
-    4dc1:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
-    4dc8:	48 8d 15 f9 28 00 00 	lea    0x28f9(%rip),%rdx        # 76c8 <_IO_stdin_used+0x6c8>
-    4dcf:	be 00 20 00 00       	mov    $0x2000,%esi
-    4dd4:	48 89 c7             	mov    %rax,%rdi
-    4dd7:	b8 00 00 00 00       	mov    $0x0,%eax
-    4ddc:	e8 4f e7 ff ff       	callq  3530 <snprintf@plt>
-    4de1:	eb 01                	jmp    4de4 <main+0xc8c>
+    4dbd:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
+    4dc4:	48 8d 15 fd 28 00 00 	lea    0x28fd(%rip),%rdx        # 76c8 <_IO_stdin_used+0x6c8>
+    4dcb:	be 00 20 00 00       	mov    $0x2000,%esi
+    4dd0:	48 89 c7             	mov    %rax,%rdi
+    4dd3:	b8 00 00 00 00       	mov    $0x0,%eax
+    4dd8:	e8 53 e7 ff ff       	callq  3530 <snprintf@plt>
+				goto endreq;
+    4ddd:	e9 b5 00 00 00       	jmpq   4e97 <main+0xd3f>
 			}
 		}
 
 response:
-    4de3:	90                   	nop
+    4de2:	90                   	nop
+    4de3:	eb 01                	jmp    4de6 <main+0xc8e>
+				goto response;
+    4de5:	90                   	nop
 		/* Send response */
 		putchar('O');
-    4de4:	bf 4f 00 00 00       	mov    $0x4f,%edi
-    4de9:	e8 02 e6 ff ff       	callq  33f0 <putchar@plt>
+    4de6:	bf 4f 00 00 00       	mov    $0x4f,%edi
+    4deb:	e8 00 e6 ff ff       	callq  33f0 <putchar@plt>
 		
 		sprintf(resbuff,"HTTP/1.0 200 OK\r\nServer: Rabbit/"RABBIT_VERS"\r\n\r\n");
-    4dee:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
-    4df5:	48 8d 35 24 29 00 00 	lea    0x2924(%rip),%rsi        # 7720 <_IO_stdin_used+0x720>
-    4dfc:	48 89 c7             	mov    %rax,%rdi
-    4dff:	b8 00 00 00 00       	mov    $0x0,%eax
-    4e04:	e8 07 e9 ff ff       	callq  3710 <sprintf@plt>
+    4df0:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
+    4df7:	48 8d 35 22 29 00 00 	lea    0x2922(%rip),%rsi        # 7720 <_IO_stdin_used+0x720>
+    4dfe:	48 89 c7             	mov    %rax,%rdi
+    4e01:	b8 00 00 00 00       	mov    $0x0,%eax
+    4e06:	e8 05 e9 ff ff       	callq  3710 <sprintf@plt>
 		write(csock, resbuff, strlen(resbuff));
-    4e09:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
-    4e10:	48 89 c7             	mov    %rax,%rdi
-    4e13:	e8 a8 e6 ff ff       	callq  34c0 <strlen@plt>
-    4e18:	48 89 c2             	mov    %rax,%rdx
-    4e1b:	48 8b 8d 88 7f ff ff 	mov    -0x8078(%rbp),%rcx
-    4e22:	8b 85 5c 7f ff ff    	mov    -0x80a4(%rbp),%eax
-    4e28:	48 89 ce             	mov    %rcx,%rsi
-    4e2b:	89 c7                	mov    %eax,%edi
-    4e2d:	e8 4e e6 ff ff       	callq  3480 <write@plt>
+    4e0b:	48 8b 85 88 7f ff ff 	mov    -0x8078(%rbp),%rax
+    4e12:	48 89 c7             	mov    %rax,%rdi
+    4e15:	e8 a6 e6 ff ff       	callq  34c0 <strlen@plt>
+    4e1a:	48 89 c2             	mov    %rax,%rdx
+    4e1d:	48 8b 8d 88 7f ff ff 	mov    -0x8078(%rbp),%rcx
+    4e24:	8b 85 5c 7f ff ff    	mov    -0x80a4(%rbp),%eax
+    4e2a:	48 89 ce             	mov    %rcx,%rsi
+    4e2d:	89 c7                	mov    %eax,%edi
+    4e2f:	e8 4c e6 ff ff       	callq  3480 <write@plt>
 		
 		/* Finish and flush */
 		fflush(stdout);
-    4e32:	48 8b 05 07 62 00 00 	mov    0x6207(%rip),%rax        # b040 <stdout@@GLIBC_2.2.5>
-    4e39:	48 89 c7             	mov    %rax,%rdi
-    4e3c:	e8 0f e8 ff ff       	callq  3650 <fflush@plt>
+    4e34:	48 8b 05 05 62 00 00 	mov    0x6205(%rip),%rax        # b040 <stdout@@GLIBC_2.2.5>
+    4e3b:	48 89 c7             	mov    %rax,%rdi
+    4e3e:	e8 0d e8 ff ff       	callq  3650 <fflush@plt>
 
 		write(csock, read_data.data, read_data.datalen);
-    4e41:	8b 85 b4 7f ff ff    	mov    -0x804c(%rbp),%eax
-    4e47:	48 63 d0             	movslq %eax,%rdx
-    4e4a:	48 8b 8d b8 7f ff ff 	mov    -0x8048(%rbp),%rcx
-    4e51:	8b 85 5c 7f ff ff    	mov    -0x80a4(%rbp),%eax
-    4e57:	48 89 ce             	mov    %rcx,%rsi
-    4e5a:	89 c7                	mov    %eax,%edi
-    4e5c:	e8 1f e6 ff ff       	callq  3480 <write@plt>
+    4e43:	8b 85 b4 7f ff ff    	mov    -0x804c(%rbp),%eax
+    4e49:	48 63 d0             	movslq %eax,%rdx
+    4e4c:	48 8b 8d b8 7f ff ff 	mov    -0x8048(%rbp),%rcx
+    4e53:	8b 85 5c 7f ff ff    	mov    -0x80a4(%rbp),%eax
+    4e59:	48 89 ce             	mov    %rcx,%rsi
+    4e5c:	89 c7                	mov    %eax,%edi
+    4e5e:	e8 1d e6 ff ff       	callq  3480 <write@plt>
 		free(read_data.data);
-    4e61:	48 8b 85 b8 7f ff ff 	mov    -0x8048(%rbp),%rax
-    4e68:	48 89 c7             	mov    %rax,%rdi
-    4e6b:	e8 70 e5 ff ff       	callq  33e0 <free@plt>
+    4e63:	48 8b 85 b8 7f ff ff 	mov    -0x8048(%rbp),%rax
+    4e6a:	48 89 c7             	mov    %rax,%rdi
+    4e6d:	e8 6e e5 ff ff       	callq  33e0 <free@plt>
 		free(reqdata->truepath);
-    4e70:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
-    4e77:	48 8b 80 10 10 00 00 	mov    0x1010(%rax),%rax
-    4e7e:	48 89 c7             	mov    %rax,%rdi
-    4e81:	e8 5a e5 ff ff       	callq  33e0 <free@plt>
+    4e72:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
+    4e79:	48 8b 80 10 10 00 00 	mov    0x1010(%rax),%rax
+    4e80:	48 89 c7             	mov    %rax,%rdi
+    4e83:	e8 58 e5 ff ff       	callq  33e0 <free@plt>
 		free(reqdata);
-    4e86:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
-    4e8d:	48 89 c7             	mov    %rax,%rdi
-    4e90:	e8 4b e5 ff ff       	callq  33e0 <free@plt>
-    4e95:	eb 01                	jmp    4e98 <main+0xd40>
-				goto endreq;
-    4e97:	90                   	nop
+    4e88:	48 8b 85 68 7f ff ff 	mov    -0x8098(%rbp),%rax
+    4e8f:	48 89 c7             	mov    %rax,%rdi
+    4e92:	e8 49 e5 ff ff       	callq  33e0 <free@plt>
 		
 endreq:
 		/* Finish and flush */
 		putchar('\n');
-    4e98:	bf 0a 00 00 00       	mov    $0xa,%edi
-    4e9d:	e8 4e e5 ff ff       	callq  33f0 <putchar@plt>
+    4e97:	bf 0a 00 00 00       	mov    $0xa,%edi
+    4e9c:	e8 4f e5 ff ff       	callq  33f0 <putchar@plt>
 		fflush(stdout);
-    4ea2:	48 8b 05 97 61 00 00 	mov    0x6197(%rip),%rax        # b040 <stdout@@GLIBC_2.2.5>
-    4ea9:	48 89 c7             	mov    %rax,%rdi
-    4eac:	e8 9f e7 ff ff       	callq  3650 <fflush@plt>
+    4ea1:	48 8b 05 98 61 00 00 	mov    0x6198(%rip),%rax        # b040 <stdout@@GLIBC_2.2.5>
+    4ea8:	48 89 c7             	mov    %rax,%rdi
+    4eab:	e8 a0 e7 ff ff       	callq  3650 <fflush@plt>
 		close(csock);
-    4eb1:	8b 85 5c 7f ff ff    	mov    -0x80a4(%rbp),%eax
-    4eb7:	89 c7                	mov    %eax,%edi
-    4eb9:	e8 b2 e6 ff ff       	callq  3570 <close@plt>
+    4eb0:	8b 85 5c 7f ff ff    	mov    -0x80a4(%rbp),%eax
+    4eb6:	89 c7                	mov    %eax,%edi
+    4eb8:	e8 b3 e6 ff ff       	callq  3570 <close@plt>
 		csock = accept(serversock, &caddr, &caddrl);
-    4ebe:	e9 f2 f7 ff ff       	jmpq   46b5 <main+0x55d>
+    4ebd:	e9 f3 f7 ff ff       	jmpq   46b5 <main+0x55d>
 	}
 }
-    4ec3:	48 8b 5d d8          	mov    -0x28(%rbp),%rbx
-    4ec7:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
-    4ece:	00 00 
-    4ed0:	74 05                	je     4ed7 <main+0xd7f>
-    4ed2:	e8 09 e6 ff ff       	callq  34e0 <__stack_chk_fail@plt>
-    4ed7:	48 8d 65 e8          	lea    -0x18(%rbp),%rsp
-    4edb:	5b                   	pop    %rbx
-    4edc:	41 5c                	pop    %r12
-    4ede:	41 5d                	pop    %r13
-    4ee0:	5d                   	pop    %rbp
-    4ee1:	c3                   	retq   
+    4ec2:	48 8b 5d d8          	mov    -0x28(%rbp),%rbx
+    4ec6:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
+    4ecd:	00 00 
+    4ecf:	74 05                	je     4ed6 <main+0xd7e>
+    4ed1:	e8 0a e6 ff ff       	callq  34e0 <__stack_chk_fail@plt>
+    4ed6:	48 8d 65 e8          	lea    -0x18(%rbp),%rsp
+    4eda:	5b                   	pop    %rbx
+    4edb:	41 5c                	pop    %r12
+    4edd:	41 5d                	pop    %r13
+    4edf:	5d                   	pop    %rbp
+    4ee0:	c3                   	retq   
 
-0000000000004ee2 <RabbitLoadScript>:
+0000000000004ee1 <RabbitLoadScript>:
 #include "bns.h"
 #include <errno.h>
 #include <string.h>
 #include "server.h"
 
 LoadedScript *RabbitLoadScript(char *data, int len) {
-    4ee2:	f3 0f 1e fa          	endbr64 
-    4ee6:	55                   	push   %rbp
-    4ee7:	48 89 e5             	mov    %rsp,%rbp
-    4eea:	53                   	push   %rbx
-    4eeb:	48 81 ec 98 00 00 00 	sub    $0x98,%rsp
-    4ef2:	48 89 bd 68 ff ff ff 	mov    %rdi,-0x98(%rbp)
-    4ef9:	89 b5 64 ff ff ff    	mov    %esi,-0x9c(%rbp)
-    4eff:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    4f06:	00 00 
-    4f08:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
-    4f0c:	31 c0                	xor    %eax,%eax
+    4ee1:	f3 0f 1e fa          	endbr64 
+    4ee5:	55                   	push   %rbp
+    4ee6:	48 89 e5             	mov    %rsp,%rbp
+    4ee9:	53                   	push   %rbx
+    4eea:	48 81 ec 98 00 00 00 	sub    $0x98,%rsp
+    4ef1:	48 89 bd 68 ff ff ff 	mov    %rdi,-0x98(%rbp)
+    4ef8:	89 b5 64 ff ff ff    	mov    %esi,-0x9c(%rbp)
+    4efe:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    4f05:	00 00 
+    4f07:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    4f0b:	31 c0                	xor    %eax,%eax
 	
 	//If not enough bytes are contained in the file error out
 	if (len < sizeof(NSHeader))
-    4f0e:	8b 85 64 ff ff ff    	mov    -0x9c(%rbp),%eax
-    4f14:	83 f8 53             	cmp    $0x53,%eax
-    4f17:	0f 86 90 01 00 00    	jbe    50ad <RabbitLoadScript+0x1cb>
+    4f0d:	8b 85 64 ff ff ff    	mov    -0x9c(%rbp),%eax
+    4f13:	83 f8 53             	cmp    $0x53,%eax
+    4f16:	0f 86 90 01 00 00    	jbe    50ac <RabbitLoadScript+0x1cb>
 		goto notscript;
 	
 	//Allocate memory
 	NSHeader h;
 	LoadedScript *s = malloc(sizeof(LoadedScript));
-    4f1d:	bf a0 20 00 00       	mov    $0x20a0,%edi
-    4f22:	e8 19 e7 ff ff       	callq  3640 <malloc@plt>
-    4f27:	48 89 45 88          	mov    %rax,-0x78(%rbp)
+    4f1c:	bf a0 20 00 00       	mov    $0x20a0,%edi
+    4f21:	e8 1a e7 ff ff       	callq  3640 <malloc@plt>
+    4f26:	48 89 45 88          	mov    %rax,-0x78(%rbp)
 	
 	//Read header
 	memcpy(&h, data, sizeof(h));
-    4f2b:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
-    4f32:	48 8b 08             	mov    (%rax),%rcx
-    4f35:	48 8b 58 08          	mov    0x8(%rax),%rbx
-    4f39:	48 89 4d 90          	mov    %rcx,-0x70(%rbp)
-    4f3d:	48 89 5d 98          	mov    %rbx,-0x68(%rbp)
-    4f41:	48 8b 48 10          	mov    0x10(%rax),%rcx
-    4f45:	48 8b 58 18          	mov    0x18(%rax),%rbx
-    4f49:	48 89 4d a0          	mov    %rcx,-0x60(%rbp)
-    4f4d:	48 89 5d a8          	mov    %rbx,-0x58(%rbp)
-    4f51:	48 8b 48 20          	mov    0x20(%rax),%rcx
-    4f55:	48 8b 58 28          	mov    0x28(%rax),%rbx
-    4f59:	48 89 4d b0          	mov    %rcx,-0x50(%rbp)
-    4f5d:	48 89 5d b8          	mov    %rbx,-0x48(%rbp)
-    4f61:	48 8b 48 30          	mov    0x30(%rax),%rcx
-    4f65:	48 8b 58 38          	mov    0x38(%rax),%rbx
-    4f69:	48 89 4d c0          	mov    %rcx,-0x40(%rbp)
-    4f6d:	48 89 5d c8          	mov    %rbx,-0x38(%rbp)
-    4f71:	48 8b 48 40          	mov    0x40(%rax),%rcx
-    4f75:	48 8b 58 48          	mov    0x48(%rax),%rbx
-    4f79:	48 89 4d d0          	mov    %rcx,-0x30(%rbp)
-    4f7d:	48 89 5d d8          	mov    %rbx,-0x28(%rbp)
-    4f81:	8b 40 50             	mov    0x50(%rax),%eax
-    4f84:	89 45 e0             	mov    %eax,-0x20(%rbp)
+    4f2a:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
+    4f31:	48 8b 08             	mov    (%rax),%rcx
+    4f34:	48 8b 58 08          	mov    0x8(%rax),%rbx
+    4f38:	48 89 4d 90          	mov    %rcx,-0x70(%rbp)
+    4f3c:	48 89 5d 98          	mov    %rbx,-0x68(%rbp)
+    4f40:	48 8b 48 10          	mov    0x10(%rax),%rcx
+    4f44:	48 8b 58 18          	mov    0x18(%rax),%rbx
+    4f48:	48 89 4d a0          	mov    %rcx,-0x60(%rbp)
+    4f4c:	48 89 5d a8          	mov    %rbx,-0x58(%rbp)
+    4f50:	48 8b 48 20          	mov    0x20(%rax),%rcx
+    4f54:	48 8b 58 28          	mov    0x28(%rax),%rbx
+    4f58:	48 89 4d b0          	mov    %rcx,-0x50(%rbp)
+    4f5c:	48 89 5d b8          	mov    %rbx,-0x48(%rbp)
+    4f60:	48 8b 48 30          	mov    0x30(%rax),%rcx
+    4f64:	48 8b 58 38          	mov    0x38(%rax),%rbx
+    4f68:	48 89 4d c0          	mov    %rcx,-0x40(%rbp)
+    4f6c:	48 89 5d c8          	mov    %rbx,-0x38(%rbp)
+    4f70:	48 8b 48 40          	mov    0x40(%rax),%rcx
+    4f74:	48 8b 58 48          	mov    0x48(%rax),%rbx
+    4f78:	48 89 4d d0          	mov    %rcx,-0x30(%rbp)
+    4f7c:	48 89 5d d8          	mov    %rbx,-0x28(%rbp)
+    4f80:	8b 40 50             	mov    0x50(%rax),%eax
+    4f83:	89 45 e0             	mov    %eax,-0x20(%rbp)
 	
 	//Check header magic
 	if (strncmp(h.magic, "nets", 4))
-    4f87:	48 8d 45 90          	lea    -0x70(%rbp),%rax
-    4f8b:	ba 04 00 00 00       	mov    $0x4,%edx
-    4f90:	48 8d 35 c2 27 00 00 	lea    0x27c2(%rip),%rsi        # 7759 <__func__.4838+0x9>
-    4f97:	48 89 c7             	mov    %rax,%rdi
-    4f9a:	e8 81 e4 ff ff       	callq  3420 <strncmp@plt>
-    4f9f:	85 c0                	test   %eax,%eax
-    4fa1:	0f 85 09 01 00 00    	jne    50b0 <RabbitLoadScript+0x1ce>
+    4f86:	48 8d 45 90          	lea    -0x70(%rbp),%rax
+    4f8a:	ba 04 00 00 00       	mov    $0x4,%edx
+    4f8f:	48 8d 35 c3 27 00 00 	lea    0x27c3(%rip),%rsi        # 7759 <__func__.4838+0x9>
+    4f96:	48 89 c7             	mov    %rax,%rdi
+    4f99:	e8 82 e4 ff ff       	callq  3420 <strncmp@plt>
+    4f9e:	85 c0                	test   %eax,%eax
+    4fa0:	0f 85 09 01 00 00    	jne    50af <RabbitLoadScript+0x1ce>
 		goto notscript;
 	
 	//Check header version
 	if (NETC_VERSION_MAJOR != h.ver_major || NETC_VERSION_MINOR != h.ver_minor) {
-    4fa7:	0f b6 45 94          	movzbl -0x6c(%rbp),%eax
-    4fab:	84 c0                	test   %al,%al
-    4fad:	75 08                	jne    4fb7 <RabbitLoadScript+0xd5>
-    4faf:	0f b6 45 95          	movzbl -0x6b(%rbp),%eax
-    4fb3:	3c 05                	cmp    $0x5,%al
-    4fb5:	74 11                	je     4fc8 <RabbitLoadScript+0xe6>
+    4fa6:	0f b6 45 94          	movzbl -0x6c(%rbp),%eax
+    4faa:	84 c0                	test   %al,%al
+    4fac:	75 08                	jne    4fb6 <RabbitLoadScript+0xd5>
+    4fae:	0f b6 45 95          	movzbl -0x6b(%rbp),%eax
+    4fb2:	3c 05                	cmp    $0x5,%al
+    4fb4:	74 11                	je     4fc7 <RabbitLoadScript+0xe6>
 		printf("(warning: bad file version) ");
-    4fb7:	48 8d 3d a0 27 00 00 	lea    0x27a0(%rip),%rdi        # 775e <__func__.4838+0xe>
-    4fbe:	b8 00 00 00 00       	mov    $0x0,%eax
-    4fc3:	e8 48 e5 ff ff       	callq  3510 <printf@plt>
+    4fb6:	48 8d 3d a1 27 00 00 	lea    0x27a1(%rip),%rdi        # 775e <__func__.4838+0xe>
+    4fbd:	b8 00 00 00 00       	mov    $0x0,%eax
+    4fc2:	e8 49 e5 ff ff       	callq  3510 <printf@plt>
 	}
 	
 	char *p = h.paths;
-    4fc8:	48 8d 45 90          	lea    -0x70(%rbp),%rax
-    4fcc:	48 83 c0 0e          	add    $0xe,%rax
-    4fd0:	48 89 45 80          	mov    %rax,-0x80(%rbp)
+    4fc7:	48 8d 45 90          	lea    -0x70(%rbp),%rax
+    4fcb:	48 83 c0 0e          	add    $0xe,%rax
+    4fcf:	48 89 45 80          	mov    %rax,-0x80(%rbp)
 	
 	//Load paths
 	for (int i=0; p<h.paths+64; i++) {
-    4fd4:	c7 85 7c ff ff ff 00 	movl   $0x0,-0x84(%rbp)
-    4fdb:	00 00 00 
-    4fde:	e9 82 00 00 00       	jmpq   5065 <RabbitLoadScript+0x183>
+    4fd3:	c7 85 7c ff ff ff 00 	movl   $0x0,-0x84(%rbp)
+    4fda:	00 00 00 
+    4fdd:	e9 82 00 00 00       	jmpq   5064 <RabbitLoadScript+0x183>
 		s->paths[i] = malloc(strlen(p)+1);
-    4fe3:	48 8b 45 80          	mov    -0x80(%rbp),%rax
-    4fe7:	48 89 c7             	mov    %rax,%rdi
-    4fea:	e8 d1 e4 ff ff       	callq  34c0 <strlen@plt>
-    4fef:	48 83 c0 01          	add    $0x1,%rax
-    4ff3:	48 89 c7             	mov    %rax,%rdi
-    4ff6:	e8 45 e6 ff ff       	callq  3640 <malloc@plt>
-    4ffb:	48 89 c1             	mov    %rax,%rcx
-    4ffe:	48 8b 45 88          	mov    -0x78(%rbp),%rax
-    5002:	8b 95 7c ff ff ff    	mov    -0x84(%rbp),%edx
-    5008:	48 63 d2             	movslq %edx,%rdx
-    500b:	48 89 0c d0          	mov    %rcx,(%rax,%rdx,8)
+    4fe2:	48 8b 45 80          	mov    -0x80(%rbp),%rax
+    4fe6:	48 89 c7             	mov    %rax,%rdi
+    4fe9:	e8 d2 e4 ff ff       	callq  34c0 <strlen@plt>
+    4fee:	48 83 c0 01          	add    $0x1,%rax
+    4ff2:	48 89 c7             	mov    %rax,%rdi
+    4ff5:	e8 46 e6 ff ff       	callq  3640 <malloc@plt>
+    4ffa:	48 89 c1             	mov    %rax,%rcx
+    4ffd:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    5001:	8b 95 7c ff ff ff    	mov    -0x84(%rbp),%edx
+    5007:	48 63 d2             	movslq %edx,%rdx
+    500a:	48 89 0c d0          	mov    %rcx,(%rax,%rdx,8)
 		if (strlen(p)) {
-    500f:	48 8b 45 80          	mov    -0x80(%rbp),%rax
-    5013:	0f b6 00             	movzbl (%rax),%eax
-    5016:	84 c0                	test   %al,%al
-    5018:	74 30                	je     504a <RabbitLoadScript+0x168>
+    500e:	48 8b 45 80          	mov    -0x80(%rbp),%rax
+    5012:	0f b6 00             	movzbl (%rax),%eax
+    5015:	84 c0                	test   %al,%al
+    5017:	74 30                	je     5049 <RabbitLoadScript+0x168>
 			memcpy(s->paths[i], p, strlen(p)+1);
-    501a:	48 8b 45 80          	mov    -0x80(%rbp),%rax
-    501e:	48 89 c7             	mov    %rax,%rdi
-    5021:	e8 9a e4 ff ff       	callq  34c0 <strlen@plt>
-    5026:	48 8d 50 01          	lea    0x1(%rax),%rdx
-    502a:	48 8b 45 88          	mov    -0x78(%rbp),%rax
-    502e:	8b 8d 7c ff ff ff    	mov    -0x84(%rbp),%ecx
-    5034:	48 63 c9             	movslq %ecx,%rcx
-    5037:	48 8b 04 c8          	mov    (%rax,%rcx,8),%rax
-    503b:	48 8b 4d 80          	mov    -0x80(%rbp),%rcx
-    503f:	48 89 ce             	mov    %rcx,%rsi
-    5042:	48 89 c7             	mov    %rax,%rdi
-    5045:	e8 c6 e5 ff ff       	callq  3610 <memcpy@plt>
+    5019:	48 8b 45 80          	mov    -0x80(%rbp),%rax
+    501d:	48 89 c7             	mov    %rax,%rdi
+    5020:	e8 9b e4 ff ff       	callq  34c0 <strlen@plt>
+    5025:	48 8d 50 01          	lea    0x1(%rax),%rdx
+    5029:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    502d:	8b 8d 7c ff ff ff    	mov    -0x84(%rbp),%ecx
+    5033:	48 63 c9             	movslq %ecx,%rcx
+    5036:	48 8b 04 c8          	mov    (%rax,%rcx,8),%rax
+    503a:	48 8b 4d 80          	mov    -0x80(%rbp),%rcx
+    503e:	48 89 ce             	mov    %rcx,%rsi
+    5041:	48 89 c7             	mov    %rax,%rdi
+    5044:	e8 c7 e5 ff ff       	callq  3610 <memcpy@plt>
 		}
 		p += strlen(p)+1;
-    504a:	48 8b 45 80          	mov    -0x80(%rbp),%rax
-    504e:	48 89 c7             	mov    %rax,%rdi
-    5051:	e8 6a e4 ff ff       	callq  34c0 <strlen@plt>
-    5056:	48 83 c0 01          	add    $0x1,%rax
-    505a:	48 01 45 80          	add    %rax,-0x80(%rbp)
+    5049:	48 8b 45 80          	mov    -0x80(%rbp),%rax
+    504d:	48 89 c7             	mov    %rax,%rdi
+    5050:	e8 6b e4 ff ff       	callq  34c0 <strlen@plt>
+    5055:	48 83 c0 01          	add    $0x1,%rax
+    5059:	48 01 45 80          	add    %rax,-0x80(%rbp)
 	for (int i=0; p<h.paths+64; i++) {
-    505e:	83 85 7c ff ff ff 01 	addl   $0x1,-0x84(%rbp)
-    5065:	48 8d 45 90          	lea    -0x70(%rbp),%rax
-    5069:	48 83 c0 0e          	add    $0xe,%rax
-    506d:	48 83 c0 40          	add    $0x40,%rax
-    5071:	48 39 45 80          	cmp    %rax,-0x80(%rbp)
-    5075:	0f 82 68 ff ff ff    	jb     4fe3 <RabbitLoadScript+0x101>
+    505d:	83 85 7c ff ff ff 01 	addl   $0x1,-0x84(%rbp)
+    5064:	48 8d 45 90          	lea    -0x70(%rbp),%rax
+    5068:	48 83 c0 0e          	add    $0xe,%rax
+    506c:	48 83 c0 40          	add    $0x40,%rax
+    5070:	48 39 45 80          	cmp    %rax,-0x80(%rbp)
+    5074:	0f 82 68 ff ff ff    	jb     4fe2 <RabbitLoadScript+0x101>
 	};
 	
 	memcpy(s->script, data+sizeof(h), len-sizeof(h));
-    507b:	8b 85 64 ff ff ff    	mov    -0x9c(%rbp),%eax
-    5081:	48 98                	cltq   
-    5083:	48 8d 50 ac          	lea    -0x54(%rax),%rdx
-    5087:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
-    508e:	48 8d 48 54          	lea    0x54(%rax),%rcx
-    5092:	48 8b 45 88          	mov    -0x78(%rbp),%rax
-    5096:	48 05 a0 00 00 00    	add    $0xa0,%rax
-    509c:	48 89 ce             	mov    %rcx,%rsi
-    509f:	48 89 c7             	mov    %rax,%rdi
-    50a2:	e8 69 e5 ff ff       	callq  3610 <memcpy@plt>
+    507a:	8b 85 64 ff ff ff    	mov    -0x9c(%rbp),%eax
+    5080:	48 98                	cltq   
+    5082:	48 8d 50 ac          	lea    -0x54(%rax),%rdx
+    5086:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
+    508d:	48 8d 48 54          	lea    0x54(%rax),%rcx
+    5091:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    5095:	48 05 a0 00 00 00    	add    $0xa0,%rax
+    509b:	48 89 ce             	mov    %rcx,%rsi
+    509e:	48 89 c7             	mov    %rax,%rdi
+    50a1:	e8 6a e5 ff ff       	callq  3610 <memcpy@plt>
 	
 	return s;
-    50a7:	48 8b 45 88          	mov    -0x78(%rbp),%rax
-    50ab:	eb 14                	jmp    50c1 <RabbitLoadScript+0x1df>
+    50a6:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    50aa:	eb 14                	jmp    50c0 <RabbitLoadScript+0x1df>
 		goto notscript;
-    50ad:	90                   	nop
-    50ae:	eb 01                	jmp    50b1 <RabbitLoadScript+0x1cf>
+    50ac:	90                   	nop
+    50ad:	eb 01                	jmp    50b0 <RabbitLoadScript+0x1cf>
 		goto notscript;
-    50b0:	90                   	nop
+    50af:	90                   	nop
 	
 notscript:
 	errno=EINVAL;
-    50b1:	e8 4a e3 ff ff       	callq  3400 <__errno_location@plt>
-    50b6:	c7 00 16 00 00 00    	movl   $0x16,(%rax)
+    50b0:	e8 4b e3 ff ff       	callq  3400 <__errno_location@plt>
+    50b5:	c7 00 16 00 00 00    	movl   $0x16,(%rax)
 	return NULL;
-    50bc:	b8 00 00 00 00       	mov    $0x0,%eax
+    50bb:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-    50c1:	48 8b 5d e8          	mov    -0x18(%rbp),%rbx
-    50c5:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
-    50cc:	00 00 
-    50ce:	74 05                	je     50d5 <RabbitLoadScript+0x1f3>
-    50d0:	e8 0b e4 ff ff       	callq  34e0 <__stack_chk_fail@plt>
-    50d5:	48 81 c4 98 00 00 00 	add    $0x98,%rsp
-    50dc:	5b                   	pop    %rbx
-    50dd:	5d                   	pop    %rbp
-    50de:	c3                   	retq   
+    50c0:	48 8b 5d e8          	mov    -0x18(%rbp),%rbx
+    50c4:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
+    50cb:	00 00 
+    50cd:	74 05                	je     50d4 <RabbitLoadScript+0x1f3>
+    50cf:	e8 0c e4 ff ff       	callq  34e0 <__stack_chk_fail@plt>
+    50d4:	48 81 c4 98 00 00 00 	add    $0x98,%rsp
+    50db:	5b                   	pop    %rbx
+    50dc:	5d                   	pop    %rbp
+    50dd:	c3                   	retq   
 
-00000000000050df <RabbitExecScript>:
+00000000000050de <RabbitExecScript>:
 
 void RabbitExecScript(LoadedScript scripts, RequestData reqdata, char *resbuff) {
-    50df:	f3 0f 1e fa          	endbr64 
-    50e3:	55                   	push   %rbp
-    50e4:	48 89 e5             	mov    %rsp,%rbp
-    50e7:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    50de:	f3 0f 1e fa          	endbr64 
+    50e2:	55                   	push   %rbp
+    50e3:	48 89 e5             	mov    %rsp,%rbp
+    50e6:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
 	
 }
-    50eb:	90                   	nop
-    50ec:	5d                   	pop    %rbp
-    50ed:	c3                   	retq   
+    50ea:	90                   	nop
+    50eb:	5d                   	pop    %rbp
+    50ec:	c3                   	retq   
 
-00000000000050ee <needle>:
+00000000000050ed <needle>:
 
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((b)>(a)?(a):(b))
 
 //Search N in H
 int needle(char *n, char **h, int lh) {
-    50ee:	f3 0f 1e fa          	endbr64 
-    50f2:	55                   	push   %rbp
-    50f3:	48 89 e5             	mov    %rsp,%rbp
-    50f6:	48 83 ec 30          	sub    $0x30,%rsp
-    50fa:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-    50fe:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
-    5102:	89 55 dc             	mov    %edx,-0x24(%rbp)
+    50ed:	f3 0f 1e fa          	endbr64 
+    50f1:	55                   	push   %rbp
+    50f2:	48 89 e5             	mov    %rsp,%rbp
+    50f5:	48 83 ec 30          	sub    $0x30,%rsp
+    50f9:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    50fd:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    5101:	89 55 dc             	mov    %edx,-0x24(%rbp)
 	for (int i=0; i<lh; i++) {
-    5105:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-    510c:	eb 33                	jmp    5141 <needle+0x53>
+    5104:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+    510b:	eb 33                	jmp    5140 <needle+0x53>
 		if (!strcmp(h[i], n)) {
-    510e:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5111:	48 98                	cltq   
-    5113:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
-    511a:	00 
-    511b:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    511f:	48 01 d0             	add    %rdx,%rax
-    5122:	48 8b 00             	mov    (%rax),%rax
-    5125:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
-    5129:	48 89 d6             	mov    %rdx,%rsi
-    512c:	48 89 c7             	mov    %rax,%rdi
-    512f:	e8 8c e4 ff ff       	callq  35c0 <strcmp@plt>
-    5134:	85 c0                	test   %eax,%eax
-    5136:	75 05                	jne    513d <needle+0x4f>
+    510d:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5110:	48 98                	cltq   
+    5112:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+    5119:	00 
+    511a:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    511e:	48 01 d0             	add    %rdx,%rax
+    5121:	48 8b 00             	mov    (%rax),%rax
+    5124:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+    5128:	48 89 d6             	mov    %rdx,%rsi
+    512b:	48 89 c7             	mov    %rax,%rdi
+    512e:	e8 8d e4 ff ff       	callq  35c0 <strcmp@plt>
+    5133:	85 c0                	test   %eax,%eax
+    5135:	75 05                	jne    513c <needle+0x4f>
 			return i;
-    5138:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    513b:	eb 11                	jmp    514e <needle+0x60>
+    5137:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    513a:	eb 11                	jmp    514d <needle+0x60>
 	for (int i=0; i<lh; i++) {
-    513d:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
-    5141:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5144:	3b 45 dc             	cmp    -0x24(%rbp),%eax
-    5147:	7c c5                	jl     510e <needle+0x20>
+    513c:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+    5140:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5143:	3b 45 dc             	cmp    -0x24(%rbp),%eax
+    5146:	7c c5                	jl     510d <needle+0x20>
 		}
 	}
 	return -1;
-    5149:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    5148:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-    514e:	c9                   	leaveq 
-    514f:	c3                   	retq   
+    514d:	c9                   	leaveq 
+    514e:	c3                   	retq   
 
-0000000000005150 <argparses>:
+000000000000514f <argparses>:
 
 char *argparses(int argc, char **argv, int start) {
-    5150:	f3 0f 1e fa          	endbr64 
-    5154:	55                   	push   %rbp
-    5155:	48 89 e5             	mov    %rsp,%rbp
-    5158:	48 83 ec 20          	sub    $0x20,%rsp
-    515c:	89 7d ec             	mov    %edi,-0x14(%rbp)
-    515f:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
-    5163:	89 55 e8             	mov    %edx,-0x18(%rbp)
+    514f:	f3 0f 1e fa          	endbr64 
+    5153:	55                   	push   %rbp
+    5154:	48 89 e5             	mov    %rsp,%rbp
+    5157:	48 83 ec 20          	sub    $0x20,%rsp
+    515b:	89 7d ec             	mov    %edi,-0x14(%rbp)
+    515e:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    5162:	89 55 e8             	mov    %edx,-0x18(%rbp)
 	char *buffer = malloc(BUFSIZ);
-    5166:	bf 00 20 00 00       	mov    $0x2000,%edi
-    516b:	e8 d0 e4 ff ff       	callq  3640 <malloc@plt>
-    5170:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    5165:	bf 00 20 00 00       	mov    $0x2000,%edi
+    516a:	e8 d1 e4 ff ff       	callq  3640 <malloc@plt>
+    516f:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	buffer[0] = 0;
-    5174:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    5178:	c6 00 00             	movb   $0x0,(%rax)
+    5173:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    5177:	c6 00 00             	movb   $0x0,(%rax)
 	for (int i=start; i<=argc; i++) {
-    517b:	8b 45 e8             	mov    -0x18(%rbp),%eax
-    517e:	89 45 f4             	mov    %eax,-0xc(%rbp)
-    5181:	eb 60                	jmp    51e3 <argparses+0x93>
+    517a:	8b 45 e8             	mov    -0x18(%rbp),%eax
+    517d:	89 45 f4             	mov    %eax,-0xc(%rbp)
+    5180:	eb 60                	jmp    51e2 <argparses+0x93>
 		strcat(buffer, argv[i]);
-    5183:	8b 45 f4             	mov    -0xc(%rbp),%eax
-    5186:	48 98                	cltq   
-    5188:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
-    518f:	00 
-    5190:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    5194:	48 01 d0             	add    %rdx,%rax
-    5197:	48 8b 10             	mov    (%rax),%rdx
-    519a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    519e:	48 89 d6             	mov    %rdx,%rsi
-    51a1:	48 89 c7             	mov    %rax,%rdi
-    51a4:	e8 57 e5 ff ff       	callq  3700 <strcat@plt>
+    5182:	8b 45 f4             	mov    -0xc(%rbp),%eax
+    5185:	48 98                	cltq   
+    5187:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+    518e:	00 
+    518f:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5193:	48 01 d0             	add    %rdx,%rax
+    5196:	48 8b 10             	mov    (%rax),%rdx
+    5199:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    519d:	48 89 d6             	mov    %rdx,%rsi
+    51a0:	48 89 c7             	mov    %rax,%rdi
+    51a3:	e8 58 e5 ff ff       	callq  3700 <strcat@plt>
 		if (i < argc) strcat(buffer, " ");
-    51a9:	8b 45 f4             	mov    -0xc(%rbp),%eax
-    51ac:	3b 45 ec             	cmp    -0x14(%rbp),%eax
-    51af:	7d 2e                	jge    51df <argparses+0x8f>
-    51b1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    51b5:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
-    51bc:	48 89 c2             	mov    %rax,%rdx
-    51bf:	b8 00 00 00 00       	mov    $0x0,%eax
-    51c4:	48 89 d7             	mov    %rdx,%rdi
-    51c7:	f2 ae                	repnz scas %es:(%rdi),%al
-    51c9:	48 89 c8             	mov    %rcx,%rax
-    51cc:	48 f7 d0             	not    %rax
-    51cf:	48 8d 50 ff          	lea    -0x1(%rax),%rdx
-    51d3:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    51d7:	48 01 d0             	add    %rdx,%rax
-    51da:	66 c7 00 20 00       	movw   $0x20,(%rax)
+    51a8:	8b 45 f4             	mov    -0xc(%rbp),%eax
+    51ab:	3b 45 ec             	cmp    -0x14(%rbp),%eax
+    51ae:	7d 2e                	jge    51de <argparses+0x8f>
+    51b0:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    51b4:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
+    51bb:	48 89 c2             	mov    %rax,%rdx
+    51be:	b8 00 00 00 00       	mov    $0x0,%eax
+    51c3:	48 89 d7             	mov    %rdx,%rdi
+    51c6:	f2 ae                	repnz scas %es:(%rdi),%al
+    51c8:	48 89 c8             	mov    %rcx,%rax
+    51cb:	48 f7 d0             	not    %rax
+    51ce:	48 8d 50 ff          	lea    -0x1(%rax),%rdx
+    51d2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    51d6:	48 01 d0             	add    %rdx,%rax
+    51d9:	66 c7 00 20 00       	movw   $0x20,(%rax)
 	for (int i=start; i<=argc; i++) {
-    51df:	83 45 f4 01          	addl   $0x1,-0xc(%rbp)
-    51e3:	8b 45 f4             	mov    -0xc(%rbp),%eax
-    51e6:	3b 45 ec             	cmp    -0x14(%rbp),%eax
-    51e9:	7e 98                	jle    5183 <argparses+0x33>
+    51de:	83 45 f4 01          	addl   $0x1,-0xc(%rbp)
+    51e2:	8b 45 f4             	mov    -0xc(%rbp),%eax
+    51e5:	3b 45 ec             	cmp    -0x14(%rbp),%eax
+    51e8:	7e 98                	jle    5182 <argparses+0x33>
 	}
 	return buffer;
-    51eb:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    51ea:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
 }
-    51ef:	c9                   	leaveq 
-    51f0:	c3                   	retq   
+    51ee:	c9                   	leaveq 
+    51ef:	c3                   	retq   
 
-00000000000051f1 <search_begin>:
+00000000000051f0 <search_begin>:
 
 int search_begin(char **restrict array, int num_elements, char *restrict string) {
-    51f1:	f3 0f 1e fa          	endbr64 
-    51f5:	55                   	push   %rbp
-    51f6:	48 89 e5             	mov    %rsp,%rbp
-    51f9:	48 83 ec 30          	sub    $0x30,%rsp
-    51fd:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-    5201:	89 75 e4             	mov    %esi,-0x1c(%rbp)
-    5204:	48 89 55 d8          	mov    %rdx,-0x28(%rbp)
+    51f0:	f3 0f 1e fa          	endbr64 
+    51f4:	55                   	push   %rbp
+    51f5:	48 89 e5             	mov    %rsp,%rbp
+    51f8:	48 83 ec 30          	sub    $0x30,%rsp
+    51fc:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    5200:	89 75 e4             	mov    %esi,-0x1c(%rbp)
+    5203:	48 89 55 d8          	mov    %rdx,-0x28(%rbp)
 	for (int i=0; i<num_elements; i++) {
-    5208:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-    520f:	eb 42                	jmp    5253 <search_begin+0x62>
+    5207:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+    520e:	eb 42                	jmp    5252 <search_begin+0x62>
 		if (!strncmp(array[i], string, strlen(string))) {
-    5211:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    5215:	48 89 c7             	mov    %rax,%rdi
-    5218:	e8 a3 e2 ff ff       	callq  34c0 <strlen@plt>
-    521d:	48 89 c2             	mov    %rax,%rdx
-    5220:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5223:	48 98                	cltq   
-    5225:	48 8d 0c c5 00 00 00 	lea    0x0(,%rax,8),%rcx
-    522c:	00 
-    522d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5231:	48 01 c8             	add    %rcx,%rax
-    5234:	48 8b 00             	mov    (%rax),%rax
-    5237:	48 8b 4d d8          	mov    -0x28(%rbp),%rcx
-    523b:	48 89 ce             	mov    %rcx,%rsi
-    523e:	48 89 c7             	mov    %rax,%rdi
-    5241:	e8 da e1 ff ff       	callq  3420 <strncmp@plt>
-    5246:	85 c0                	test   %eax,%eax
-    5248:	75 05                	jne    524f <search_begin+0x5e>
+    5210:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    5214:	48 89 c7             	mov    %rax,%rdi
+    5217:	e8 a4 e2 ff ff       	callq  34c0 <strlen@plt>
+    521c:	48 89 c2             	mov    %rax,%rdx
+    521f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5222:	48 98                	cltq   
+    5224:	48 8d 0c c5 00 00 00 	lea    0x0(,%rax,8),%rcx
+    522b:	00 
+    522c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5230:	48 01 c8             	add    %rcx,%rax
+    5233:	48 8b 00             	mov    (%rax),%rax
+    5236:	48 8b 4d d8          	mov    -0x28(%rbp),%rcx
+    523a:	48 89 ce             	mov    %rcx,%rsi
+    523d:	48 89 c7             	mov    %rax,%rdi
+    5240:	e8 db e1 ff ff       	callq  3420 <strncmp@plt>
+    5245:	85 c0                	test   %eax,%eax
+    5247:	75 05                	jne    524e <search_begin+0x5e>
 			return i;
-    524a:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    524d:	eb 11                	jmp    5260 <search_begin+0x6f>
+    5249:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    524c:	eb 11                	jmp    525f <search_begin+0x6f>
 	for (int i=0; i<num_elements; i++) {
-    524f:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
-    5253:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5256:	3b 45 e4             	cmp    -0x1c(%rbp),%eax
-    5259:	7c b6                	jl     5211 <search_begin+0x20>
+    524e:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+    5252:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5255:	3b 45 e4             	cmp    -0x1c(%rbp),%eax
+    5258:	7c b6                	jl     5210 <search_begin+0x20>
 		}
 	}
 	return -1;
-    525b:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    525a:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-    5260:	c9                   	leaveq 
-    5261:	c3                   	retq   
+    525f:	c9                   	leaveq 
+    5260:	c3                   	retq   
 
-0000000000005262 <startswith>:
+0000000000005261 <startswith>:
 
 int startswith(char *s, char *c) {
-    5262:	f3 0f 1e fa          	endbr64 
-    5266:	55                   	push   %rbp
-    5267:	48 89 e5             	mov    %rsp,%rbp
-    526a:	53                   	push   %rbx
-    526b:	48 83 ec 18          	sub    $0x18,%rsp
-    526f:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-    5273:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    5261:	f3 0f 1e fa          	endbr64 
+    5265:	55                   	push   %rbp
+    5266:	48 89 e5             	mov    %rsp,%rbp
+    5269:	53                   	push   %rbx
+    526a:	48 83 ec 18          	sub    $0x18,%rsp
+    526e:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    5272:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
 	return !strncmp(s, c, min(strlen(c), strlen(s)));
-    5277:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    527b:	48 89 c7             	mov    %rax,%rdi
-    527e:	e8 3d e2 ff ff       	callq  34c0 <strlen@plt>
-    5283:	48 89 c3             	mov    %rax,%rbx
-    5286:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    528a:	48 89 c7             	mov    %rax,%rdi
-    528d:	e8 2e e2 ff ff       	callq  34c0 <strlen@plt>
-    5292:	48 39 c3             	cmp    %rax,%rbx
-    5295:	76 0e                	jbe    52a5 <startswith+0x43>
-    5297:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    529b:	48 89 c7             	mov    %rax,%rdi
-    529e:	e8 1d e2 ff ff       	callq  34c0 <strlen@plt>
-    52a3:	eb 0c                	jmp    52b1 <startswith+0x4f>
-    52a5:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    52a9:	48 89 c7             	mov    %rax,%rdi
-    52ac:	e8 0f e2 ff ff       	callq  34c0 <strlen@plt>
-    52b1:	48 8b 75 e0          	mov    -0x20(%rbp),%rsi
-    52b5:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
-    52b9:	48 89 c2             	mov    %rax,%rdx
-    52bc:	48 89 cf             	mov    %rcx,%rdi
-    52bf:	e8 5c e1 ff ff       	callq  3420 <strncmp@plt>
-    52c4:	85 c0                	test   %eax,%eax
-    52c6:	0f 94 c0             	sete   %al
-    52c9:	0f b6 c0             	movzbl %al,%eax
+    5276:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    527a:	48 89 c7             	mov    %rax,%rdi
+    527d:	e8 3e e2 ff ff       	callq  34c0 <strlen@plt>
+    5282:	48 89 c3             	mov    %rax,%rbx
+    5285:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5289:	48 89 c7             	mov    %rax,%rdi
+    528c:	e8 2f e2 ff ff       	callq  34c0 <strlen@plt>
+    5291:	48 39 c3             	cmp    %rax,%rbx
+    5294:	76 0e                	jbe    52a4 <startswith+0x43>
+    5296:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    529a:	48 89 c7             	mov    %rax,%rdi
+    529d:	e8 1e e2 ff ff       	callq  34c0 <strlen@plt>
+    52a2:	eb 0c                	jmp    52b0 <startswith+0x4f>
+    52a4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    52a8:	48 89 c7             	mov    %rax,%rdi
+    52ab:	e8 10 e2 ff ff       	callq  34c0 <strlen@plt>
+    52b0:	48 8b 75 e0          	mov    -0x20(%rbp),%rsi
+    52b4:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+    52b8:	48 89 c2             	mov    %rax,%rdx
+    52bb:	48 89 cf             	mov    %rcx,%rdi
+    52be:	e8 5d e1 ff ff       	callq  3420 <strncmp@plt>
+    52c3:	85 c0                	test   %eax,%eax
+    52c5:	0f 94 c0             	sete   %al
+    52c8:	0f b6 c0             	movzbl %al,%eax
 }
-    52cc:	48 83 c4 18          	add    $0x18,%rsp
-    52d0:	5b                   	pop    %rbx
-    52d1:	5d                   	pop    %rbp
-    52d2:	c3                   	retq   
+    52cb:	48 83 c4 18          	add    $0x18,%rsp
+    52cf:	5b                   	pop    %rbx
+    52d0:	5d                   	pop    %rbp
+    52d1:	c3                   	retq   
 
-00000000000052d3 <endswith>:
+00000000000052d2 <endswith>:
 
 int endswith(char *restrict s, char *restrict end) {
-    52d3:	f3 0f 1e fa          	endbr64 
-    52d7:	55                   	push   %rbp
-    52d8:	48 89 e5             	mov    %rsp,%rbp
-    52db:	53                   	push   %rbx
-    52dc:	48 83 ec 28          	sub    $0x28,%rsp
-    52e0:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
-    52e4:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
+    52d2:	f3 0f 1e fa          	endbr64 
+    52d6:	55                   	push   %rbp
+    52d7:	48 89 e5             	mov    %rsp,%rbp
+    52da:	53                   	push   %rbx
+    52db:	48 83 ec 28          	sub    $0x28,%rsp
+    52df:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+    52e3:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
 	char *so = s+(strlen(s)-strlen(end));
-    52e8:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    52ec:	48 89 c7             	mov    %rax,%rdi
-    52ef:	e8 cc e1 ff ff       	callq  34c0 <strlen@plt>
-    52f4:	48 89 c3             	mov    %rax,%rbx
-    52f7:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-    52fb:	48 89 c7             	mov    %rax,%rdi
-    52fe:	e8 bd e1 ff ff       	callq  34c0 <strlen@plt>
-    5303:	48 29 c3             	sub    %rax,%rbx
-    5306:	48 89 da             	mov    %rbx,%rdx
-    5309:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    530d:	48 01 d0             	add    %rdx,%rax
-    5310:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    52e7:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    52eb:	48 89 c7             	mov    %rax,%rdi
+    52ee:	e8 cd e1 ff ff       	callq  34c0 <strlen@plt>
+    52f3:	48 89 c3             	mov    %rax,%rbx
+    52f6:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    52fa:	48 89 c7             	mov    %rax,%rdi
+    52fd:	e8 be e1 ff ff       	callq  34c0 <strlen@plt>
+    5302:	48 29 c3             	sub    %rax,%rbx
+    5305:	48 89 da             	mov    %rbx,%rdx
+    5308:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    530c:	48 01 d0             	add    %rdx,%rax
+    530f:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
 	return !strcmp(so, end);
-    5314:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
-    5318:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    531c:	48 89 d6             	mov    %rdx,%rsi
-    531f:	48 89 c7             	mov    %rax,%rdi
-    5322:	e8 99 e2 ff ff       	callq  35c0 <strcmp@plt>
-    5327:	85 c0                	test   %eax,%eax
-    5329:	0f 94 c0             	sete   %al
-    532c:	0f b6 c0             	movzbl %al,%eax
+    5313:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
+    5317:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    531b:	48 89 d6             	mov    %rdx,%rsi
+    531e:	48 89 c7             	mov    %rax,%rdi
+    5321:	e8 9a e2 ff ff       	callq  35c0 <strcmp@plt>
+    5326:	85 c0                	test   %eax,%eax
+    5328:	0f 94 c0             	sete   %al
+    532b:	0f b6 c0             	movzbl %al,%eax
 }
-    532f:	48 83 c4 28          	add    $0x28,%rsp
-    5333:	5b                   	pop    %rbx
-    5334:	5d                   	pop    %rbp
-    5335:	c3                   	retq   
+    532e:	48 83 c4 28          	add    $0x28,%rsp
+    5332:	5b                   	pop    %rbx
+    5333:	5d                   	pop    %rbp
+    5334:	c3                   	retq   
 
-0000000000005336 <combine>:
+0000000000005335 <combine>:
 
 char *combine(char *restrict a, char *restrict b) {
-    5336:	f3 0f 1e fa          	endbr64 
-    533a:	55                   	push   %rbp
-    533b:	48 89 e5             	mov    %rsp,%rbp
-    533e:	53                   	push   %rbx
-    533f:	48 83 ec 28          	sub    $0x28,%rsp
-    5343:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
-    5347:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
+    5335:	f3 0f 1e fa          	endbr64 
+    5339:	55                   	push   %rbp
+    533a:	48 89 e5             	mov    %rsp,%rbp
+    533d:	53                   	push   %rbx
+    533e:	48 83 ec 28          	sub    $0x28,%rsp
+    5342:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+    5346:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
 	char *buffer = malloc( strlen(a)+strlen(b)+1 );
-    534b:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    534f:	48 89 c7             	mov    %rax,%rdi
-    5352:	e8 69 e1 ff ff       	callq  34c0 <strlen@plt>
-    5357:	48 89 c3             	mov    %rax,%rbx
-    535a:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-    535e:	48 89 c7             	mov    %rax,%rdi
-    5361:	e8 5a e1 ff ff       	callq  34c0 <strlen@plt>
-    5366:	48 01 d8             	add    %rbx,%rax
-    5369:	48 83 c0 01          	add    $0x1,%rax
-    536d:	48 89 c7             	mov    %rax,%rdi
-    5370:	e8 cb e2 ff ff       	callq  3640 <malloc@plt>
-    5375:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    534a:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    534e:	48 89 c7             	mov    %rax,%rdi
+    5351:	e8 6a e1 ff ff       	callq  34c0 <strlen@plt>
+    5356:	48 89 c3             	mov    %rax,%rbx
+    5359:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    535d:	48 89 c7             	mov    %rax,%rdi
+    5360:	e8 5b e1 ff ff       	callq  34c0 <strlen@plt>
+    5365:	48 01 d8             	add    %rbx,%rax
+    5368:	48 83 c0 01          	add    $0x1,%rax
+    536c:	48 89 c7             	mov    %rax,%rdi
+    536f:	e8 cc e2 ff ff       	callq  3640 <malloc@plt>
+    5374:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
 	strcpy(buffer, a);
-    5379:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx
-    537d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5381:	48 89 d6             	mov    %rdx,%rsi
-    5384:	48 89 c7             	mov    %rax,%rdi
-    5387:	e8 a4 e0 ff ff       	callq  3430 <strcpy@plt>
+    5378:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx
+    537c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5380:	48 89 d6             	mov    %rdx,%rsi
+    5383:	48 89 c7             	mov    %rax,%rdi
+    5386:	e8 a5 e0 ff ff       	callq  3430 <strcpy@plt>
 	strcat(buffer, b);
-    538c:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
-    5390:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5394:	48 89 d6             	mov    %rdx,%rsi
-    5397:	48 89 c7             	mov    %rax,%rdi
-    539a:	e8 61 e3 ff ff       	callq  3700 <strcat@plt>
+    538b:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
+    538f:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5393:	48 89 d6             	mov    %rdx,%rsi
+    5396:	48 89 c7             	mov    %rax,%rdi
+    5399:	e8 62 e3 ff ff       	callq  3700 <strcat@plt>
 	return buffer;
-    539f:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    539e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
 }
-    53a3:	48 83 c4 28          	add    $0x28,%rsp
-    53a7:	5b                   	pop    %rbx
-    53a8:	5d                   	pop    %rbp
-    53a9:	c3                   	retq   
+    53a2:	48 83 c4 28          	add    $0x28,%rsp
+    53a6:	5b                   	pop    %rbx
+    53a7:	5d                   	pop    %rbp
+    53a8:	c3                   	retq   
 
-00000000000053aa <ntoken>:
+00000000000053a9 <ntoken>:
 
 char *ntoken(char *const s, char *d, int t) {
-    53aa:	f3 0f 1e fa          	endbr64 
-    53ae:	55                   	push   %rbp
-    53af:	48 89 e5             	mov    %rsp,%rbp
-    53b2:	48 83 ec 30          	sub    $0x30,%rsp
-    53b6:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-    53ba:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
-    53be:	89 55 dc             	mov    %edx,-0x24(%rbp)
+    53a9:	f3 0f 1e fa          	endbr64 
+    53ad:	55                   	push   %rbp
+    53ae:	48 89 e5             	mov    %rsp,%rbp
+    53b1:	48 83 ec 30          	sub    $0x30,%rsp
+    53b5:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    53b9:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    53bd:	89 55 dc             	mov    %edx,-0x24(%rbp)
 	char *tk = malloc(strlen(s)+1);
-    53c1:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    53c5:	48 89 c7             	mov    %rax,%rdi
-    53c8:	e8 f3 e0 ff ff       	callq  34c0 <strlen@plt>
-    53cd:	48 83 c0 01          	add    $0x1,%rax
-    53d1:	48 89 c7             	mov    %rax,%rdi
-    53d4:	e8 67 e2 ff ff       	callq  3640 <malloc@plt>
-    53d9:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    53c0:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    53c4:	48 89 c7             	mov    %rax,%rdi
+    53c7:	e8 f4 e0 ff ff       	callq  34c0 <strlen@plt>
+    53cc:	48 83 c0 01          	add    $0x1,%rax
+    53d0:	48 89 c7             	mov    %rax,%rdi
+    53d3:	e8 68 e2 ff ff       	callq  3640 <malloc@plt>
+    53d8:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	if (!tk) {
-    53dd:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
-    53e2:	75 0c                	jne    53f0 <ntoken+0x46>
+    53dc:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    53e1:	75 0c                	jne    53ef <ntoken+0x46>
 		perror("malloc");
-    53e4:	48 8d 3d 90 23 00 00 	lea    0x2390(%rip),%rdi        # 777b <__func__.4838+0x2b>
-    53eb:	e8 d0 e2 ff ff       	callq  36c0 <perror@plt>
+    53e3:	48 8d 3d 91 23 00 00 	lea    0x2391(%rip),%rdi        # 777b <__func__.4838+0x2b>
+    53ea:	e8 d1 e2 ff ff       	callq  36c0 <perror@plt>
 	}
 	strcpy(tk, s);
-    53f0:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
-    53f4:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    53f8:	48 89 d6             	mov    %rdx,%rsi
-    53fb:	48 89 c7             	mov    %rax,%rdi
-    53fe:	e8 2d e0 ff ff       	callq  3430 <strcpy@plt>
+    53ef:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+    53f3:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    53f7:	48 89 d6             	mov    %rdx,%rsi
+    53fa:	48 89 c7             	mov    %rax,%rdi
+    53fd:	e8 2e e0 ff ff       	callq  3430 <strcpy@plt>
 	strtok(tk, d);
-    5403:	48 8b 55 e0          	mov    -0x20(%rbp),%rdx
-    5407:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    540b:	48 89 d6             	mov    %rdx,%rsi
-    540e:	48 89 c7             	mov    %rax,%rdi
-    5411:	e8 ba e2 ff ff       	callq  36d0 <strtok@plt>
+    5402:	48 8b 55 e0          	mov    -0x20(%rbp),%rdx
+    5406:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    540a:	48 89 d6             	mov    %rdx,%rsi
+    540d:	48 89 c7             	mov    %rax,%rdi
+    5410:	e8 bb e2 ff ff       	callq  36d0 <strtok@plt>
 	for (int i=0; i<t; i++) {
-    5416:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
-    541d:	eb 19                	jmp    5438 <ntoken+0x8e>
+    5415:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+    541c:	eb 19                	jmp    5437 <ntoken+0x8e>
 		tk = strtok(0, d);
-    541f:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    5423:	48 89 c6             	mov    %rax,%rsi
-    5426:	bf 00 00 00 00       	mov    $0x0,%edi
-    542b:	e8 a0 e2 ff ff       	callq  36d0 <strtok@plt>
-    5430:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    541e:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5422:	48 89 c6             	mov    %rax,%rsi
+    5425:	bf 00 00 00 00       	mov    $0x0,%edi
+    542a:	e8 a1 e2 ff ff       	callq  36d0 <strtok@plt>
+    542f:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	for (int i=0; i<t; i++) {
-    5434:	83 45 f4 01          	addl   $0x1,-0xc(%rbp)
-    5438:	8b 45 f4             	mov    -0xc(%rbp),%eax
-    543b:	3b 45 dc             	cmp    -0x24(%rbp),%eax
-    543e:	7c df                	jl     541f <ntoken+0x75>
+    5433:	83 45 f4 01          	addl   $0x1,-0xc(%rbp)
+    5437:	8b 45 f4             	mov    -0xc(%rbp),%eax
+    543a:	3b 45 dc             	cmp    -0x24(%rbp),%eax
+    543d:	7c df                	jl     541e <ntoken+0x75>
 	}
 	return tk;
-    5440:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    543f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
 }
-    5444:	c9                   	leaveq 
-    5445:	c3                   	retq   
+    5443:	c9                   	leaveq 
+    5444:	c3                   	retq   
 
-0000000000005446 <exists>:
+0000000000005445 <exists>:
 
 char *ntoken(char *const s, char *d, int t);
 int startswith(char *s, char *c);
 int needle(char *n, char **h, int lh);
 
 bool exists(char *path) {
-    5446:	f3 0f 1e fa          	endbr64 
-    544a:	55                   	push   %rbp
-    544b:	48 89 e5             	mov    %rsp,%rbp
-    544e:	48 83 ec 20          	sub    $0x20,%rsp
-    5452:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    5445:	f3 0f 1e fa          	endbr64 
+    5449:	55                   	push   %rbp
+    544a:	48 89 e5             	mov    %rsp,%rbp
+    544d:	48 83 ec 20          	sub    $0x20,%rsp
+    5451:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
 	FILE *fp = fopen(path, "r");
-    5456:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    545a:	48 8d 35 29 24 00 00 	lea    0x2429(%rip),%rsi        # 788a <__func__.4838+0x13a>
-    5461:	48 89 c7             	mov    %rax,%rdi
-    5464:	e8 47 e2 ff ff       	callq  36b0 <fopen@plt>
-    5469:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    5455:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5459:	48 8d 35 11 24 00 00 	lea    0x2411(%rip),%rsi        # 7871 <__func__.4838+0x121>
+    5460:	48 89 c7             	mov    %rax,%rdi
+    5463:	e8 48 e2 ff ff       	callq  36b0 <fopen@plt>
+    5468:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	if (fp) {
-    546d:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
-    5472:	74 13                	je     5487 <exists+0x41>
+    546c:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    5471:	74 13                	je     5486 <exists+0x41>
 		fclose(fp);
-    5474:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    5478:	48 89 c7             	mov    %rax,%rdi
-    547b:	e8 20 e0 ff ff       	callq  34a0 <fclose@plt>
+    5473:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    5477:	48 89 c7             	mov    %rax,%rdi
+    547a:	e8 21 e0 ff ff       	callq  34a0 <fclose@plt>
 		return true;
-    5480:	b8 01 00 00 00       	mov    $0x1,%eax
-    5485:	eb 05                	jmp    548c <exists+0x46>
+    547f:	b8 01 00 00 00       	mov    $0x1,%eax
+    5484:	eb 05                	jmp    548b <exists+0x46>
 	}
 	return false;
-    5487:	b8 00 00 00 00       	mov    $0x0,%eax
+    5486:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-    548c:	c9                   	leaveq 
-    548d:	c3                   	retq   
+    548b:	c9                   	leaveq 
+    548c:	c3                   	retq   
 
-000000000000548e <RabbitSearchScript>:
+000000000000548d <RabbitSearchScript>:
 
 int RabbitSearchScript(char *path, int pathlen) {
-    548e:	f3 0f 1e fa          	endbr64 
-    5492:	55                   	push   %rbp
-    5493:	48 89 e5             	mov    %rsp,%rbp
-    5496:	48 83 ec 20          	sub    $0x20,%rsp
-    549a:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-    549e:	89 75 e4             	mov    %esi,-0x1c(%rbp)
+    548d:	f3 0f 1e fa          	endbr64 
+    5491:	55                   	push   %rbp
+    5492:	48 89 e5             	mov    %rsp,%rbp
+    5495:	48 83 ec 20          	sub    $0x20,%rsp
+    5499:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    549d:	89 75 e4             	mov    %esi,-0x1c(%rbp)
 	for (int i=0; i<nloadedscripts; i++) {
-    54a1:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
-    54a8:	eb 78                	jmp    5522 <RabbitSearchScript+0x94>
+    54a0:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
+    54a7:	eb 78                	jmp    5521 <RabbitSearchScript+0x94>
 		for (int j=0; j<16; j++) {
-    54aa:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-    54b1:	eb 65                	jmp    5518 <RabbitSearchScript+0x8a>
+    54a9:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+    54b0:	eb 65                	jmp    5517 <RabbitSearchScript+0x8a>
 			if (scripts[i].paths[j]) {
-    54b3:	48 8b 15 be 5b 00 00 	mov    0x5bbe(%rip),%rdx        # b078 <scripts>
-    54ba:	8b 45 f8             	mov    -0x8(%rbp),%eax
-    54bd:	48 98                	cltq   
-    54bf:	48 69 c0 a0 20 00 00 	imul   $0x20a0,%rax,%rax
-    54c6:	48 01 c2             	add    %rax,%rdx
-    54c9:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    54cc:	48 98                	cltq   
-    54ce:	48 8b 04 c2          	mov    (%rdx,%rax,8),%rax
-    54d2:	48 85 c0             	test   %rax,%rax
-    54d5:	74 3d                	je     5514 <RabbitSearchScript+0x86>
+    54b2:	48 8b 15 bf 5b 00 00 	mov    0x5bbf(%rip),%rdx        # b078 <scripts>
+    54b9:	8b 45 f8             	mov    -0x8(%rbp),%eax
+    54bc:	48 98                	cltq   
+    54be:	48 69 c0 a0 20 00 00 	imul   $0x20a0,%rax,%rax
+    54c5:	48 01 c2             	add    %rax,%rdx
+    54c8:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    54cb:	48 98                	cltq   
+    54cd:	48 8b 04 c2          	mov    (%rdx,%rax,8),%rax
+    54d1:	48 85 c0             	test   %rax,%rax
+    54d4:	74 3d                	je     5513 <RabbitSearchScript+0x86>
 				if (fnmatch(scripts[i].paths[j], path, 0) != FNM_NOMATCH) {
-    54d7:	48 8b 15 9a 5b 00 00 	mov    0x5b9a(%rip),%rdx        # b078 <scripts>
-    54de:	8b 45 f8             	mov    -0x8(%rbp),%eax
-    54e1:	48 98                	cltq   
-    54e3:	48 69 c0 a0 20 00 00 	imul   $0x20a0,%rax,%rax
-    54ea:	48 01 c2             	add    %rax,%rdx
-    54ed:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    54f0:	48 98                	cltq   
-    54f2:	48 8b 04 c2          	mov    (%rdx,%rax,8),%rax
-    54f6:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
-    54fa:	ba 00 00 00 00       	mov    $0x0,%edx
-    54ff:	48 89 ce             	mov    %rcx,%rsi
-    5502:	48 89 c7             	mov    %rax,%rdi
-    5505:	e8 36 e0 ff ff       	callq  3540 <fnmatch@plt>
-    550a:	83 f8 01             	cmp    $0x1,%eax
-    550d:	74 05                	je     5514 <RabbitSearchScript+0x86>
+    54d6:	48 8b 15 9b 5b 00 00 	mov    0x5b9b(%rip),%rdx        # b078 <scripts>
+    54dd:	8b 45 f8             	mov    -0x8(%rbp),%eax
+    54e0:	48 98                	cltq   
+    54e2:	48 69 c0 a0 20 00 00 	imul   $0x20a0,%rax,%rax
+    54e9:	48 01 c2             	add    %rax,%rdx
+    54ec:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    54ef:	48 98                	cltq   
+    54f1:	48 8b 04 c2          	mov    (%rdx,%rax,8),%rax
+    54f5:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+    54f9:	ba 00 00 00 00       	mov    $0x0,%edx
+    54fe:	48 89 ce             	mov    %rcx,%rsi
+    5501:	48 89 c7             	mov    %rax,%rdi
+    5504:	e8 37 e0 ff ff       	callq  3540 <fnmatch@plt>
+    5509:	83 f8 01             	cmp    $0x1,%eax
+    550c:	74 05                	je     5513 <RabbitSearchScript+0x86>
 					return i;
-    550f:	8b 45 f8             	mov    -0x8(%rbp),%eax
-    5512:	eb 22                	jmp    5536 <RabbitSearchScript+0xa8>
+    550e:	8b 45 f8             	mov    -0x8(%rbp),%eax
+    5511:	eb 22                	jmp    5535 <RabbitSearchScript+0xa8>
 		for (int j=0; j<16; j++) {
-    5514:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
-    5518:	83 7d fc 0f          	cmpl   $0xf,-0x4(%rbp)
-    551c:	7e 95                	jle    54b3 <RabbitSearchScript+0x25>
+    5513:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+    5517:	83 7d fc 0f          	cmpl   $0xf,-0x4(%rbp)
+    551b:	7e 95                	jle    54b2 <RabbitSearchScript+0x25>
 	for (int i=0; i<nloadedscripts; i++) {
-    551e:	83 45 f8 01          	addl   $0x1,-0x8(%rbp)
-    5522:	8b 05 e8 4a 00 00    	mov    0x4ae8(%rip),%eax        # a010 <nloadedscripts>
-    5528:	39 45 f8             	cmp    %eax,-0x8(%rbp)
-    552b:	0f 8c 79 ff ff ff    	jl     54aa <RabbitSearchScript+0x1c>
+    551d:	83 45 f8 01          	addl   $0x1,-0x8(%rbp)
+    5521:	8b 05 e9 4a 00 00    	mov    0x4ae9(%rip),%eax        # a010 <nloadedscripts>
+    5527:	39 45 f8             	cmp    %eax,-0x8(%rbp)
+    552a:	0f 8c 79 ff ff ff    	jl     54a9 <RabbitSearchScript+0x1c>
 				}
 			}
 		}
 	}
 	return -1;
-    5531:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    5530:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-    5536:	c9                   	leaveq 
-    5537:	c3                   	retq   
+    5535:	c9                   	leaveq 
+    5536:	c3                   	retq   
 
-0000000000005538 <RabbitParseRequest>:
+0000000000005537 <RabbitParseRequest>:
 
 RequestData *RabbitParseRequest(const char *const reqbuff) {
-    5538:	f3 0f 1e fa          	endbr64 
-    553c:	55                   	push   %rbp
-    553d:	48 89 e5             	mov    %rsp,%rbp
-    5540:	48 83 ec 30          	sub    $0x30,%rsp
-    5544:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+    5537:	f3 0f 1e fa          	endbr64 
+    553b:	55                   	push   %rbp
+    553c:	48 89 e5             	mov    %rsp,%rbp
+    553f:	48 83 ec 30          	sub    $0x30,%rsp
+    5543:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
 	RequestData *reqdata = malloc(sizeof(RequestData));
-    5548:	bf 28 20 00 00       	mov    $0x2028,%edi
-    554d:	e8 ee e0 ff ff       	callq  3640 <malloc@plt>
-    5552:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    5547:	bf 28 20 00 00       	mov    $0x2028,%edi
+    554c:	e8 ef e0 ff ff       	callq  3640 <malloc@plt>
+    5551:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
 	char *line;
 	char *tmp;
 	
 	if (!reqdata) {
-    5556:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
-    555b:	75 16                	jne    5573 <RabbitParseRequest+0x3b>
+    5555:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+    555a:	75 16                	jne    5572 <RabbitParseRequest+0x3b>
 		perror("malloc");
-    555d:	48 8d 3d 28 23 00 00 	lea    0x2328(%rip),%rdi        # 788c <__func__.4838+0x13c>
-    5564:	e8 57 e1 ff ff       	callq  36c0 <perror@plt>
+    555c:	48 8d 3d 10 23 00 00 	lea    0x2310(%rip),%rdi        # 7873 <__func__.4838+0x123>
+    5563:	e8 58 e1 ff ff       	callq  36c0 <perror@plt>
 		exit(1);
-    5569:	bf 01 00 00 00       	mov    $0x1,%edi
-    556e:	e8 ad e1 ff ff       	callq  3720 <exit@plt>
+    5568:	bf 01 00 00 00       	mov    $0x1,%edi
+    556d:	e8 ae e1 ff ff       	callq  3720 <exit@plt>
 	}
 	
 	line = ntoken(reqbuff, "\x0d\x0a", 0);
-    5573:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    5577:	ba 00 00 00 00       	mov    $0x0,%edx
-    557c:	48 8d 35 10 23 00 00 	lea    0x2310(%rip),%rsi        # 7893 <__func__.4838+0x143>
-    5583:	48 89 c7             	mov    %rax,%rdi
-    5586:	e8 1f fe ff ff       	callq  53aa <ntoken>
-    558b:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+    5572:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    5576:	ba 00 00 00 00       	mov    $0x0,%edx
+    557b:	48 8d 35 f8 22 00 00 	lea    0x22f8(%rip),%rsi        # 787a <__func__.4838+0x12a>
+    5582:	48 89 c7             	mov    %rax,%rdi
+    5585:	e8 1f fe ff ff       	callq  53a9 <ntoken>
+    558a:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
 	
 	/* If 2nd token doesn't exist error */
 	if (!(tmp = ntoken(line, " ", 2))) {
-    558f:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    5593:	ba 02 00 00 00       	mov    $0x2,%edx
-    5598:	48 8d 35 f7 22 00 00 	lea    0x22f7(%rip),%rsi        # 7896 <__func__.4838+0x146>
-    559f:	48 89 c7             	mov    %rax,%rdi
-    55a2:	e8 03 fe ff ff       	callq  53aa <ntoken>
-    55a7:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-    55ab:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
-    55b0:	75 15                	jne    55c7 <RabbitParseRequest+0x8f>
+    558e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    5592:	ba 02 00 00 00       	mov    $0x2,%edx
+    5597:	48 8d 35 df 22 00 00 	lea    0x22df(%rip),%rsi        # 787d <__func__.4838+0x12d>
+    559e:	48 89 c7             	mov    %rax,%rdi
+    55a1:	e8 03 fe ff ff       	callq  53a9 <ntoken>
+    55a6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    55aa:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    55af:	75 15                	jne    55c6 <RabbitParseRequest+0x8f>
 		errno=1; return NULL;
-    55b2:	e8 49 de ff ff       	callq  3400 <__errno_location@plt>
-    55b7:	c7 00 01 00 00 00    	movl   $0x1,(%rax)
-    55bd:	b8 00 00 00 00       	mov    $0x0,%eax
-    55c2:	e9 b8 01 00 00       	jmpq   577f <RabbitParseRequest+0x247>
+    55b1:	e8 4a de ff ff       	callq  3400 <__errno_location@plt>
+    55b6:	c7 00 01 00 00 00    	movl   $0x1,(%rax)
+    55bc:	b8 00 00 00 00       	mov    $0x0,%eax
+    55c1:	e9 b8 01 00 00       	jmpq   577e <RabbitParseRequest+0x247>
 	}
 	
 	/* Read request data */
 	tmp = ntoken(line, " ", 0);
-    55c7:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    55cb:	ba 00 00 00 00       	mov    $0x0,%edx
-    55d0:	48 8d 35 bf 22 00 00 	lea    0x22bf(%rip),%rsi        # 7896 <__func__.4838+0x146>
-    55d7:	48 89 c7             	mov    %rax,%rdi
-    55da:	e8 cb fd ff ff       	callq  53aa <ntoken>
-    55df:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    55c6:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    55ca:	ba 00 00 00 00       	mov    $0x0,%edx
+    55cf:	48 8d 35 a7 22 00 00 	lea    0x22a7(%rip),%rsi        # 787d <__func__.4838+0x12d>
+    55d6:	48 89 c7             	mov    %rax,%rdi
+    55d9:	e8 cb fd ff ff       	callq  53a9 <ntoken>
+    55de:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	strncpy(reqdata->rverb, tmp, 7);
-    55e3:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    55e7:	48 8d 48 08          	lea    0x8(%rax),%rcx
-    55eb:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    55ef:	ba 07 00 00 00       	mov    $0x7,%edx
-    55f4:	48 89 c6             	mov    %rax,%rsi
-    55f7:	48 89 cf             	mov    %rcx,%rdi
-    55fa:	e8 11 de ff ff       	callq  3410 <strncpy@plt>
+    55e2:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    55e6:	48 8d 48 08          	lea    0x8(%rax),%rcx
+    55ea:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    55ee:	ba 07 00 00 00       	mov    $0x7,%edx
+    55f3:	48 89 c6             	mov    %rax,%rsi
+    55f6:	48 89 cf             	mov    %rcx,%rdi
+    55f9:	e8 12 de ff ff       	callq  3410 <strncpy@plt>
 	
 	tmp = ntoken(line, " ", 1);
-    55ff:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    5603:	ba 01 00 00 00       	mov    $0x1,%edx
-    5608:	48 8d 35 87 22 00 00 	lea    0x2287(%rip),%rsi        # 7896 <__func__.4838+0x146>
-    560f:	48 89 c7             	mov    %rax,%rdi
-    5612:	e8 93 fd ff ff       	callq  53aa <ntoken>
-    5617:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    55fe:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    5602:	ba 01 00 00 00       	mov    $0x1,%edx
+    5607:	48 8d 35 6f 22 00 00 	lea    0x226f(%rip),%rsi        # 787d <__func__.4838+0x12d>
+    560e:	48 89 c7             	mov    %rax,%rdi
+    5611:	e8 93 fd ff ff       	callq  53a9 <ntoken>
+    5616:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	strncpy(reqdata->path, tmp, 4096);
-    561b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    561f:	48 8d 48 10          	lea    0x10(%rax),%rcx
-    5623:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    5627:	ba 00 10 00 00       	mov    $0x1000,%edx
-    562c:	48 89 c6             	mov    %rax,%rsi
-    562f:	48 89 cf             	mov    %rcx,%rdi
-    5632:	e8 d9 dd ff ff       	callq  3410 <strncpy@plt>
+    561a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    561e:	48 8d 48 10          	lea    0x10(%rax),%rcx
+    5622:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    5626:	ba 00 10 00 00       	mov    $0x1000,%edx
+    562b:	48 89 c6             	mov    %rax,%rsi
+    562e:	48 89 cf             	mov    %rcx,%rdi
+    5631:	e8 da dd ff ff       	callq  3410 <strncpy@plt>
 	
 	tmp = ntoken(line, " ", 2);
-    5637:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    563b:	ba 02 00 00 00       	mov    $0x2,%edx
-    5640:	48 8d 35 4f 22 00 00 	lea    0x224f(%rip),%rsi        # 7896 <__func__.4838+0x146>
-    5647:	48 89 c7             	mov    %rax,%rdi
-    564a:	e8 5b fd ff ff       	callq  53aa <ntoken>
-    564f:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    5636:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    563a:	ba 02 00 00 00       	mov    $0x2,%edx
+    563f:	48 8d 35 37 22 00 00 	lea    0x2237(%rip),%rsi        # 787d <__func__.4838+0x12d>
+    5646:	48 89 c7             	mov    %rax,%rdi
+    5649:	e8 5b fd ff ff       	callq  53a9 <ntoken>
+    564e:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
 	strncpy(reqdata->protocol, tmp, 8);
-    5653:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5657:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
-    565b:	ba 08 00 00 00       	mov    $0x8,%edx
-    5660:	48 89 ce             	mov    %rcx,%rsi
-    5663:	48 89 c7             	mov    %rax,%rdi
-    5666:	e8 a5 dd ff ff       	callq  3410 <strncpy@plt>
+    5652:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5656:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    565a:	ba 08 00 00 00       	mov    $0x8,%edx
+    565f:	48 89 ce             	mov    %rcx,%rsi
+    5662:	48 89 c7             	mov    %rax,%rdi
+    5665:	e8 a6 dd ff ff       	callq  3410 <strncpy@plt>
 	
 	free(line);
-    566b:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    566f:	48 89 c7             	mov    %rax,%rdi
-    5672:	e8 69 dd ff ff       	callq  33e0 <free@plt>
+    566a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    566e:	48 89 c7             	mov    %rax,%rdi
+    5671:	e8 6a dd ff ff       	callq  33e0 <free@plt>
 	
 #ifndef NO_REDIRECT_ROOT
 	if (!strcmp(reqdata->path, "/")) {
-    5677:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    567b:	48 83 c0 10          	add    $0x10,%rax
-    567f:	48 8d 35 12 22 00 00 	lea    0x2212(%rip),%rsi        # 7898 <__func__.4838+0x148>
-    5686:	48 89 c7             	mov    %rax,%rdi
-    5689:	e8 32 df ff ff       	callq  35c0 <strcmp@plt>
-    568e:	85 c0                	test   %eax,%eax
-    5690:	75 1c                	jne    56ae <RabbitParseRequest+0x176>
+    5676:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    567a:	48 83 c0 10          	add    $0x10,%rax
+    567e:	48 8d 35 fa 21 00 00 	lea    0x21fa(%rip),%rsi        # 787f <__func__.4838+0x12f>
+    5685:	48 89 c7             	mov    %rax,%rdi
+    5688:	e8 33 df ff ff       	callq  35c0 <strcmp@plt>
+    568d:	85 c0                	test   %eax,%eax
+    568f:	75 1c                	jne    56ad <RabbitParseRequest+0x176>
 		strcpy(reqdata->path, "/index.html");
-    5692:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5696:	48 83 c0 10          	add    $0x10,%rax
-    569a:	48 b9 2f 69 6e 64 65 	movabs $0x682e7865646e692f,%rcx
-    56a1:	78 2e 68 
-    56a4:	48 89 08             	mov    %rcx,(%rax)
-    56a7:	c7 40 08 74 6d 6c 00 	movl   $0x6c6d74,0x8(%rax)
+    5691:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5695:	48 83 c0 10          	add    $0x10,%rax
+    5699:	48 b9 2f 69 6e 64 65 	movabs $0x682e7865646e692f,%rcx
+    56a0:	78 2e 68 
+    56a3:	48 89 08             	mov    %rcx,(%rax)
+    56a6:	c7 40 08 74 6d 6c 00 	movl   $0x6c6d74,0x8(%rax)
 	if (!strcmp(reqdata->path, "/")) {
 		strcpy(reqdata->path, "/index.php");
 	}
 #endif
 	/* Verify client is using HTTP 1.0 or HTTP 1.1 Protocol and using verb GET, POST, PUT, PATCH, DELETE, OPTIONS, or HEAD*/
 	if (!(startswith(reqdata->protocol, "HTTP/1.0") ||
-    56ae:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    56b2:	48 8d 35 e1 21 00 00 	lea    0x21e1(%rip),%rsi        # 789a <__func__.4838+0x14a>
-    56b9:	48 89 c7             	mov    %rax,%rdi
-    56bc:	e8 a1 fb ff ff       	callq  5262 <startswith>
-    56c1:	85 c0                	test   %eax,%eax
-    56c3:	75 58                	jne    571d <RabbitParseRequest+0x1e5>
+    56ad:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    56b1:	48 8d 35 c9 21 00 00 	lea    0x21c9(%rip),%rsi        # 7881 <__func__.4838+0x131>
+    56b8:	48 89 c7             	mov    %rax,%rdi
+    56bb:	e8 a1 fb ff ff       	callq  5261 <startswith>
+    56c0:	85 c0                	test   %eax,%eax
+    56c2:	75 58                	jne    571c <RabbitParseRequest+0x1e5>
 		  startswith(reqdata->protocol, "HTTP/1.1"))) {
-    56c5:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    56c9:	48 8d 35 d3 21 00 00 	lea    0x21d3(%rip),%rsi        # 78a3 <__func__.4838+0x153>
-    56d0:	48 89 c7             	mov    %rax,%rdi
-    56d3:	e8 8a fb ff ff       	callq  5262 <startswith>
+    56c4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    56c8:	48 8d 35 bb 21 00 00 	lea    0x21bb(%rip),%rsi        # 788a <__func__.4838+0x13a>
+    56cf:	48 89 c7             	mov    %rax,%rdi
+    56d2:	e8 8a fb ff ff       	callq  5261 <startswith>
 	if (!(startswith(reqdata->protocol, "HTTP/1.0") ||
-    56d8:	85 c0                	test   %eax,%eax
-    56da:	75 41                	jne    571d <RabbitParseRequest+0x1e5>
+    56d7:	85 c0                	test   %eax,%eax
+    56d9:	75 41                	jne    571c <RabbitParseRequest+0x1e5>
 		errno=2; printf("(%s) (%s) (%s) (%s)", line,
-    56dc:	e8 1f dd ff ff       	callq  3400 <__errno_location@plt>
-    56e1:	c7 00 02 00 00 00    	movl   $0x2,(%rax)
+    56db:	e8 20 dd ff ff       	callq  3400 <__errno_location@plt>
+    56e0:	c7 00 02 00 00 00    	movl   $0x2,(%rax)
 				reqdata->rverb, reqdata->path, reqdata->protocol); return 0;
-    56e7:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
-    56eb:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    56ef:	48 8d 48 10          	lea    0x10(%rax),%rcx
-    56f3:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    56f7:	48 8d 50 08          	lea    0x8(%rax),%rdx
+    56e6:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+    56ea:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    56ee:	48 8d 48 10          	lea    0x10(%rax),%rcx
+    56f2:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    56f6:	48 8d 50 08          	lea    0x8(%rax),%rdx
 		errno=2; printf("(%s) (%s) (%s) (%s)", line,
-    56fb:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    56ff:	49 89 f0             	mov    %rsi,%r8
-    5702:	48 89 c6             	mov    %rax,%rsi
-    5705:	48 8d 3d a0 21 00 00 	lea    0x21a0(%rip),%rdi        # 78ac <__func__.4838+0x15c>
-    570c:	b8 00 00 00 00       	mov    $0x0,%eax
-    5711:	e8 fa dd ff ff       	callq  3510 <printf@plt>
+    56fa:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    56fe:	49 89 f0             	mov    %rsi,%r8
+    5701:	48 89 c6             	mov    %rax,%rsi
+    5704:	48 8d 3d 88 21 00 00 	lea    0x2188(%rip),%rdi        # 7893 <__func__.4838+0x143>
+    570b:	b8 00 00 00 00       	mov    $0x0,%eax
+    5710:	e8 fb dd ff ff       	callq  3510 <printf@plt>
 				reqdata->rverb, reqdata->path, reqdata->protocol); return 0;
-    5716:	b8 00 00 00 00       	mov    $0x0,%eax
-    571b:	eb 62                	jmp    577f <RabbitParseRequest+0x247>
+    5715:	b8 00 00 00 00       	mov    $0x0,%eax
+    571a:	eb 62                	jmp    577e <RabbitParseRequest+0x247>
 	} else if ((reqdata->verb = needle(reqdata->rverb, verbs, 7)) < 0) {
-    571d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5721:	48 83 c0 08          	add    $0x8,%rax
-    5725:	ba 07 00 00 00       	mov    $0x7,%edx
-    572a:	48 8d 35 ef 48 00 00 	lea    0x48ef(%rip),%rsi        # a020 <verbs>
-    5731:	48 89 c7             	mov    %rax,%rdi
-    5734:	e8 b5 f9 ff ff       	callq  50ee <needle>
-    5739:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
-    573d:	89 82 20 20 00 00    	mov    %eax,0x2020(%rdx)
-    5743:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5747:	8b 80 20 20 00 00    	mov    0x2020(%rax),%eax
-    574d:	85 c0                	test   %eax,%eax
-    574f:	79 12                	jns    5763 <RabbitParseRequest+0x22b>
+    571c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5720:	48 83 c0 08          	add    $0x8,%rax
+    5724:	ba 07 00 00 00       	mov    $0x7,%edx
+    5729:	48 8d 35 f0 48 00 00 	lea    0x48f0(%rip),%rsi        # a020 <verbs>
+    5730:	48 89 c7             	mov    %rax,%rdi
+    5733:	e8 b5 f9 ff ff       	callq  50ed <needle>
+    5738:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+    573c:	89 82 20 20 00 00    	mov    %eax,0x2020(%rdx)
+    5742:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5746:	8b 80 20 20 00 00    	mov    0x2020(%rax),%eax
+    574c:	85 c0                	test   %eax,%eax
+    574e:	79 12                	jns    5762 <RabbitParseRequest+0x22b>
 		/* Using invalid verb */
 		errno=3; return 0;
-    5751:	e8 aa dc ff ff       	callq  3400 <__errno_location@plt>
-    5756:	c7 00 03 00 00 00    	movl   $0x3,(%rax)
-    575c:	b8 00 00 00 00       	mov    $0x0,%eax
-    5761:	eb 1c                	jmp    577f <RabbitParseRequest+0x247>
+    5750:	e8 ab dc ff ff       	callq  3400 <__errno_location@plt>
+    5755:	c7 00 03 00 00 00    	movl   $0x3,(%rax)
+    575b:	b8 00 00 00 00       	mov    $0x0,%eax
+    5760:	eb 1c                	jmp    577e <RabbitParseRequest+0x247>
 	}
 	if (!reqdata) printf("þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ");
-    5763:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
-    5768:	75 11                	jne    577b <RabbitParseRequest+0x243>
-    576a:	48 8d 3d 4f 21 00 00 	lea    0x214f(%rip),%rdi        # 78c0 <__func__.4838+0x170>
-    5771:	b8 00 00 00 00       	mov    $0x0,%eax
-    5776:	e8 95 dd ff ff       	callq  3510 <printf@plt>
+    5762:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+    5767:	75 11                	jne    577a <RabbitParseRequest+0x243>
+    5769:	48 8d 3d 38 21 00 00 	lea    0x2138(%rip),%rdi        # 78a8 <__func__.4838+0x158>
+    5770:	b8 00 00 00 00       	mov    $0x0,%eax
+    5775:	e8 96 dd ff ff       	callq  3510 <printf@plt>
 	return reqdata;
-    577b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    577a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
 }
-    577f:	c9                   	leaveq 
-    5780:	c3                   	retq   
+    577e:	c9                   	leaveq 
+    577f:	c3                   	retq   
 
-0000000000005781 <RabbitInit>:
+0000000000005780 <RabbitInit>:
 
 //Returns a socket fd
 int RabbitInit(unsigned short port) {
-    5781:	f3 0f 1e fa          	endbr64 
-    5785:	55                   	push   %rbp
-    5786:	48 89 e5             	mov    %rsp,%rbp
-    5789:	48 83 ec 40          	sub    $0x40,%rsp
-    578d:	89 f8                	mov    %edi,%eax
-    578f:	66 89 45 cc          	mov    %ax,-0x34(%rbp)
-    5793:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    579a:	00 00 
-    579c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-    57a0:	31 c0                	xor    %eax,%eax
+    5780:	f3 0f 1e fa          	endbr64 
+    5784:	55                   	push   %rbp
+    5785:	48 89 e5             	mov    %rsp,%rbp
+    5788:	48 83 ec 40          	sub    $0x40,%rsp
+    578c:	89 f8                	mov    %edi,%eax
+    578e:	66 89 45 cc          	mov    %ax,-0x34(%rbp)
+    5792:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    5799:	00 00 
+    579b:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    579f:	31 c0                	xor    %eax,%eax
 	
 	int sock;
 	struct sockaddr_in addr = {
-    57a2:	48 c7 45 e0 00 00 00 	movq   $0x0,-0x20(%rbp)
-    57a9:	00 
-    57aa:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
-    57b1:	00 
-    57b2:	66 c7 45 e0 02 00    	movw   $0x2,-0x20(%rbp)
+    57a1:	48 c7 45 e0 00 00 00 	movq   $0x0,-0x20(%rbp)
+    57a8:	00 
+    57a9:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
+    57b0:	00 
+    57b1:	66 c7 45 e0 02 00    	movw   $0x2,-0x20(%rbp)
 		AF_INET,
 		htons(port),
-    57b8:	0f b7 45 cc          	movzwl -0x34(%rbp),%eax
-    57bc:	89 c7                	mov    %eax,%edi
-    57be:	e8 3d dd ff ff       	callq  3500 <htons@plt>
+    57b7:	0f b7 45 cc          	movzwl -0x34(%rbp),%eax
+    57bb:	89 c7                	mov    %eax,%edi
+    57bd:	e8 3e dd ff ff       	callq  3500 <htons@plt>
 	struct sockaddr_in addr = {
-    57c3:	66 89 45 e2          	mov    %ax,-0x1e(%rbp)
+    57c2:	66 89 45 e2          	mov    %ax,-0x1e(%rbp)
 		0
 	};
 	
 	printf("Creating socket... ");
-    57c7:	48 8d 3d 51 21 00 00 	lea    0x2151(%rip),%rdi        # 791f <__func__.4838+0x1cf>
-    57ce:	b8 00 00 00 00       	mov    $0x0,%eax
-    57d3:	e8 38 dd ff ff       	callq  3510 <printf@plt>
+    57c6:	48 8d 3d 3a 21 00 00 	lea    0x213a(%rip),%rdi        # 7907 <__func__.4838+0x1b7>
+    57cd:	b8 00 00 00 00       	mov    $0x0,%eax
+    57d2:	e8 39 dd ff ff       	callq  3510 <printf@plt>
 	sock = socket(AF_INET, SOCK_STREAM, 0);
-    57d8:	ba 00 00 00 00       	mov    $0x0,%edx
-    57dd:	be 01 00 00 00       	mov    $0x1,%esi
-    57e2:	bf 02 00 00 00       	mov    $0x2,%edi
-    57e7:	e8 64 df ff ff       	callq  3750 <socket@plt>
-    57ec:	89 45 dc             	mov    %eax,-0x24(%rbp)
+    57d7:	ba 00 00 00 00       	mov    $0x0,%edx
+    57dc:	be 01 00 00 00       	mov    $0x1,%esi
+    57e1:	bf 02 00 00 00       	mov    $0x2,%edi
+    57e6:	e8 65 df ff ff       	callq  3750 <socket@plt>
+    57eb:	89 45 dc             	mov    %eax,-0x24(%rbp)
 	
 	printf("OK\nBinding... ");
-    57ef:	48 8d 3d 3d 21 00 00 	lea    0x213d(%rip),%rdi        # 7933 <__func__.4838+0x1e3>
-    57f6:	b8 00 00 00 00       	mov    $0x0,%eax
-    57fb:	e8 10 dd ff ff       	callq  3510 <printf@plt>
+    57ee:	48 8d 3d 26 21 00 00 	lea    0x2126(%rip),%rdi        # 791b <__func__.4838+0x1cb>
+    57f5:	b8 00 00 00 00       	mov    $0x0,%eax
+    57fa:	e8 11 dd ff ff       	callq  3510 <printf@plt>
 	if (bind(sock, &addr, sizeof(addr))) {
-    5800:	48 8d 4d e0          	lea    -0x20(%rbp),%rcx
-    5804:	8b 45 dc             	mov    -0x24(%rbp),%eax
-    5807:	ba 10 00 00 00       	mov    $0x10,%edx
-    580c:	48 89 ce             	mov    %rcx,%rsi
-    580f:	89 c7                	mov    %eax,%edi
-    5811:	e8 7a de ff ff       	callq  3690 <bind@plt>
-    5816:	85 c0                	test   %eax,%eax
-    5818:	74 24                	je     583e <RabbitInit+0xbd>
+    57ff:	48 8d 4d e0          	lea    -0x20(%rbp),%rcx
+    5803:	8b 45 dc             	mov    -0x24(%rbp),%eax
+    5806:	ba 10 00 00 00       	mov    $0x10,%edx
+    580b:	48 89 ce             	mov    %rcx,%rsi
+    580e:	89 c7                	mov    %eax,%edi
+    5810:	e8 7b de ff ff       	callq  3690 <bind@plt>
+    5815:	85 c0                	test   %eax,%eax
+    5817:	74 24                	je     583d <RabbitInit+0xbd>
 		printf("can't bind :( (error %d)\n", errno);
-    581a:	e8 e1 db ff ff       	callq  3400 <__errno_location@plt>
-    581f:	8b 00                	mov    (%rax),%eax
-    5821:	89 c6                	mov    %eax,%esi
-    5823:	48 8d 3d 18 21 00 00 	lea    0x2118(%rip),%rdi        # 7942 <__func__.4838+0x1f2>
-    582a:	b8 00 00 00 00       	mov    $0x0,%eax
-    582f:	e8 dc dc ff ff       	callq  3510 <printf@plt>
+    5819:	e8 e2 db ff ff       	callq  3400 <__errno_location@plt>
+    581e:	8b 00                	mov    (%rax),%eax
+    5820:	89 c6                	mov    %eax,%esi
+    5822:	48 8d 3d 01 21 00 00 	lea    0x2101(%rip),%rdi        # 792a <__func__.4838+0x1da>
+    5829:	b8 00 00 00 00       	mov    $0x0,%eax
+    582e:	e8 dd dc ff ff       	callq  3510 <printf@plt>
 		exit(127);
-    5834:	bf 7f 00 00 00       	mov    $0x7f,%edi
-    5839:	e8 e2 de ff ff       	callq  3720 <exit@plt>
+    5833:	bf 7f 00 00 00       	mov    $0x7f,%edi
+    5838:	e8 e3 de ff ff       	callq  3720 <exit@plt>
 	}
 	
 	int t = 1;
-    583e:	c7 45 d8 01 00 00 00 	movl   $0x1,-0x28(%rbp)
+    583d:	c7 45 d8 01 00 00 00 	movl   $0x1,-0x28(%rbp)
 										
 	if (!setsockopt(sock, IPPROTO_TCP, SO_REUSEPORT, &t, sizeof(int))) {
-    5845:	48 8d 55 d8          	lea    -0x28(%rbp),%rdx
-    5849:	8b 45 dc             	mov    -0x24(%rbp),%eax
-    584c:	41 b8 04 00 00 00    	mov    $0x4,%r8d
-    5852:	48 89 d1             	mov    %rdx,%rcx
-    5855:	ba 0f 00 00 00       	mov    $0xf,%edx
-    585a:	be 06 00 00 00       	mov    $0x6,%esi
-    585f:	89 c7                	mov    %eax,%edi
-    5861:	e8 fa db ff ff       	callq  3460 <setsockopt@plt>
-    5866:	85 c0                	test   %eax,%eax
-    5868:	75 24                	jne    588e <RabbitInit+0x10d>
+    5844:	48 8d 55 d8          	lea    -0x28(%rbp),%rdx
+    5848:	8b 45 dc             	mov    -0x24(%rbp),%eax
+    584b:	41 b8 04 00 00 00    	mov    $0x4,%r8d
+    5851:	48 89 d1             	mov    %rdx,%rcx
+    5854:	ba 0f 00 00 00       	mov    $0xf,%edx
+    5859:	be 06 00 00 00       	mov    $0x6,%esi
+    585e:	89 c7                	mov    %eax,%edi
+    5860:	e8 fb db ff ff       	callq  3460 <setsockopt@plt>
+    5865:	85 c0                	test   %eax,%eax
+    5867:	75 24                	jne    588d <RabbitInit+0x10d>
 		printf("can't setsockopt :( (error %d)\n", errno);
-    586a:	e8 91 db ff ff       	callq  3400 <__errno_location@plt>
-    586f:	8b 00                	mov    (%rax),%eax
-    5871:	89 c6                	mov    %eax,%esi
-    5873:	48 8d 3d e6 20 00 00 	lea    0x20e6(%rip),%rdi        # 7960 <__func__.4838+0x210>
-    587a:	b8 00 00 00 00       	mov    $0x0,%eax
-    587f:	e8 8c dc ff ff       	callq  3510 <printf@plt>
+    5869:	e8 92 db ff ff       	callq  3400 <__errno_location@plt>
+    586e:	8b 00                	mov    (%rax),%eax
+    5870:	89 c6                	mov    %eax,%esi
+    5872:	48 8d 3d cf 20 00 00 	lea    0x20cf(%rip),%rdi        # 7948 <__func__.4838+0x1f8>
+    5879:	b8 00 00 00 00       	mov    $0x0,%eax
+    587e:	e8 8d dc ff ff       	callq  3510 <printf@plt>
 		exit(127);
-    5884:	bf 7f 00 00 00       	mov    $0x7f,%edi
-    5889:	e8 92 de ff ff       	callq  3720 <exit@plt>
+    5883:	bf 7f 00 00 00       	mov    $0x7f,%edi
+    5888:	e8 93 de ff ff       	callq  3720 <exit@plt>
 	}
 										
 	printf("OK\nListening... ");
-    588e:	48 8d 3d eb 20 00 00 	lea    0x20eb(%rip),%rdi        # 7980 <__func__.4838+0x230>
-    5895:	b8 00 00 00 00       	mov    $0x0,%eax
-    589a:	e8 71 dc ff ff       	callq  3510 <printf@plt>
+    588d:	48 8d 3d d4 20 00 00 	lea    0x20d4(%rip),%rdi        # 7968 <__func__.4838+0x218>
+    5894:	b8 00 00 00 00       	mov    $0x0,%eax
+    5899:	e8 72 dc ff ff       	callq  3510 <printf@plt>
 	if (listen(sock, 4096)) {
-    589f:	8b 45 dc             	mov    -0x24(%rbp),%eax
-    58a2:	be 00 10 00 00       	mov    $0x1000,%esi
-    58a7:	89 c7                	mov    %eax,%edi
-    58a9:	e8 b2 dd ff ff       	callq  3660 <listen@plt>
-    58ae:	85 c0                	test   %eax,%eax
-    58b0:	74 1a                	je     58cc <RabbitInit+0x14b>
+    589e:	8b 45 dc             	mov    -0x24(%rbp),%eax
+    58a1:	be 00 10 00 00       	mov    $0x1000,%esi
+    58a6:	89 c7                	mov    %eax,%edi
+    58a8:	e8 b3 dd ff ff       	callq  3660 <listen@plt>
+    58ad:	85 c0                	test   %eax,%eax
+    58af:	74 1a                	je     58cb <RabbitInit+0x14b>
 		printf("can't listen :( (error %d)\n", errno);
-    58b2:	e8 49 db ff ff       	callq  3400 <__errno_location@plt>
-    58b7:	8b 00                	mov    (%rax),%eax
-    58b9:	89 c6                	mov    %eax,%esi
-    58bb:	48 8d 3d cf 20 00 00 	lea    0x20cf(%rip),%rdi        # 7991 <__func__.4838+0x241>
-    58c2:	b8 00 00 00 00       	mov    $0x0,%eax
-    58c7:	e8 44 dc ff ff       	callq  3510 <printf@plt>
+    58b1:	e8 4a db ff ff       	callq  3400 <__errno_location@plt>
+    58b6:	8b 00                	mov    (%rax),%eax
+    58b8:	89 c6                	mov    %eax,%esi
+    58ba:	48 8d 3d b8 20 00 00 	lea    0x20b8(%rip),%rdi        # 7979 <__func__.4838+0x229>
+    58c1:	b8 00 00 00 00       	mov    $0x0,%eax
+    58c6:	e8 45 dc ff ff       	callq  3510 <printf@plt>
 	}
 	
 	printf("OK\n\n");
-    58cc:	48 8d 3d da 20 00 00 	lea    0x20da(%rip),%rdi        # 79ad <__func__.4838+0x25d>
-    58d3:	e8 68 db ff ff       	callq  3440 <puts@plt>
+    58cb:	48 8d 3d c3 20 00 00 	lea    0x20c3(%rip),%rdi        # 7995 <__func__.4838+0x245>
+    58d2:	e8 69 db ff ff       	callq  3440 <puts@plt>
 	return sock;
-    58d8:	8b 45 dc             	mov    -0x24(%rbp),%eax
+    58d7:	8b 45 dc             	mov    -0x24(%rbp),%eax
 }
-    58db:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
-    58df:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
-    58e6:	00 00 
-    58e8:	74 05                	je     58ef <RabbitInit+0x16e>
-    58ea:	e8 f1 db ff ff       	callq  34e0 <__stack_chk_fail@plt>
-    58ef:	c9                   	leaveq 
-    58f0:	c3                   	retq   
+    58da:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    58de:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    58e5:	00 00 
+    58e7:	74 05                	je     58ee <RabbitInit+0x16e>
+    58e9:	e8 f2 db ff ff       	callq  34e0 <__stack_chk_fail@plt>
+    58ee:	c9                   	leaveq 
+    58ef:	c3                   	retq   
 
-00000000000058f1 <RabbitLoadFile>:
+00000000000058f0 <RabbitLoadFile>:
 
-loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
-    58f1:	f3 0f 1e fa          	endbr64 
-    58f5:	55                   	push   %rbp
-    58f6:	48 89 e5             	mov    %rsp,%rbp
-    58f9:	53                   	push   %rbx
-    58fa:	48 83 ec 48          	sub    $0x48,%rsp
-    58fe:	48 89 7d c8          	mov    %rdi,-0x38(%rbp)
-    5902:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
-    5906:	89 55 bc             	mov    %edx,-0x44(%rbp)
+loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath) {
+    58f0:	f3 0f 1e fa          	endbr64 
+    58f4:	55                   	push   %rbp
+    58f5:	48 89 e5             	mov    %rsp,%rbp
+    58f8:	53                   	push   %rbx
+    58f9:	48 83 ec 38          	sub    $0x38,%rsp
+    58fd:	48 89 7d c8          	mov    %rdi,-0x38(%rbp)
+    5901:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
 	if (!pubpath) {errno=EINVAL; return (loadFile_returnData){0};};
-    5909:	48 83 7d c8 00       	cmpq   $0x0,-0x38(%rbp)
-    590e:	75 1a                	jne    592a <RabbitLoadFile+0x39>
-    5910:	e8 eb da ff ff       	callq  3400 <__errno_location@plt>
-    5915:	c7 00 16 00 00 00    	movl   $0x16,(%rax)
-    591b:	b8 00 00 00 00       	mov    $0x0,%eax
-    5920:	ba 00 00 00 00       	mov    $0x0,%edx
-    5925:	e9 aa 01 00 00       	jmpq   5ad4 <RabbitLoadFile+0x1e3>
+    5905:	48 83 7d c8 00       	cmpq   $0x0,-0x38(%rbp)
+    590a:	75 1a                	jne    5926 <RabbitLoadFile+0x36>
+    590c:	e8 ef da ff ff       	callq  3400 <__errno_location@plt>
+    5911:	c7 00 16 00 00 00    	movl   $0x16,(%rax)
+    5917:	b8 00 00 00 00       	mov    $0x0,%eax
+    591c:	ba 00 00 00 00       	mov    $0x0,%edx
+    5921:	e9 ae 01 00 00       	jmpq   5ad4 <RabbitLoadFile+0x1e4>
 
 	FILE *pubfile;
 	FILE *cachefile;
 
 #ifndef DISABLE_CACHE
 	if (!exists(cachepath)) {
-    592a:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
-    592e:	48 89 c7             	mov    %rax,%rdi
-    5931:	e8 10 fb ff ff       	callq  5446 <exists>
-    5936:	83 f0 01             	xor    $0x1,%eax
-    5939:	84 c0                	test   %al,%al
-    593b:	0f 84 ff 00 00 00    	je     5a40 <RabbitLoadFile+0x14f>
+    5926:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+    592a:	48 89 c7             	mov    %rax,%rdi
+    592d:	e8 13 fb ff ff       	callq  5445 <exists>
+    5932:	83 f0 01             	xor    $0x1,%eax
+    5935:	84 c0                	test   %al,%al
+    5937:	0f 84 03 01 00 00    	je     5a40 <RabbitLoadFile+0x150>
 #else
 	if (true) {
 #endif
 		//If cached file doesn't exist, cache file
 		pubfile = fopen(pubpath, "r");
-    5941:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
-    5945:	48 8d 35 3e 1f 00 00 	lea    0x1f3e(%rip),%rsi        # 788a <__func__.4838+0x13a>
-    594c:	48 89 c7             	mov    %rax,%rdi
-    594f:	e8 5c dd ff ff       	callq  36b0 <fopen@plt>
-    5954:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+    593d:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+    5941:	48 8d 35 29 1f 00 00 	lea    0x1f29(%rip),%rsi        # 7871 <__func__.4838+0x121>
+    5948:	48 89 c7             	mov    %rax,%rdi
+    594b:	e8 60 dd ff ff       	callq  36b0 <fopen@plt>
+    5950:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
 		cachefile = fopen(cachepath, "w");
-    5958:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
-    595c:	48 8d 35 4e 20 00 00 	lea    0x204e(%rip),%rsi        # 79b1 <__func__.4838+0x261>
-    5963:	48 89 c7             	mov    %rax,%rdi
-    5966:	e8 45 dd ff ff       	callq  36b0 <fopen@plt>
-    596b:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+    5954:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+    5958:	48 8d 35 3a 20 00 00 	lea    0x203a(%rip),%rsi        # 7999 <__func__.4838+0x249>
+    595f:	48 89 c7             	mov    %rax,%rdi
+    5962:	e8 49 dd ff ff       	callq  36b0 <fopen@plt>
+    5967:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
 		if (!cachefile) {
-    596f:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
-    5974:	75 29                	jne    599f <RabbitLoadFile+0xae>
-			printf("can't open file %s :( (Error %d)\n", cachepath, errno);
-    5976:	e8 85 da ff ff       	callq  3400 <__errno_location@plt>
-    597b:	8b 10                	mov    (%rax),%edx
-    597d:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
-    5981:	48 89 c6             	mov    %rax,%rsi
-    5984:	48 8d 3d 2d 20 00 00 	lea    0x202d(%rip),%rdi        # 79b8 <__func__.4838+0x268>
-    598b:	b8 00 00 00 00       	mov    $0x0,%eax
-    5990:	e8 7b db ff ff       	callq  3510 <printf@plt>
-			exit(1);
-    5995:	bf 01 00 00 00       	mov    $0x1,%edi
-    599a:	e8 81 dd ff ff       	callq  3720 <exit@plt>
+    596b:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+    5970:	75 2d                	jne    599f <RabbitLoadFile+0xaf>
+			printf("E%d %s ", errno, cachepath);
+    5972:	e8 89 da ff ff       	callq  3400 <__errno_location@plt>
+    5977:	8b 00                	mov    (%rax),%eax
+    5979:	48 8b 55 c0          	mov    -0x40(%rbp),%rdx
+    597d:	89 c6                	mov    %eax,%esi
+    597f:	48 8d 3d 15 20 00 00 	lea    0x2015(%rip),%rdi        # 799b <__func__.4838+0x24b>
+    5986:	b8 00 00 00 00       	mov    $0x0,%eax
+    598b:	e8 80 db ff ff       	callq  3510 <printf@plt>
+			return (loadFile_returnData){0};
+    5990:	b8 00 00 00 00       	mov    $0x0,%eax
+    5995:	ba 00 00 00 00       	mov    $0x0,%edx
+    599a:	e9 35 01 00 00       	jmpq   5ad4 <RabbitLoadFile+0x1e4>
 		}
 
 		data.datalen = filesize(pubfile);
@@ -2945,9 +2946,9 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
 		if (!data.data) {
     59c4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
     59c8:	48 85 c0             	test   %rax,%rax
-    59cb:	75 16                	jne    59e3 <RabbitLoadFile+0xf2>
+    59cb:	75 16                	jne    59e3 <RabbitLoadFile+0xf3>
 			perror("malloc");
-    59cd:	48 8d 3d b8 1e 00 00 	lea    0x1eb8(%rip),%rdi        # 788c <__func__.4838+0x13c>
+    59cd:	48 8d 3d 9f 1e 00 00 	lea    0x1e9f(%rip),%rdi        # 7873 <__func__.4838+0x123>
     59d4:	e8 e7 dc ff ff       	callq  36c0 <perror@plt>
 			exit(1);
     59d9:	bf 01 00 00 00       	mov    $0x1,%edi
@@ -2982,11 +2983,11 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
 		putchar('N');
     5a31:	bf 4e 00 00 00       	mov    $0x4e,%edi
     5a36:	e8 b5 d9 ff ff       	callq  33f0 <putchar@plt>
-    5a3b:	e9 8c 00 00 00       	jmpq   5acc <RabbitLoadFile+0x1db>
+    5a3b:	e9 8c 00 00 00       	jmpq   5acc <RabbitLoadFile+0x1dc>
 	} else {
 		cachefile = fopen(cachepath, "r");
     5a40:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
-    5a44:	48 8d 35 3f 1e 00 00 	lea    0x1e3f(%rip),%rsi        # 788a <__func__.4838+0x13a>
+    5a44:	48 8d 35 26 1e 00 00 	lea    0x1e26(%rip),%rsi        # 7871 <__func__.4838+0x121>
     5a4b:	48 89 c7             	mov    %rax,%rdi
     5a4e:	e8 5d dc ff ff       	callq  36b0 <fopen@plt>
     5a53:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
@@ -3006,9 +3007,9 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
 		if (!data.data) {
     5a7c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
     5a80:	48 85 c0             	test   %rax,%rax
-    5a83:	75 16                	jne    5a9b <RabbitLoadFile+0x1aa>
+    5a83:	75 16                	jne    5a9b <RabbitLoadFile+0x1ab>
 			perror("malloc");
-    5a85:	48 8d 3d 00 1e 00 00 	lea    0x1e00(%rip),%rdi        # 788c <__func__.4838+0x13c>
+    5a85:	48 8d 3d e7 1d 00 00 	lea    0x1de7(%rip),%rdi        # 7873 <__func__.4838+0x123>
     5a8c:	e8 2f dc ff ff       	callq  36c0 <perror@plt>
 			exit(1);
     5a91:	bf 01 00 00 00       	mov    $0x1,%edi
@@ -3035,815 +3036,893 @@ loadFile_returnData RabbitLoadFile(char *pubpath, char *cachepath, int csock) {
     5acc:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
     5ad0:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
 }
-    5ad4:	48 83 c4 48          	add    $0x48,%rsp
+    5ad4:	48 83 c4 38          	add    $0x38,%rsp
     5ad8:	5b                   	pop    %rbx
     5ad9:	5d                   	pop    %rbp
     5ada:	c3                   	retq   
 
 0000000000005adb <RabbitErrorHandler>:
 
-void RabbitErrorHandler(int status, char *response, RequestData reqdata) {;
+void RabbitErrorHandler(int status, char *response, RequestData reqdata, char *rootpath) {;
     5adb:	f3 0f 1e fa          	endbr64 
     5adf:	55                   	push   %rbp
     5ae0:	48 89 e5             	mov    %rsp,%rbp
-    5ae3:	48 83 ec 10          	sub    $0x10,%rsp
-    5ae7:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    5aea:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
-	sprintf(response, "HTTP/1.0 %d %s", status, httpcodes[status]);
-    5aee:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5af1:	48 98                	cltq   
-    5af3:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
-    5afa:	00 
-    5afb:	48 8d 05 5e 45 00 00 	lea    0x455e(%rip),%rax        # a060 <httpcodes>
-    5b02:	48 8b 0c 02          	mov    (%rdx,%rax,1),%rcx
-    5b06:	8b 55 fc             	mov    -0x4(%rbp),%edx
-    5b09:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-    5b0d:	48 8d 35 c6 1e 00 00 	lea    0x1ec6(%rip),%rsi        # 79da <__func__.4838+0x28a>
-    5b14:	48 89 c7             	mov    %rax,%rdi
-    5b17:	b8 00 00 00 00       	mov    $0x0,%eax
-    5b1c:	e8 ef db ff ff       	callq  3710 <sprintf@plt>
-	switch (status) {
+    5ae3:	48 83 ec 50          	sub    $0x50,%rsp
+    5ae7:	89 7d cc             	mov    %edi,-0x34(%rbp)
+    5aea:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
+    5aee:	48 89 55 b8          	mov    %rdx,-0x48(%rbp)
+	sprintf(response, "HTTP/1.0 %d %s\nServer: Rabbit/"RABBIT_VERS"\r\n\r\n", status, httpcodes[status]);
+    5af2:	8b 45 cc             	mov    -0x34(%rbp),%eax
+    5af5:	48 98                	cltq   
+    5af7:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+    5afe:	00 
+    5aff:	48 8d 05 5a 45 00 00 	lea    0x455a(%rip),%rax        # a060 <httpcodes>
+    5b06:	48 8b 0c 02          	mov    (%rdx,%rax,1),%rcx
+    5b0a:	8b 55 cc             	mov    -0x34(%rbp),%edx
+    5b0d:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+    5b11:	48 8d 35 90 1e 00 00 	lea    0x1e90(%rip),%rsi        # 79a8 <__func__.4838+0x258>
+    5b18:	48 89 c7             	mov    %rax,%rdi
+    5b1b:	b8 00 00 00 00       	mov    $0x0,%eax
+    5b20:	e8 eb db ff ff       	callq  3710 <sprintf@plt>
+	char *filename = malloc(9); //<status>.html
+    5b25:	bf 09 00 00 00       	mov    $0x9,%edi
+    5b2a:	e8 11 db ff ff       	callq  3640 <malloc@plt>
+    5b2f:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+	sprintf(filename, "%03d.html", status);
+    5b33:	8b 55 cc             	mov    -0x34(%rbp),%edx
+    5b36:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    5b3a:	48 8d 35 94 1e 00 00 	lea    0x1e94(%rip),%rsi        # 79d5 <__func__.4838+0x285>
+    5b41:	48 89 c7             	mov    %rax,%rdi
+    5b44:	b8 00 00 00 00       	mov    $0x0,%eax
+    5b49:	e8 c2 db ff ff       	callq  3710 <sprintf@plt>
 
+	void *tmp1, *tmp2;
+
+	loadFile_returnData data = RabbitLoadFile(tmp1 = combine(rootpath, "/public/404.html"), tmp2 = combine(rootpath, "/public/404.html"));
+    5b4e:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    5b52:	48 8d 35 86 1e 00 00 	lea    0x1e86(%rip),%rsi        # 79df <__func__.4838+0x28f>
+    5b59:	48 89 c7             	mov    %rax,%rdi
+    5b5c:	b8 00 00 00 00       	mov    $0x0,%eax
+    5b61:	e8 cf f7 ff ff       	callq  5335 <combine>
+    5b66:	48 98                	cltq   
+    5b68:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+    5b6c:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    5b70:	48 8d 35 68 1e 00 00 	lea    0x1e68(%rip),%rsi        # 79df <__func__.4838+0x28f>
+    5b77:	48 89 c7             	mov    %rax,%rdi
+    5b7a:	b8 00 00 00 00       	mov    $0x0,%eax
+    5b7f:	e8 b1 f7 ff ff       	callq  5335 <combine>
+    5b84:	48 98                	cltq   
+    5b86:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    5b8a:	48 8b 55 e0          	mov    -0x20(%rbp),%rdx
+    5b8e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5b92:	48 89 d6             	mov    %rdx,%rsi
+    5b95:	48 89 c7             	mov    %rax,%rdi
+    5b98:	e8 53 fd ff ff       	callq  58f0 <RabbitLoadFile>
+    5b9d:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+    5ba1:	48 89 55 f8          	mov    %rdx,-0x8(%rbp)
+	if (errno) {
+    5ba5:	e8 56 d8 ff ff       	callq  3400 <__errno_location@plt>
+    5baa:	8b 00                	mov    (%rax),%eax
+    5bac:	85 c0                	test   %eax,%eax
+    5bae:	74 20                	je     5bd0 <RabbitErrorHandler+0xf5>
+		printf("E%d %s ", errno, reqdata.path);
+    5bb0:	e8 4b d8 ff ff       	callq  3400 <__errno_location@plt>
+    5bb5:	8b 00                	mov    (%rax),%eax
+    5bb7:	48 8d 55 20          	lea    0x20(%rbp),%rdx
+    5bbb:	89 c6                	mov    %eax,%esi
+    5bbd:	48 8d 3d d7 1d 00 00 	lea    0x1dd7(%rip),%rdi        # 799b <__func__.4838+0x24b>
+    5bc4:	b8 00 00 00 00       	mov    $0x0,%eax
+    5bc9:	e8 42 d9 ff ff       	callq  3510 <printf@plt>
+    5bce:	eb 18                	jmp    5be8 <RabbitErrorHandler+0x10d>
+		return (loadFile_returnData){0};
 	}
-}
-    5b21:	90                   	nop
-    5b22:	c9                   	leaveq 
-    5b23:	c3                   	retq   
 
-0000000000005b24 <RabbitCallPHP>:
+	free(tmp1);
+    5bd0:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5bd4:	48 89 c7             	mov    %rax,%rdi
+    5bd7:	e8 04 d8 ff ff       	callq  33e0 <free@plt>
+	free(tmp2);
+    5bdc:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5be0:	48 89 c7             	mov    %rax,%rdi
+    5be3:	e8 f8 d7 ff ff       	callq  33e0 <free@plt>
+}
+    5be8:	c9                   	leaveq 
+    5be9:	c3                   	retq   
+
+0000000000005bea <RabbitCallPHP>:
 
 int RabbitCallPHP(char *source_path, char *output_path, RequestData data, loadFile_returnData *output) {
-    5b24:	f3 0f 1e fa          	endbr64 
-    5b28:	55                   	push   %rbp
-    5b29:	48 89 e5             	mov    %rsp,%rbp
-    5b2c:	53                   	push   %rbx
-    5b2d:	48 83 ec 58          	sub    $0x58,%rsp
-    5b31:	48 89 7d b8          	mov    %rdi,-0x48(%rbp)
-    5b35:	48 89 75 b0          	mov    %rsi,-0x50(%rbp)
-    5b39:	48 89 55 a8          	mov    %rdx,-0x58(%rbp)
+    5bea:	f3 0f 1e fa          	endbr64 
+    5bee:	55                   	push   %rbp
+    5bef:	48 89 e5             	mov    %rsp,%rbp
+    5bf2:	53                   	push   %rbx
+    5bf3:	48 83 ec 58          	sub    $0x58,%rsp
+    5bf7:	48 89 7d b8          	mov    %rdi,-0x48(%rbp)
+    5bfb:	48 89 75 b0          	mov    %rsi,-0x50(%rbp)
+    5bff:	48 89 55 a8          	mov    %rdx,-0x58(%rbp)
 	char *php_argv_s = "";
-    5b3d:	48 8d 05 a5 1e 00 00 	lea    0x1ea5(%rip),%rax        # 79e9 <__func__.4838+0x299>
-    5b44:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+    5c03:	48 8d 05 e6 1d 00 00 	lea    0x1de6(%rip),%rax        # 79f0 <__func__.4838+0x2a0>
+    5c0a:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
 
 	//"php ø ø > ø"
 	//4+1+3+1 = 9
 	//9+strlen(source_path)+strlen(php_argv)+strlen(output_path)
 
 	putchar('P');
-    5b48:	bf 50 00 00 00       	mov    $0x50,%edi
-    5b4d:	e8 9e d8 ff ff       	callq  33f0 <putchar@plt>
+    5c0e:	bf 50 00 00 00       	mov    $0x50,%edi
+    5c13:	e8 d8 d7 ff ff       	callq  33f0 <putchar@plt>
 	php_argv_s = ntoken(data.path, "?", 1);
-    5b52:	48 8d 45 20          	lea    0x20(%rbp),%rax
-    5b56:	ba 01 00 00 00       	mov    $0x1,%edx
-    5b5b:	48 8d 35 88 1e 00 00 	lea    0x1e88(%rip),%rsi        # 79ea <__func__.4838+0x29a>
-    5b62:	48 89 c7             	mov    %rax,%rdi
-    5b65:	e8 40 f8 ff ff       	callq  53aa <ntoken>
-    5b6a:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+    5c18:	48 8d 45 20          	lea    0x20(%rbp),%rax
+    5c1c:	ba 01 00 00 00       	mov    $0x1,%edx
+    5c21:	48 8d 35 c9 1d 00 00 	lea    0x1dc9(%rip),%rsi        # 79f1 <__func__.4838+0x2a1>
+    5c28:	48 89 c7             	mov    %rax,%rdi
+    5c2b:	e8 79 f7 ff ff       	callq  53a9 <ntoken>
+    5c30:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+
+	if (!php_argv_s) {
+    5c34:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+    5c39:	75 10                	jne    5c4b <RabbitCallPHP+0x61>
+		php_argv = "";
+    5c3b:	48 8d 05 ae 1d 00 00 	lea    0x1dae(%rip),%rax        # 79f0 <__func__.4838+0x2a0>
+    5c42:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+		goto execphp;
+    5c46:	e9 ab 00 00 00       	jmpq   5cf6 <RabbitCallPHP+0x10c>
+	}
 
 	php_argv = malloc(strlen(php_argv_s)+1);
-    5b6e:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
-    5b72:	48 89 c7             	mov    %rax,%rdi
-    5b75:	e8 46 d9 ff ff       	callq  34c0 <strlen@plt>
-    5b7a:	48 83 c0 01          	add    $0x1,%rax
-    5b7e:	48 89 c7             	mov    %rax,%rdi
-    5b81:	e8 ba da ff ff       	callq  3640 <malloc@plt>
-    5b86:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+    5c4b:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    5c4f:	48 89 c7             	mov    %rax,%rdi
+    5c52:	e8 69 d8 ff ff       	callq  34c0 <strlen@plt>
+    5c57:	48 83 c0 01          	add    $0x1,%rax
+    5c5b:	48 89 c7             	mov    %rax,%rdi
+    5c5e:	e8 dd d9 ff ff       	callq  3640 <malloc@plt>
+    5c63:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
 	memset(php_argv, 0, strlen(php_argv_s)+1);
-    5b8a:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
-    5b8e:	48 89 c7             	mov    %rax,%rdi
-    5b91:	e8 2a d9 ff ff       	callq  34c0 <strlen@plt>
-    5b96:	48 8d 50 01          	lea    0x1(%rax),%rdx
-    5b9a:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-    5b9e:	be 00 00 00 00       	mov    $0x0,%esi
-    5ba3:	48 89 c7             	mov    %rax,%rdi
-    5ba6:	e8 a5 d9 ff ff       	callq  3550 <memset@plt>
+    5c67:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    5c6b:	48 89 c7             	mov    %rax,%rdi
+    5c6e:	e8 4d d8 ff ff       	callq  34c0 <strlen@plt>
+    5c73:	48 8d 50 01          	lea    0x1(%rax),%rdx
+    5c77:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+    5c7b:	be 00 00 00 00       	mov    $0x0,%esi
+    5c80:	48 89 c7             	mov    %rax,%rdi
+    5c83:	e8 c8 d8 ff ff       	callq  3550 <memset@plt>
 
-	if (!php_argv_s) goto execphp;
-    5bab:	48 83 7d c8 00       	cmpq   $0x0,-0x38(%rbp)
-    5bb0:	74 6f                	je     5c21 <RabbitCallPHP+0xfd>
 
 	for (int i=0; i<strlen(php_argv_s); i++) {
-    5bb2:	c7 45 c4 00 00 00 00 	movl   $0x0,-0x3c(%rbp)
-    5bb9:	eb 4d                	jmp    5c08 <RabbitCallPHP+0xe4>
+    5c88:	c7 45 c4 00 00 00 00 	movl   $0x0,-0x3c(%rbp)
+    5c8f:	eb 4d                	jmp    5cde <RabbitCallPHP+0xf4>
 		switch (php_argv_s[i]) {
-    5bbb:	8b 45 c4             	mov    -0x3c(%rbp),%eax
-    5bbe:	48 63 d0             	movslq %eax,%rdx
-    5bc1:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
-    5bc5:	48 01 d0             	add    %rdx,%rax
-    5bc8:	0f b6 00             	movzbl (%rax),%eax
-    5bcb:	0f be c0             	movsbl %al,%eax
-    5bce:	83 f8 26             	cmp    $0x26,%eax
-    5bd1:	75 12                	jne    5be5 <RabbitCallPHP+0xc1>
+    5c91:	8b 45 c4             	mov    -0x3c(%rbp),%eax
+    5c94:	48 63 d0             	movslq %eax,%rdx
+    5c97:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    5c9b:	48 01 d0             	add    %rdx,%rax
+    5c9e:	0f b6 00             	movzbl (%rax),%eax
+    5ca1:	0f be c0             	movsbl %al,%eax
+    5ca4:	83 f8 26             	cmp    $0x26,%eax
+    5ca7:	75 12                	jne    5cbb <RabbitCallPHP+0xd1>
 		case '&':
 			php_argv[i] = ' ';
-    5bd3:	8b 45 c4             	mov    -0x3c(%rbp),%eax
-    5bd6:	48 63 d0             	movslq %eax,%rdx
-    5bd9:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-    5bdd:	48 01 d0             	add    %rdx,%rax
-    5be0:	c6 00 20             	movb   $0x20,(%rax)
+    5ca9:	8b 45 c4             	mov    -0x3c(%rbp),%eax
+    5cac:	48 63 d0             	movslq %eax,%rdx
+    5caf:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+    5cb3:	48 01 d0             	add    %rdx,%rax
+    5cb6:	c6 00 20             	movb   $0x20,(%rax)
 			break;
-    5be3:	eb 1f                	jmp    5c04 <RabbitCallPHP+0xe0>
+    5cb9:	eb 1f                	jmp    5cda <RabbitCallPHP+0xf0>
 		default:
 			php_argv[i] = php_argv_s[i];
-    5be5:	8b 45 c4             	mov    -0x3c(%rbp),%eax
-    5be8:	48 63 d0             	movslq %eax,%rdx
-    5beb:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
-    5bef:	48 01 d0             	add    %rdx,%rax
-    5bf2:	8b 55 c4             	mov    -0x3c(%rbp),%edx
-    5bf5:	48 63 ca             	movslq %edx,%rcx
-    5bf8:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
-    5bfc:	48 01 ca             	add    %rcx,%rdx
-    5bff:	0f b6 00             	movzbl (%rax),%eax
-    5c02:	88 02                	mov    %al,(%rdx)
+    5cbb:	8b 45 c4             	mov    -0x3c(%rbp),%eax
+    5cbe:	48 63 d0             	movslq %eax,%rdx
+    5cc1:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    5cc5:	48 01 d0             	add    %rdx,%rax
+    5cc8:	8b 55 c4             	mov    -0x3c(%rbp),%edx
+    5ccb:	48 63 ca             	movslq %edx,%rcx
+    5cce:	48 8b 55 c8          	mov    -0x38(%rbp),%rdx
+    5cd2:	48 01 ca             	add    %rcx,%rdx
+    5cd5:	0f b6 00             	movzbl (%rax),%eax
+    5cd8:	88 02                	mov    %al,(%rdx)
 	for (int i=0; i<strlen(php_argv_s); i++) {
-    5c04:	83 45 c4 01          	addl   $0x1,-0x3c(%rbp)
-    5c08:	8b 45 c4             	mov    -0x3c(%rbp),%eax
-    5c0b:	48 63 d8             	movslq %eax,%rbx
-    5c0e:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
-    5c12:	48 89 c7             	mov    %rax,%rdi
-    5c15:	e8 a6 d8 ff ff       	callq  34c0 <strlen@plt>
-    5c1a:	48 39 c3             	cmp    %rax,%rbx
-    5c1d:	72 9c                	jb     5bbb <RabbitCallPHP+0x97>
+    5cda:	83 45 c4 01          	addl   $0x1,-0x3c(%rbp)
+    5cde:	8b 45 c4             	mov    -0x3c(%rbp),%eax
+    5ce1:	48 63 d8             	movslq %eax,%rbx
+    5ce4:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    5ce8:	48 89 c7             	mov    %rax,%rdi
+    5ceb:	e8 d0 d7 ff ff       	callq  34c0 <strlen@plt>
+    5cf0:	48 39 c3             	cmp    %rax,%rbx
+    5cf3:	72 9c                	jb     5c91 <RabbitCallPHP+0xa7>
 		}
 	}
 
 execphp:
-    5c1f:	eb 01                	jmp    5c22 <RabbitCallPHP+0xfe>
-	if (!php_argv_s) goto execphp;
-    5c21:	90                   	nop
+    5cf5:	90                   	nop
 	command = malloc(9+strlen(source_path)+strlen(php_argv)+strlen(output_path));
-    5c22:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
-    5c26:	48 89 c7             	mov    %rax,%rdi
-    5c29:	e8 92 d8 ff ff       	callq  34c0 <strlen@plt>
-    5c2e:	48 89 c3             	mov    %rax,%rbx
-    5c31:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-    5c35:	48 89 c7             	mov    %rax,%rdi
-    5c38:	e8 83 d8 ff ff       	callq  34c0 <strlen@plt>
-    5c3d:	48 01 c3             	add    %rax,%rbx
-    5c40:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
-    5c44:	48 89 c7             	mov    %rax,%rdi
-    5c47:	e8 74 d8 ff ff       	callq  34c0 <strlen@plt>
-    5c4c:	48 01 d8             	add    %rbx,%rax
-    5c4f:	48 83 c0 09          	add    $0x9,%rax
-    5c53:	48 89 c7             	mov    %rax,%rdi
-    5c56:	e8 e5 d9 ff ff       	callq  3640 <malloc@plt>
-    5c5b:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+    5cf6:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    5cfa:	48 89 c7             	mov    %rax,%rdi
+    5cfd:	e8 be d7 ff ff       	callq  34c0 <strlen@plt>
+    5d02:	48 89 c3             	mov    %rax,%rbx
+    5d05:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+    5d09:	48 89 c7             	mov    %rax,%rdi
+    5d0c:	e8 af d7 ff ff       	callq  34c0 <strlen@plt>
+    5d11:	48 01 c3             	add    %rax,%rbx
+    5d14:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    5d18:	48 89 c7             	mov    %rax,%rdi
+    5d1b:	e8 a0 d7 ff ff       	callq  34c0 <strlen@plt>
+    5d20:	48 01 d8             	add    %rbx,%rax
+    5d23:	48 83 c0 09          	add    $0x9,%rax
+    5d27:	48 89 c7             	mov    %rax,%rdi
+    5d2a:	e8 11 d9 ff ff       	callq  3640 <malloc@plt>
+    5d2f:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
 	sprintf(command, "php %s %s > %s", source_path, php_argv, output_path);
-    5c5f:	48 8b 75 b0          	mov    -0x50(%rbp),%rsi
-    5c63:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
-    5c67:	48 8b 55 b8          	mov    -0x48(%rbp),%rdx
-    5c6b:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    5c6f:	49 89 f0             	mov    %rsi,%r8
-    5c72:	48 8d 35 73 1d 00 00 	lea    0x1d73(%rip),%rsi        # 79ec <__func__.4838+0x29c>
-    5c79:	48 89 c7             	mov    %rax,%rdi
-    5c7c:	b8 00 00 00 00       	mov    $0x0,%eax
-    5c81:	e8 8a da ff ff       	callq  3710 <sprintf@plt>
+    5d33:	48 8b 75 b0          	mov    -0x50(%rbp),%rsi
+    5d37:	48 8b 4d c8          	mov    -0x38(%rbp),%rcx
+    5d3b:	48 8b 55 b8          	mov    -0x48(%rbp),%rdx
+    5d3f:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    5d43:	49 89 f0             	mov    %rsi,%r8
+    5d46:	48 8d 35 a6 1c 00 00 	lea    0x1ca6(%rip),%rsi        # 79f3 <__func__.4838+0x2a3>
+    5d4d:	48 89 c7             	mov    %rax,%rdi
+    5d50:	b8 00 00 00 00       	mov    $0x0,%eax
+    5d55:	e8 b6 d9 ff ff       	callq  3710 <sprintf@plt>
 
 	if (system(command)) {
-    5c86:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    5c8a:	48 89 c7             	mov    %rax,%rdi
-    5c8d:	e8 5e d8 ff ff       	callq  34f0 <system@plt>
-    5c92:	85 c0                	test   %eax,%eax
-    5c94:	74 0a                	je     5ca0 <RabbitCallPHP+0x17c>
+    5d5a:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    5d5e:	48 89 c7             	mov    %rax,%rdi
+    5d61:	e8 8a d7 ff ff       	callq  34f0 <system@plt>
+    5d66:	85 c0                	test   %eax,%eax
+    5d68:	74 0a                	je     5d74 <RabbitCallPHP+0x18a>
 		return false;
-    5c96:	b8 00 00 00 00       	mov    $0x0,%eax
-    5c9b:	e9 86 00 00 00       	jmpq   5d26 <RabbitCallPHP+0x202>
+    5d6a:	b8 00 00 00 00       	mov    $0x0,%eax
+    5d6f:	e9 aa 00 00 00       	jmpq   5e1e <RabbitCallPHP+0x234>
 	}
 
 	printf("S");
-    5ca0:	bf 53 00 00 00       	mov    $0x53,%edi
-    5ca5:	e8 46 d7 ff ff       	callq  33f0 <putchar@plt>
+    5d74:	bf 53 00 00 00       	mov    $0x53,%edi
+    5d79:	e8 72 d6 ff ff       	callq  33f0 <putchar@plt>
+
 	FILE *fp = fopen(output_path, "r");
-    5caa:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
-    5cae:	48 8d 35 d5 1b 00 00 	lea    0x1bd5(%rip),%rsi        # 788a <__func__.4838+0x13a>
-    5cb5:	48 89 c7             	mov    %rax,%rdi
-    5cb8:	e8 f3 d9 ff ff       	callq  36b0 <fopen@plt>
-    5cbd:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+    5d7e:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    5d82:	48 8d 35 e8 1a 00 00 	lea    0x1ae8(%rip),%rsi        # 7871 <__func__.4838+0x121>
+    5d89:	48 89 c7             	mov    %rax,%rdi
+    5d8c:	e8 1f d9 ff ff       	callq  36b0 <fopen@plt>
+    5d91:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
 
 	char *htmlfile = malloc(filesize(fp));
-    5cc1:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    5cc5:	48 89 c7             	mov    %rax,%rdi
-    5cc8:	b8 00 00 00 00       	mov    $0x0,%eax
-    5ccd:	e8 bd e1 ff ff       	callq  3e8f <filesize>
-    5cd2:	48 98                	cltq   
-    5cd4:	48 89 c7             	mov    %rax,%rdi
-    5cd7:	e8 64 d9 ff ff       	callq  3640 <malloc@plt>
-    5cdc:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    5d95:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5d99:	48 89 c7             	mov    %rax,%rdi
+    5d9c:	b8 00 00 00 00       	mov    $0x0,%eax
+    5da1:	e8 e9 e0 ff ff       	callq  3e8f <filesize>
+    5da6:	48 98                	cltq   
+    5da8:	48 89 c7             	mov    %rax,%rdi
+    5dab:	e8 90 d8 ff ff       	callq  3640 <malloc@plt>
+    5db0:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
 	fread(htmlfile, 1, filesize(fp), fp);
-    5ce0:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    5ce4:	48 89 c7             	mov    %rax,%rdi
-    5ce7:	b8 00 00 00 00       	mov    $0x0,%eax
-    5cec:	e8 9e e1 ff ff       	callq  3e8f <filesize>
-    5cf1:	48 63 d0             	movslq %eax,%rdx
-    5cf4:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
-    5cf8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    5cfc:	be 01 00 00 00       	mov    $0x1,%esi
-    5d01:	48 89 c7             	mov    %rax,%rdi
-    5d04:	e8 47 d7 ff ff       	callq  3450 <fread@plt>
+    5db4:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5db8:	48 89 c7             	mov    %rax,%rdi
+    5dbb:	b8 00 00 00 00       	mov    $0x0,%eax
+    5dc0:	e8 ca e0 ff ff       	callq  3e8f <filesize>
+    5dc5:	48 63 d0             	movslq %eax,%rdx
+    5dc8:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+    5dcc:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    5dd0:	be 01 00 00 00       	mov    $0x1,%esi
+    5dd5:	48 89 c7             	mov    %rax,%rdi
+    5dd8:	e8 73 d6 ff ff       	callq  3450 <fread@plt>
 	output->data = htmlfile;
-    5d09:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
-    5d0d:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
-    5d11:	48 89 50 08          	mov    %rdx,0x8(%rax)
+    5ddd:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+    5de1:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+    5de5:	48 89 50 08          	mov    %rdx,0x8(%rax)
+	output->datalen = filesize(fp);
+    5de9:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5ded:	48 89 c7             	mov    %rax,%rdi
+    5df0:	b8 00 00 00 00       	mov    $0x0,%eax
+    5df5:	e8 95 e0 ff ff       	callq  3e8f <filesize>
+    5dfa:	48 8b 55 a8          	mov    -0x58(%rbp),%rdx
+    5dfe:	89 42 04             	mov    %eax,0x4(%rdx)
 
 	fclose(fp);
-    5d15:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-    5d19:	48 89 c7             	mov    %rax,%rdi
-    5d1c:	e8 7f d7 ff ff       	callq  34a0 <fclose@plt>
-	return true;
-    5d21:	b8 01 00 00 00       	mov    $0x1,%eax
-};
-    5d26:	48 83 c4 58          	add    $0x58,%rsp
-    5d2a:	5b                   	pop    %rbx
-    5d2b:	5d                   	pop    %rbp
-    5d2c:	c3                   	retq   
+    5e01:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    5e05:	48 89 c7             	mov    %rax,%rdi
+    5e08:	e8 93 d6 ff ff       	callq  34a0 <fclose@plt>
 
-0000000000005d2d <MoveCursorHome>:
+	free(command);
+    5e0d:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    5e11:	48 89 c7             	mov    %rax,%rdi
+    5e14:	e8 c7 d5 ff ff       	callq  33e0 <free@plt>
+	return true;
+    5e19:	b8 01 00 00 00       	mov    $0x1,%eax
+};
+    5e1e:	48 83 c4 58          	add    $0x58,%rsp
+    5e22:	5b                   	pop    %rbx
+    5e23:	5d                   	pop    %rbp
+    5e24:	c3                   	retq   
+
+0000000000005e25 <MoveCursorHome>:
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include <stdio.h>
 
 void MoveCursorHome() {
-    5d2d:	f3 0f 1e fa          	endbr64 
-    5d31:	55                   	push   %rbp
-    5d32:	48 89 e5             	mov    %rsp,%rbp
+    5e25:	f3 0f 1e fa          	endbr64 
+    5e29:	55                   	push   %rbp
+    5e2a:	48 89 e5             	mov    %rsp,%rbp
 	printf("\x1b[H");
-    5d35:	48 8d 3d bf 1c 00 00 	lea    0x1cbf(%rip),%rdi        # 79fb <__func__.4838+0x2ab>
-    5d3c:	b8 00 00 00 00       	mov    $0x0,%eax
-    5d41:	e8 ca d7 ff ff       	callq  3510 <printf@plt>
+    5e2d:	48 8d 3d ce 1b 00 00 	lea    0x1bce(%rip),%rdi        # 7a02 <__func__.4838+0x2b2>
+    5e34:	b8 00 00 00 00       	mov    $0x0,%eax
+    5e39:	e8 d2 d6 ff ff       	callq  3510 <printf@plt>
 }
-    5d46:	90                   	nop
-    5d47:	5d                   	pop    %rbp
-    5d48:	c3                   	retq   
+    5e3e:	90                   	nop
+    5e3f:	5d                   	pop    %rbp
+    5e40:	c3                   	retq   
 
-0000000000005d49 <MoveCursor>:
+0000000000005e41 <MoveCursor>:
 
 void MoveCursor(int x, int y) {
-    5d49:	f3 0f 1e fa          	endbr64 
-    5d4d:	55                   	push   %rbp
-    5d4e:	48 89 e5             	mov    %rsp,%rbp
-    5d51:	48 83 ec 10          	sub    $0x10,%rsp
-    5d55:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    5d58:	89 75 f8             	mov    %esi,-0x8(%rbp)
+    5e41:	f3 0f 1e fa          	endbr64 
+    5e45:	55                   	push   %rbp
+    5e46:	48 89 e5             	mov    %rsp,%rbp
+    5e49:	48 83 ec 10          	sub    $0x10,%rsp
+    5e4d:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    5e50:	89 75 f8             	mov    %esi,-0x8(%rbp)
 	printf("\x1b[%d;%df", y, x);
-    5d5b:	8b 55 fc             	mov    -0x4(%rbp),%edx
-    5d5e:	8b 45 f8             	mov    -0x8(%rbp),%eax
-    5d61:	89 c6                	mov    %eax,%esi
-    5d63:	48 8d 3d 95 1c 00 00 	lea    0x1c95(%rip),%rdi        # 79ff <__func__.4838+0x2af>
-    5d6a:	b8 00 00 00 00       	mov    $0x0,%eax
-    5d6f:	e8 9c d7 ff ff       	callq  3510 <printf@plt>
+    5e53:	8b 55 fc             	mov    -0x4(%rbp),%edx
+    5e56:	8b 45 f8             	mov    -0x8(%rbp),%eax
+    5e59:	89 c6                	mov    %eax,%esi
+    5e5b:	48 8d 3d a4 1b 00 00 	lea    0x1ba4(%rip),%rdi        # 7a06 <__func__.4838+0x2b6>
+    5e62:	b8 00 00 00 00       	mov    $0x0,%eax
+    5e67:	e8 a4 d6 ff ff       	callq  3510 <printf@plt>
 }
-    5d74:	90                   	nop
-    5d75:	c9                   	leaveq 
-    5d76:	c3                   	retq   
+    5e6c:	90                   	nop
+    5e6d:	c9                   	leaveq 
+    5e6e:	c3                   	retq   
 
-0000000000005d77 <MoveCursorUp>:
+0000000000005e6f <MoveCursorUp>:
 
 void MoveCursorUp(int n) {
-    5d77:	f3 0f 1e fa          	endbr64 
-    5d7b:	55                   	push   %rbp
-    5d7c:	48 89 e5             	mov    %rsp,%rbp
-    5d7f:	48 83 ec 10          	sub    $0x10,%rsp
-    5d83:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    5e6f:	f3 0f 1e fa          	endbr64 
+    5e73:	55                   	push   %rbp
+    5e74:	48 89 e5             	mov    %rsp,%rbp
+    5e77:	48 83 ec 10          	sub    $0x10,%rsp
+    5e7b:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	printf("\x1b[%dA", n);
-    5d86:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5d89:	89 c6                	mov    %eax,%esi
-    5d8b:	48 8d 3d 76 1c 00 00 	lea    0x1c76(%rip),%rdi        # 7a08 <__func__.4838+0x2b8>
-    5d92:	b8 00 00 00 00       	mov    $0x0,%eax
-    5d97:	e8 74 d7 ff ff       	callq  3510 <printf@plt>
+    5e7e:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5e81:	89 c6                	mov    %eax,%esi
+    5e83:	48 8d 3d 85 1b 00 00 	lea    0x1b85(%rip),%rdi        # 7a0f <__func__.4838+0x2bf>
+    5e8a:	b8 00 00 00 00       	mov    $0x0,%eax
+    5e8f:	e8 7c d6 ff ff       	callq  3510 <printf@plt>
 }
-    5d9c:	90                   	nop
-    5d9d:	c9                   	leaveq 
-    5d9e:	c3                   	retq   
+    5e94:	90                   	nop
+    5e95:	c9                   	leaveq 
+    5e96:	c3                   	retq   
 
-0000000000005d9f <MoveCursorDown>:
+0000000000005e97 <MoveCursorDown>:
 
 void MoveCursorDown(int n) {
-    5d9f:	f3 0f 1e fa          	endbr64 
-    5da3:	55                   	push   %rbp
-    5da4:	48 89 e5             	mov    %rsp,%rbp
-    5da7:	48 83 ec 10          	sub    $0x10,%rsp
-    5dab:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    5e97:	f3 0f 1e fa          	endbr64 
+    5e9b:	55                   	push   %rbp
+    5e9c:	48 89 e5             	mov    %rsp,%rbp
+    5e9f:	48 83 ec 10          	sub    $0x10,%rsp
+    5ea3:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	printf("\x1b[%dB", n);
-    5dae:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5db1:	89 c6                	mov    %eax,%esi
-    5db3:	48 8d 3d 54 1c 00 00 	lea    0x1c54(%rip),%rdi        # 7a0e <__func__.4838+0x2be>
-    5dba:	b8 00 00 00 00       	mov    $0x0,%eax
-    5dbf:	e8 4c d7 ff ff       	callq  3510 <printf@plt>
-}
-    5dc4:	90                   	nop
-    5dc5:	c9                   	leaveq 
-    5dc6:	c3                   	retq   
-
-0000000000005dc7 <MoveCursorRight>:
-
-void MoveCursorRight(int n) {
-    5dc7:	f3 0f 1e fa          	endbr64 
-    5dcb:	55                   	push   %rbp
-    5dcc:	48 89 e5             	mov    %rsp,%rbp
-    5dcf:	48 83 ec 10          	sub    $0x10,%rsp
-    5dd3:	89 7d fc             	mov    %edi,-0x4(%rbp)
-	printf("\x1b[%dC", n);
-    5dd6:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5dd9:	89 c6                	mov    %eax,%esi
-    5ddb:	48 8d 3d 32 1c 00 00 	lea    0x1c32(%rip),%rdi        # 7a14 <__func__.4838+0x2c4>
-    5de2:	b8 00 00 00 00       	mov    $0x0,%eax
-    5de7:	e8 24 d7 ff ff       	callq  3510 <printf@plt>
-}
-    5dec:	90                   	nop
-    5ded:	c9                   	leaveq 
-    5dee:	c3                   	retq   
-
-0000000000005def <MoveCursorLeft>:
-
-void MoveCursorLeft(int n) {
-    5def:	f3 0f 1e fa          	endbr64 
-    5df3:	55                   	push   %rbp
-    5df4:	48 89 e5             	mov    %rsp,%rbp
-    5df7:	48 83 ec 10          	sub    $0x10,%rsp
-    5dfb:	89 7d fc             	mov    %edi,-0x4(%rbp)
-	printf("\x1b[%dD", n);
-    5dfe:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5e01:	89 c6                	mov    %eax,%esi
-    5e03:	48 8d 3d 10 1c 00 00 	lea    0x1c10(%rip),%rdi        # 7a1a <__func__.4838+0x2ca>
-    5e0a:	b8 00 00 00 00       	mov    $0x0,%eax
-    5e0f:	e8 fc d6 ff ff       	callq  3510 <printf@plt>
-}
-    5e14:	90                   	nop
-    5e15:	c9                   	leaveq 
-    5e16:	c3                   	retq   
-
-0000000000005e17 <MoveCursorUpLine>:
-
-void MoveCursorUpLine() {
-    5e17:	f3 0f 1e fa          	endbr64 
-    5e1b:	55                   	push   %rbp
-    5e1c:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b M");
-    5e1f:	48 8d 3d fa 1b 00 00 	lea    0x1bfa(%rip),%rdi        # 7a20 <__func__.4838+0x2d0>
-    5e26:	b8 00 00 00 00       	mov    $0x0,%eax
-    5e2b:	e8 e0 d6 ff ff       	callq  3510 <printf@plt>
-}
-    5e30:	90                   	nop
-    5e31:	5d                   	pop    %rbp
-    5e32:	c3                   	retq   
-
-0000000000005e33 <SaveCursorPos>:
-
-void SaveCursorPos() {
-    5e33:	f3 0f 1e fa          	endbr64 
-    5e37:	55                   	push   %rbp
-    5e38:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b 7");
-    5e3b:	48 8d 3d e2 1b 00 00 	lea    0x1be2(%rip),%rdi        # 7a24 <__func__.4838+0x2d4>
-    5e42:	b8 00 00 00 00       	mov    $0x0,%eax
-    5e47:	e8 c4 d6 ff ff       	callq  3510 <printf@plt>
-}
-    5e4c:	90                   	nop
-    5e4d:	5d                   	pop    %rbp
-    5e4e:	c3                   	retq   
-
-0000000000005e4f <RestoreCursorPos>:
-
-void RestoreCursorPos() {
-    5e4f:	f3 0f 1e fa          	endbr64 
-    5e53:	55                   	push   %rbp
-    5e54:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b 8");
-    5e57:	48 8d 3d ca 1b 00 00 	lea    0x1bca(%rip),%rdi        # 7a28 <__func__.4838+0x2d8>
-    5e5e:	b8 00 00 00 00       	mov    $0x0,%eax
-    5e63:	e8 a8 d6 ff ff       	callq  3510 <printf@plt>
-}
-    5e68:	90                   	nop
-    5e69:	5d                   	pop    %rbp
-    5e6a:	c3                   	retq   
-
-0000000000005e6b <ClearScreen>:
-
-void ClearScreen() {
-    5e6b:	f3 0f 1e fa          	endbr64 
-    5e6f:	55                   	push   %rbp
-    5e70:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b[2J");
-    5e73:	48 8d 3d b2 1b 00 00 	lea    0x1bb2(%rip),%rdi        # 7a2c <__func__.4838+0x2dc>
-    5e7a:	b8 00 00 00 00       	mov    $0x0,%eax
-    5e7f:	e8 8c d6 ff ff       	callq  3510 <printf@plt>
-}
-    5e84:	90                   	nop
-    5e85:	5d                   	pop    %rbp
-    5e86:	c3                   	retq   
-
-0000000000005e87 <ClearLine>:
-
-void ClearLine() {
-    5e87:	f3 0f 1e fa          	endbr64 
-    5e8b:	55                   	push   %rbp
-    5e8c:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b[2K");
-    5e8f:	48 8d 3d 9b 1b 00 00 	lea    0x1b9b(%rip),%rdi        # 7a31 <__func__.4838+0x2e1>
-    5e96:	b8 00 00 00 00       	mov    $0x0,%eax
-    5e9b:	e8 70 d6 ff ff       	callq  3510 <printf@plt>
-}
-    5ea0:	90                   	nop
-    5ea1:	5d                   	pop    %rbp
-    5ea2:	c3                   	retq   
-
-0000000000005ea3 <EraseLineToCursor>:
-
-void EraseLineToCursor() {
-    5ea3:	f3 0f 1e fa          	endbr64 
-    5ea7:	55                   	push   %rbp
-    5ea8:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b[1K");
-    5eab:	48 8d 3d 84 1b 00 00 	lea    0x1b84(%rip),%rdi        # 7a36 <__func__.4838+0x2e6>
+    5ea6:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5ea9:	89 c6                	mov    %eax,%esi
+    5eab:	48 8d 3d 63 1b 00 00 	lea    0x1b63(%rip),%rdi        # 7a15 <__func__.4838+0x2c5>
     5eb2:	b8 00 00 00 00       	mov    $0x0,%eax
     5eb7:	e8 54 d6 ff ff       	callq  3510 <printf@plt>
 }
     5ebc:	90                   	nop
-    5ebd:	5d                   	pop    %rbp
+    5ebd:	c9                   	leaveq 
     5ebe:	c3                   	retq   
 
-0000000000005ebf <EraseCursorToLine>:
+0000000000005ebf <MoveCursorRight>:
 
-void EraseCursorToLine() {
+void MoveCursorRight(int n) {
     5ebf:	f3 0f 1e fa          	endbr64 
     5ec3:	55                   	push   %rbp
     5ec4:	48 89 e5             	mov    %rsp,%rbp
-	printf("\x1b[0K");
-    5ec7:	48 8d 3d 6d 1b 00 00 	lea    0x1b6d(%rip),%rdi        # 7a3b <__func__.4838+0x2eb>
-    5ece:	b8 00 00 00 00       	mov    $0x0,%eax
-    5ed3:	e8 38 d6 ff ff       	callq  3510 <printf@plt>
+    5ec7:	48 83 ec 10          	sub    $0x10,%rsp
+    5ecb:	89 7d fc             	mov    %edi,-0x4(%rbp)
+	printf("\x1b[%dC", n);
+    5ece:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5ed1:	89 c6                	mov    %eax,%esi
+    5ed3:	48 8d 3d 41 1b 00 00 	lea    0x1b41(%rip),%rdi        # 7a1b <__func__.4838+0x2cb>
+    5eda:	b8 00 00 00 00       	mov    $0x0,%eax
+    5edf:	e8 2c d6 ff ff       	callq  3510 <printf@plt>
 }
-    5ed8:	90                   	nop
-    5ed9:	5d                   	pop    %rbp
-    5eda:	c3                   	retq   
+    5ee4:	90                   	nop
+    5ee5:	c9                   	leaveq 
+    5ee6:	c3                   	retq   
 
-0000000000005edb <EraseCursorToScreen>:
+0000000000005ee7 <MoveCursorLeft>:
+
+void MoveCursorLeft(int n) {
+    5ee7:	f3 0f 1e fa          	endbr64 
+    5eeb:	55                   	push   %rbp
+    5eec:	48 89 e5             	mov    %rsp,%rbp
+    5eef:	48 83 ec 10          	sub    $0x10,%rsp
+    5ef3:	89 7d fc             	mov    %edi,-0x4(%rbp)
+	printf("\x1b[%dD", n);
+    5ef6:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    5ef9:	89 c6                	mov    %eax,%esi
+    5efb:	48 8d 3d 1f 1b 00 00 	lea    0x1b1f(%rip),%rdi        # 7a21 <__func__.4838+0x2d1>
+    5f02:	b8 00 00 00 00       	mov    $0x0,%eax
+    5f07:	e8 04 d6 ff ff       	callq  3510 <printf@plt>
+}
+    5f0c:	90                   	nop
+    5f0d:	c9                   	leaveq 
+    5f0e:	c3                   	retq   
+
+0000000000005f0f <MoveCursorUpLine>:
+
+void MoveCursorUpLine() {
+    5f0f:	f3 0f 1e fa          	endbr64 
+    5f13:	55                   	push   %rbp
+    5f14:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b M");
+    5f17:	48 8d 3d 09 1b 00 00 	lea    0x1b09(%rip),%rdi        # 7a27 <__func__.4838+0x2d7>
+    5f1e:	b8 00 00 00 00       	mov    $0x0,%eax
+    5f23:	e8 e8 d5 ff ff       	callq  3510 <printf@plt>
+}
+    5f28:	90                   	nop
+    5f29:	5d                   	pop    %rbp
+    5f2a:	c3                   	retq   
+
+0000000000005f2b <SaveCursorPos>:
+
+void SaveCursorPos() {
+    5f2b:	f3 0f 1e fa          	endbr64 
+    5f2f:	55                   	push   %rbp
+    5f30:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b 7");
+    5f33:	48 8d 3d f1 1a 00 00 	lea    0x1af1(%rip),%rdi        # 7a2b <__func__.4838+0x2db>
+    5f3a:	b8 00 00 00 00       	mov    $0x0,%eax
+    5f3f:	e8 cc d5 ff ff       	callq  3510 <printf@plt>
+}
+    5f44:	90                   	nop
+    5f45:	5d                   	pop    %rbp
+    5f46:	c3                   	retq   
+
+0000000000005f47 <RestoreCursorPos>:
+
+void RestoreCursorPos() {
+    5f47:	f3 0f 1e fa          	endbr64 
+    5f4b:	55                   	push   %rbp
+    5f4c:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b 8");
+    5f4f:	48 8d 3d d9 1a 00 00 	lea    0x1ad9(%rip),%rdi        # 7a2f <__func__.4838+0x2df>
+    5f56:	b8 00 00 00 00       	mov    $0x0,%eax
+    5f5b:	e8 b0 d5 ff ff       	callq  3510 <printf@plt>
+}
+    5f60:	90                   	nop
+    5f61:	5d                   	pop    %rbp
+    5f62:	c3                   	retq   
+
+0000000000005f63 <ClearScreen>:
+
+void ClearScreen() {
+    5f63:	f3 0f 1e fa          	endbr64 
+    5f67:	55                   	push   %rbp
+    5f68:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b[2J");
+    5f6b:	48 8d 3d c1 1a 00 00 	lea    0x1ac1(%rip),%rdi        # 7a33 <__func__.4838+0x2e3>
+    5f72:	b8 00 00 00 00       	mov    $0x0,%eax
+    5f77:	e8 94 d5 ff ff       	callq  3510 <printf@plt>
+}
+    5f7c:	90                   	nop
+    5f7d:	5d                   	pop    %rbp
+    5f7e:	c3                   	retq   
+
+0000000000005f7f <ClearLine>:
+
+void ClearLine() {
+    5f7f:	f3 0f 1e fa          	endbr64 
+    5f83:	55                   	push   %rbp
+    5f84:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b[2K");
+    5f87:	48 8d 3d aa 1a 00 00 	lea    0x1aaa(%rip),%rdi        # 7a38 <__func__.4838+0x2e8>
+    5f8e:	b8 00 00 00 00       	mov    $0x0,%eax
+    5f93:	e8 78 d5 ff ff       	callq  3510 <printf@plt>
+}
+    5f98:	90                   	nop
+    5f99:	5d                   	pop    %rbp
+    5f9a:	c3                   	retq   
+
+0000000000005f9b <EraseLineToCursor>:
+
+void EraseLineToCursor() {
+    5f9b:	f3 0f 1e fa          	endbr64 
+    5f9f:	55                   	push   %rbp
+    5fa0:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b[1K");
+    5fa3:	48 8d 3d 93 1a 00 00 	lea    0x1a93(%rip),%rdi        # 7a3d <__func__.4838+0x2ed>
+    5faa:	b8 00 00 00 00       	mov    $0x0,%eax
+    5faf:	e8 5c d5 ff ff       	callq  3510 <printf@plt>
+}
+    5fb4:	90                   	nop
+    5fb5:	5d                   	pop    %rbp
+    5fb6:	c3                   	retq   
+
+0000000000005fb7 <EraseCursorToLine>:
+
+void EraseCursorToLine() {
+    5fb7:	f3 0f 1e fa          	endbr64 
+    5fbb:	55                   	push   %rbp
+    5fbc:	48 89 e5             	mov    %rsp,%rbp
+	printf("\x1b[0K");
+    5fbf:	48 8d 3d 7c 1a 00 00 	lea    0x1a7c(%rip),%rdi        # 7a42 <__func__.4838+0x2f2>
+    5fc6:	b8 00 00 00 00       	mov    $0x0,%eax
+    5fcb:	e8 40 d5 ff ff       	callq  3510 <printf@plt>
+}
+    5fd0:	90                   	nop
+    5fd1:	5d                   	pop    %rbp
+    5fd2:	c3                   	retq   
+
+0000000000005fd3 <EraseCursorToScreen>:
 
 void EraseCursorToScreen() {
-    5edb:	f3 0f 1e fa          	endbr64 
-    5edf:	55                   	push   %rbp
-    5ee0:	48 89 e5             	mov    %rsp,%rbp
+    5fd3:	f3 0f 1e fa          	endbr64 
+    5fd7:	55                   	push   %rbp
+    5fd8:	48 89 e5             	mov    %rsp,%rbp
 	printf("\x1b[0J");
-    5ee3:	48 8d 3d 56 1b 00 00 	lea    0x1b56(%rip),%rdi        # 7a40 <__func__.4838+0x2f0>
-    5eea:	b8 00 00 00 00       	mov    $0x0,%eax
-    5eef:	e8 1c d6 ff ff       	callq  3510 <printf@plt>
+    5fdb:	48 8d 3d 65 1a 00 00 	lea    0x1a65(%rip),%rdi        # 7a47 <__func__.4838+0x2f7>
+    5fe2:	b8 00 00 00 00       	mov    $0x0,%eax
+    5fe7:	e8 24 d5 ff ff       	callq  3510 <printf@plt>
 }
-    5ef4:	90                   	nop
-    5ef5:	5d                   	pop    %rbp
-    5ef6:	c3                   	retq   
+    5fec:	90                   	nop
+    5fed:	5d                   	pop    %rbp
+    5fee:	c3                   	retq   
 
-0000000000005ef7 <EraseScreenToCursor>:
+0000000000005fef <EraseScreenToCursor>:
 
 void EraseScreenToCursor() {
-    5ef7:	f3 0f 1e fa          	endbr64 
-    5efb:	55                   	push   %rbp
-    5efc:	48 89 e5             	mov    %rsp,%rbp
+    5fef:	f3 0f 1e fa          	endbr64 
+    5ff3:	55                   	push   %rbp
+    5ff4:	48 89 e5             	mov    %rsp,%rbp
 	printf("\x1b[1J");
-    5eff:	48 8d 3d 3f 1b 00 00 	lea    0x1b3f(%rip),%rdi        # 7a45 <__func__.4838+0x2f5>
-    5f06:	b8 00 00 00 00       	mov    $0x0,%eax
-    5f0b:	e8 00 d6 ff ff       	callq  3510 <printf@plt>
+    5ff7:	48 8d 3d 4e 1a 00 00 	lea    0x1a4e(%rip),%rdi        # 7a4c <__func__.4838+0x2fc>
+    5ffe:	b8 00 00 00 00       	mov    $0x0,%eax
+    6003:	e8 08 d5 ff ff       	callq  3510 <printf@plt>
 }
-    5f10:	90                   	nop
-    5f11:	5d                   	pop    %rbp
-    5f12:	c3                   	retq   
+    6008:	90                   	nop
+    6009:	5d                   	pop    %rbp
+    600a:	c3                   	retq   
 
-0000000000005f13 <SetMode>:
+000000000000600b <SetMode>:
 #define MODE_BLINKING 5
 #define MODE_INVERSE 7
 #define MODE_HIDDEN 8
 #define MODE_STRIKETROUGH 9
 
 void SetMode(int mode) {	
-    5f13:	f3 0f 1e fa          	endbr64 
-    5f17:	55                   	push   %rbp
-    5f18:	48 89 e5             	mov    %rsp,%rbp
-    5f1b:	48 83 ec 10          	sub    $0x10,%rsp
-    5f1f:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    600b:	f3 0f 1e fa          	endbr64 
+    600f:	55                   	push   %rbp
+    6010:	48 89 e5             	mov    %rsp,%rbp
+    6013:	48 83 ec 10          	sub    $0x10,%rsp
+    6017:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	printf("\x1b[%dm", mode%10);
-    5f22:	8b 4d fc             	mov    -0x4(%rbp),%ecx
-    5f25:	48 63 c1             	movslq %ecx,%rax
-    5f28:	48 69 c0 67 66 66 66 	imul   $0x66666667,%rax,%rax
-    5f2f:	48 c1 e8 20          	shr    $0x20,%rax
-    5f33:	89 c2                	mov    %eax,%edx
-    5f35:	c1 fa 02             	sar    $0x2,%edx
-    5f38:	89 c8                	mov    %ecx,%eax
-    5f3a:	c1 f8 1f             	sar    $0x1f,%eax
-    5f3d:	29 c2                	sub    %eax,%edx
-    5f3f:	89 d0                	mov    %edx,%eax
-    5f41:	c1 e0 02             	shl    $0x2,%eax
-    5f44:	01 d0                	add    %edx,%eax
-    5f46:	01 c0                	add    %eax,%eax
-    5f48:	29 c1                	sub    %eax,%ecx
-    5f4a:	89 ca                	mov    %ecx,%edx
-    5f4c:	89 d6                	mov    %edx,%esi
-    5f4e:	48 8d 3d f5 1a 00 00 	lea    0x1af5(%rip),%rdi        # 7a4a <__func__.4838+0x2fa>
-    5f55:	b8 00 00 00 00       	mov    $0x0,%eax
-    5f5a:	e8 b1 d5 ff ff       	callq  3510 <printf@plt>
+    601a:	8b 4d fc             	mov    -0x4(%rbp),%ecx
+    601d:	48 63 c1             	movslq %ecx,%rax
+    6020:	48 69 c0 67 66 66 66 	imul   $0x66666667,%rax,%rax
+    6027:	48 c1 e8 20          	shr    $0x20,%rax
+    602b:	89 c2                	mov    %eax,%edx
+    602d:	c1 fa 02             	sar    $0x2,%edx
+    6030:	89 c8                	mov    %ecx,%eax
+    6032:	c1 f8 1f             	sar    $0x1f,%eax
+    6035:	29 c2                	sub    %eax,%edx
+    6037:	89 d0                	mov    %edx,%eax
+    6039:	c1 e0 02             	shl    $0x2,%eax
+    603c:	01 d0                	add    %edx,%eax
+    603e:	01 c0                	add    %eax,%eax
+    6040:	29 c1                	sub    %eax,%ecx
+    6042:	89 ca                	mov    %ecx,%edx
+    6044:	89 d6                	mov    %edx,%esi
+    6046:	48 8d 3d 04 1a 00 00 	lea    0x1a04(%rip),%rdi        # 7a51 <__func__.4838+0x301>
+    604d:	b8 00 00 00 00       	mov    $0x0,%eax
+    6052:	e8 b9 d4 ff ff       	callq  3510 <printf@plt>
 }
-    5f5f:	90                   	nop
-    5f60:	c9                   	leaveq 
-    5f61:	c3                   	retq   
+    6057:	90                   	nop
+    6058:	c9                   	leaveq 
+    6059:	c3                   	retq   
 
-0000000000005f62 <ResetMode>:
+000000000000605a <ResetMode>:
 
 void ResetMode(int mode) {
-    5f62:	f3 0f 1e fa          	endbr64 
-    5f66:	55                   	push   %rbp
-    5f67:	48 89 e5             	mov    %rsp,%rbp
-    5f6a:	48 83 ec 10          	sub    $0x10,%rsp
-    5f6e:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    605a:	f3 0f 1e fa          	endbr64 
+    605e:	55                   	push   %rbp
+    605f:	48 89 e5             	mov    %rsp,%rbp
+    6062:	48 83 ec 10          	sub    $0x10,%rsp
+    6066:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	printf("\x1b[%dm", (mode == 1) ? 22 : mode+20);
-    5f71:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)
-    5f75:	74 08                	je     5f7f <ResetMode+0x1d>
-    5f77:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5f7a:	83 c0 14             	add    $0x14,%eax
-    5f7d:	eb 05                	jmp    5f84 <ResetMode+0x22>
-    5f7f:	b8 16 00 00 00       	mov    $0x16,%eax
-    5f84:	89 c6                	mov    %eax,%esi
-    5f86:	48 8d 3d bd 1a 00 00 	lea    0x1abd(%rip),%rdi        # 7a4a <__func__.4838+0x2fa>
-    5f8d:	b8 00 00 00 00       	mov    $0x0,%eax
-    5f92:	e8 79 d5 ff ff       	callq  3510 <printf@plt>
+    6069:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)
+    606d:	74 08                	je     6077 <ResetMode+0x1d>
+    606f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    6072:	83 c0 14             	add    $0x14,%eax
+    6075:	eb 05                	jmp    607c <ResetMode+0x22>
+    6077:	b8 16 00 00 00       	mov    $0x16,%eax
+    607c:	89 c6                	mov    %eax,%esi
+    607e:	48 8d 3d cc 19 00 00 	lea    0x19cc(%rip),%rdi        # 7a51 <__func__.4838+0x301>
+    6085:	b8 00 00 00 00       	mov    $0x0,%eax
+    608a:	e8 81 d4 ff ff       	callq  3510 <printf@plt>
 }
-    5f97:	90                   	nop
-    5f98:	c9                   	leaveq 
-    5f99:	c3                   	retq   
+    608f:	90                   	nop
+    6090:	c9                   	leaveq 
+    6091:	c3                   	retq   
 
-0000000000005f9a <ResetColor16>:
+0000000000006092 <ResetColor16>:
 #define COLOR_BLUE 4
 #define COLOR_MAGNETA 5
 #define COLOR_CYAN 6
 #define COLOR_WHITE 7
 
 void ResetColor16() {
-    5f9a:	f3 0f 1e fa          	endbr64 
-    5f9e:	55                   	push   %rbp
-    5f9f:	48 89 e5             	mov    %rsp,%rbp
+    6092:	f3 0f 1e fa          	endbr64 
+    6096:	55                   	push   %rbp
+    6097:	48 89 e5             	mov    %rsp,%rbp
 	printf("\x1b[0m");
-    5fa2:	48 8d 3d a7 1a 00 00 	lea    0x1aa7(%rip),%rdi        # 7a50 <__func__.4838+0x300>
-    5fa9:	b8 00 00 00 00       	mov    $0x0,%eax
-    5fae:	e8 5d d5 ff ff       	callq  3510 <printf@plt>
+    609a:	48 8d 3d b6 19 00 00 	lea    0x19b6(%rip),%rdi        # 7a57 <__func__.4838+0x307>
+    60a1:	b8 00 00 00 00       	mov    $0x0,%eax
+    60a6:	e8 65 d4 ff ff       	callq  3510 <printf@plt>
 }
-    5fb3:	90                   	nop
-    5fb4:	5d                   	pop    %rbp
-    5fb5:	c3                   	retq   
+    60ab:	90                   	nop
+    60ac:	5d                   	pop    %rbp
+    60ad:	c3                   	retq   
 
-0000000000005fb6 <SetColor16>:
+00000000000060ae <SetColor16>:
 
 void SetColor16(int color) {
-    5fb6:	f3 0f 1e fa          	endbr64 
-    5fba:	55                   	push   %rbp
-    5fbb:	48 89 e5             	mov    %rsp,%rbp
-    5fbe:	48 83 ec 10          	sub    $0x10,%rsp
-    5fc2:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    60ae:	f3 0f 1e fa          	endbr64 
+    60b2:	55                   	push   %rbp
+    60b3:	48 89 e5             	mov    %rsp,%rbp
+    60b6:	48 83 ec 10          	sub    $0x10,%rsp
+    60ba:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	color = color % 16;
-    5fc5:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5fc8:	99                   	cltd   
-    5fc9:	c1 ea 1c             	shr    $0x1c,%edx
-    5fcc:	01 d0                	add    %edx,%eax
-    5fce:	83 e0 0f             	and    $0xf,%eax
-    5fd1:	29 d0                	sub    %edx,%eax
-    5fd3:	89 45 fc             	mov    %eax,-0x4(%rbp)
+    60bd:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    60c0:	99                   	cltd   
+    60c1:	c1 ea 1c             	shr    $0x1c,%edx
+    60c4:	01 d0                	add    %edx,%eax
+    60c6:	83 e0 0f             	and    $0xf,%eax
+    60c9:	29 d0                	sub    %edx,%eax
+    60cb:	89 45 fc             	mov    %eax,-0x4(%rbp)
 	printf("\x1b[%dm", (color<8) ? color+30 : color+82);
-    5fd6:	83 7d fc 07          	cmpl   $0x7,-0x4(%rbp)
-    5fda:	7f 08                	jg     5fe4 <SetColor16+0x2e>
-    5fdc:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5fdf:	83 c0 1e             	add    $0x1e,%eax
-    5fe2:	eb 06                	jmp    5fea <SetColor16+0x34>
-    5fe4:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    5fe7:	83 c0 52             	add    $0x52,%eax
-    5fea:	89 c6                	mov    %eax,%esi
-    5fec:	48 8d 3d 57 1a 00 00 	lea    0x1a57(%rip),%rdi        # 7a4a <__func__.4838+0x2fa>
-    5ff3:	b8 00 00 00 00       	mov    $0x0,%eax
-    5ff8:	e8 13 d5 ff ff       	callq  3510 <printf@plt>
+    60ce:	83 7d fc 07          	cmpl   $0x7,-0x4(%rbp)
+    60d2:	7f 08                	jg     60dc <SetColor16+0x2e>
+    60d4:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    60d7:	83 c0 1e             	add    $0x1e,%eax
+    60da:	eb 06                	jmp    60e2 <SetColor16+0x34>
+    60dc:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    60df:	83 c0 52             	add    $0x52,%eax
+    60e2:	89 c6                	mov    %eax,%esi
+    60e4:	48 8d 3d 66 19 00 00 	lea    0x1966(%rip),%rdi        # 7a51 <__func__.4838+0x301>
+    60eb:	b8 00 00 00 00       	mov    $0x0,%eax
+    60f0:	e8 1b d4 ff ff       	callq  3510 <printf@plt>
 }
-    5ffd:	90                   	nop
-    5ffe:	c9                   	leaveq 
-    5fff:	c3                   	retq   
+    60f5:	90                   	nop
+    60f6:	c9                   	leaveq 
+    60f7:	c3                   	retq   
 
-0000000000006000 <SetBgColor16>:
+00000000000060f8 <SetBgColor16>:
 
 void SetBgColor16(int color) {
-    6000:	f3 0f 1e fa          	endbr64 
-    6004:	55                   	push   %rbp
-    6005:	48 89 e5             	mov    %rsp,%rbp
-    6008:	48 83 ec 10          	sub    $0x10,%rsp
-    600c:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    60f8:	f3 0f 1e fa          	endbr64 
+    60fc:	55                   	push   %rbp
+    60fd:	48 89 e5             	mov    %rsp,%rbp
+    6100:	48 83 ec 10          	sub    $0x10,%rsp
+    6104:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	color = color % 16;
-    600f:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    6012:	99                   	cltd   
-    6013:	c1 ea 1c             	shr    $0x1c,%edx
-    6016:	01 d0                	add    %edx,%eax
-    6018:	83 e0 0f             	and    $0xf,%eax
-    601b:	29 d0                	sub    %edx,%eax
-    601d:	89 45 fc             	mov    %eax,-0x4(%rbp)
+    6107:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    610a:	99                   	cltd   
+    610b:	c1 ea 1c             	shr    $0x1c,%edx
+    610e:	01 d0                	add    %edx,%eax
+    6110:	83 e0 0f             	and    $0xf,%eax
+    6113:	29 d0                	sub    %edx,%eax
+    6115:	89 45 fc             	mov    %eax,-0x4(%rbp)
 	printf("\x1b[%dm", (color<8) ? color+40 : color+92);
-    6020:	83 7d fc 07          	cmpl   $0x7,-0x4(%rbp)
-    6024:	7f 08                	jg     602e <SetBgColor16+0x2e>
-    6026:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    6029:	83 c0 28             	add    $0x28,%eax
-    602c:	eb 06                	jmp    6034 <SetBgColor16+0x34>
-    602e:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    6031:	83 c0 5c             	add    $0x5c,%eax
-    6034:	89 c6                	mov    %eax,%esi
-    6036:	48 8d 3d 0d 1a 00 00 	lea    0x1a0d(%rip),%rdi        # 7a4a <__func__.4838+0x2fa>
-    603d:	b8 00 00 00 00       	mov    $0x0,%eax
-    6042:	e8 c9 d4 ff ff       	callq  3510 <printf@plt>
+    6118:	83 7d fc 07          	cmpl   $0x7,-0x4(%rbp)
+    611c:	7f 08                	jg     6126 <SetBgColor16+0x2e>
+    611e:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    6121:	83 c0 28             	add    $0x28,%eax
+    6124:	eb 06                	jmp    612c <SetBgColor16+0x34>
+    6126:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    6129:	83 c0 5c             	add    $0x5c,%eax
+    612c:	89 c6                	mov    %eax,%esi
+    612e:	48 8d 3d 1c 19 00 00 	lea    0x191c(%rip),%rdi        # 7a51 <__func__.4838+0x301>
+    6135:	b8 00 00 00 00       	mov    $0x0,%eax
+    613a:	e8 d1 d3 ff ff       	callq  3510 <printf@plt>
 }
-    6047:	90                   	nop
-    6048:	c9                   	leaveq 
-    6049:	c3                   	retq   
+    613f:	90                   	nop
+    6140:	c9                   	leaveq 
+    6141:	c3                   	retq   
 
-000000000000604a <SetColor256>:
+0000000000006142 <SetColor256>:
 
 void SetColor256(unsigned char color) {
-    604a:	f3 0f 1e fa          	endbr64 
-    604e:	55                   	push   %rbp
-    604f:	48 89 e5             	mov    %rsp,%rbp
-    6052:	48 83 ec 10          	sub    $0x10,%rsp
-    6056:	89 f8                	mov    %edi,%eax
-    6058:	88 45 fc             	mov    %al,-0x4(%rbp)
+    6142:	f3 0f 1e fa          	endbr64 
+    6146:	55                   	push   %rbp
+    6147:	48 89 e5             	mov    %rsp,%rbp
+    614a:	48 83 ec 10          	sub    $0x10,%rsp
+    614e:	89 f8                	mov    %edi,%eax
+    6150:	88 45 fc             	mov    %al,-0x4(%rbp)
 	printf("\x1b[38;5;%dm", color);
-    605b:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
-    605f:	89 c6                	mov    %eax,%esi
-    6061:	48 8d 3d ed 19 00 00 	lea    0x19ed(%rip),%rdi        # 7a55 <__func__.4838+0x305>
-    6068:	b8 00 00 00 00       	mov    $0x0,%eax
-    606d:	e8 9e d4 ff ff       	callq  3510 <printf@plt>
+    6153:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
+    6157:	89 c6                	mov    %eax,%esi
+    6159:	48 8d 3d fc 18 00 00 	lea    0x18fc(%rip),%rdi        # 7a5c <__func__.4838+0x30c>
+    6160:	b8 00 00 00 00       	mov    $0x0,%eax
+    6165:	e8 a6 d3 ff ff       	callq  3510 <printf@plt>
 }
-    6072:	90                   	nop
-    6073:	c9                   	leaveq 
-    6074:	c3                   	retq   
+    616a:	90                   	nop
+    616b:	c9                   	leaveq 
+    616c:	c3                   	retq   
 
-0000000000006075 <SetBgColor256>:
+000000000000616d <SetBgColor256>:
 
 void SetBgColor256(unsigned char color) {
-    6075:	f3 0f 1e fa          	endbr64 
-    6079:	55                   	push   %rbp
-    607a:	48 89 e5             	mov    %rsp,%rbp
-    607d:	48 83 ec 10          	sub    $0x10,%rsp
-    6081:	89 f8                	mov    %edi,%eax
-    6083:	88 45 fc             	mov    %al,-0x4(%rbp)
+    616d:	f3 0f 1e fa          	endbr64 
+    6171:	55                   	push   %rbp
+    6172:	48 89 e5             	mov    %rsp,%rbp
+    6175:	48 83 ec 10          	sub    $0x10,%rsp
+    6179:	89 f8                	mov    %edi,%eax
+    617b:	88 45 fc             	mov    %al,-0x4(%rbp)
 	printf("\x1b[48;5;%dm", color);
-    6086:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
-    608a:	89 c6                	mov    %eax,%esi
-    608c:	48 8d 3d cd 19 00 00 	lea    0x19cd(%rip),%rdi        # 7a60 <__func__.4838+0x310>
-    6093:	b8 00 00 00 00       	mov    $0x0,%eax
-    6098:	e8 73 d4 ff ff       	callq  3510 <printf@plt>
+    617e:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
+    6182:	89 c6                	mov    %eax,%esi
+    6184:	48 8d 3d dc 18 00 00 	lea    0x18dc(%rip),%rdi        # 7a67 <__func__.4838+0x317>
+    618b:	b8 00 00 00 00       	mov    $0x0,%eax
+    6190:	e8 7b d3 ff ff       	callq  3510 <printf@plt>
 }
-    609d:	90                   	nop
-    609e:	c9                   	leaveq 
-    609f:	c3                   	retq   
+    6195:	90                   	nop
+    6196:	c9                   	leaveq 
+    6197:	c3                   	retq   
 
-00000000000060a0 <SetFgColorRGB>:
+0000000000006198 <SetFgColorRGB>:
 
 void SetFgColorRGB(unsigned char r, unsigned char g, unsigned char b) {
-    60a0:	f3 0f 1e fa          	endbr64 
-    60a4:	55                   	push   %rbp
-    60a5:	48 89 e5             	mov    %rsp,%rbp
-    60a8:	48 83 ec 10          	sub    $0x10,%rsp
-    60ac:	89 f1                	mov    %esi,%ecx
-    60ae:	89 d0                	mov    %edx,%eax
-    60b0:	89 fa                	mov    %edi,%edx
-    60b2:	88 55 fc             	mov    %dl,-0x4(%rbp)
-    60b5:	89 ca                	mov    %ecx,%edx
-    60b7:	88 55 f8             	mov    %dl,-0x8(%rbp)
-    60ba:	88 45 f4             	mov    %al,-0xc(%rbp)
+    6198:	f3 0f 1e fa          	endbr64 
+    619c:	55                   	push   %rbp
+    619d:	48 89 e5             	mov    %rsp,%rbp
+    61a0:	48 83 ec 10          	sub    $0x10,%rsp
+    61a4:	89 f1                	mov    %esi,%ecx
+    61a6:	89 d0                	mov    %edx,%eax
+    61a8:	89 fa                	mov    %edi,%edx
+    61aa:	88 55 fc             	mov    %dl,-0x4(%rbp)
+    61ad:	89 ca                	mov    %ecx,%edx
+    61af:	88 55 f8             	mov    %dl,-0x8(%rbp)
+    61b2:	88 45 f4             	mov    %al,-0xc(%rbp)
 	printf("\x1b[38;2;%d;%d;%dm", r, g, b);
-    60bd:	0f b6 4d f4          	movzbl -0xc(%rbp),%ecx
-    60c1:	0f b6 55 f8          	movzbl -0x8(%rbp),%edx
-    60c5:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
-    60c9:	89 c6                	mov    %eax,%esi
-    60cb:	48 8d 3d 99 19 00 00 	lea    0x1999(%rip),%rdi        # 7a6b <__func__.4838+0x31b>
-    60d2:	b8 00 00 00 00       	mov    $0x0,%eax
-    60d7:	e8 34 d4 ff ff       	callq  3510 <printf@plt>
+    61b5:	0f b6 4d f4          	movzbl -0xc(%rbp),%ecx
+    61b9:	0f b6 55 f8          	movzbl -0x8(%rbp),%edx
+    61bd:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
+    61c1:	89 c6                	mov    %eax,%esi
+    61c3:	48 8d 3d a8 18 00 00 	lea    0x18a8(%rip),%rdi        # 7a72 <__func__.4838+0x322>
+    61ca:	b8 00 00 00 00       	mov    $0x0,%eax
+    61cf:	e8 3c d3 ff ff       	callq  3510 <printf@plt>
 }
-    60dc:	90                   	nop
-    60dd:	c9                   	leaveq 
-    60de:	c3                   	retq   
+    61d4:	90                   	nop
+    61d5:	c9                   	leaveq 
+    61d6:	c3                   	retq   
 
-00000000000060df <SetBgColorRGB>:
+00000000000061d7 <SetBgColorRGB>:
 
 void SetBgColorRGB(unsigned char r, unsigned char g, unsigned char b) {
-    60df:	f3 0f 1e fa          	endbr64 
-    60e3:	55                   	push   %rbp
-    60e4:	48 89 e5             	mov    %rsp,%rbp
-    60e7:	48 83 ec 10          	sub    $0x10,%rsp
-    60eb:	89 f1                	mov    %esi,%ecx
-    60ed:	89 d0                	mov    %edx,%eax
-    60ef:	89 fa                	mov    %edi,%edx
-    60f1:	88 55 fc             	mov    %dl,-0x4(%rbp)
-    60f4:	89 ca                	mov    %ecx,%edx
-    60f6:	88 55 f8             	mov    %dl,-0x8(%rbp)
-    60f9:	88 45 f4             	mov    %al,-0xc(%rbp)
+    61d7:	f3 0f 1e fa          	endbr64 
+    61db:	55                   	push   %rbp
+    61dc:	48 89 e5             	mov    %rsp,%rbp
+    61df:	48 83 ec 10          	sub    $0x10,%rsp
+    61e3:	89 f1                	mov    %esi,%ecx
+    61e5:	89 d0                	mov    %edx,%eax
+    61e7:	89 fa                	mov    %edi,%edx
+    61e9:	88 55 fc             	mov    %dl,-0x4(%rbp)
+    61ec:	89 ca                	mov    %ecx,%edx
+    61ee:	88 55 f8             	mov    %dl,-0x8(%rbp)
+    61f1:	88 45 f4             	mov    %al,-0xc(%rbp)
 	printf("\x1b[48;2;%d;%d;%dm", r, g, b);
-    60fc:	0f b6 4d f4          	movzbl -0xc(%rbp),%ecx
-    6100:	0f b6 55 f8          	movzbl -0x8(%rbp),%edx
-    6104:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
-    6108:	89 c6                	mov    %eax,%esi
-    610a:	48 8d 3d 6b 19 00 00 	lea    0x196b(%rip),%rdi        # 7a7c <__func__.4838+0x32c>
-    6111:	b8 00 00 00 00       	mov    $0x0,%eax
-    6116:	e8 f5 d3 ff ff       	callq  3510 <printf@plt>
+    61f4:	0f b6 4d f4          	movzbl -0xc(%rbp),%ecx
+    61f8:	0f b6 55 f8          	movzbl -0x8(%rbp),%edx
+    61fc:	0f b6 45 fc          	movzbl -0x4(%rbp),%eax
+    6200:	89 c6                	mov    %eax,%esi
+    6202:	48 8d 3d 7a 18 00 00 	lea    0x187a(%rip),%rdi        # 7a83 <__func__.4838+0x333>
+    6209:	b8 00 00 00 00       	mov    $0x0,%eax
+    620e:	e8 fd d2 ff ff       	callq  3510 <printf@plt>
 }
-    611b:	90                   	nop
-    611c:	c9                   	leaveq 
-    611d:	c3                   	retq   
+    6213:	90                   	nop
+    6214:	c9                   	leaveq 
+    6215:	c3                   	retq   
 
-000000000000611e <ScreenSetMode>:
+0000000000006216 <ScreenSetMode>:
 #define GRAPHICSMODE_640x350_4BPP 16
 #define GRAPHICSMODE_640x480_1BPP 17
 #define GRAPHICSMODE_640x480_4BPP 18
 #define GRAPHICSMODE_320x200_8BPP 19
 
 void ScreenSetMode(int mode) {
-    611e:	f3 0f 1e fa          	endbr64 
-    6122:	55                   	push   %rbp
-    6123:	48 89 e5             	mov    %rsp,%rbp
-    6126:	48 83 ec 10          	sub    $0x10,%rsp
-    612a:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    6216:	f3 0f 1e fa          	endbr64 
+    621a:	55                   	push   %rbp
+    621b:	48 89 e5             	mov    %rsp,%rbp
+    621e:	48 83 ec 10          	sub    $0x10,%rsp
+    6222:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	printf("\x1b[=%dh", mode);
-    612d:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    6130:	89 c6                	mov    %eax,%esi
-    6132:	48 8d 3d 54 19 00 00 	lea    0x1954(%rip),%rdi        # 7a8d <__func__.4838+0x33d>
-    6139:	b8 00 00 00 00       	mov    $0x0,%eax
-    613e:	e8 cd d3 ff ff       	callq  3510 <printf@plt>
+    6225:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    6228:	89 c6                	mov    %eax,%esi
+    622a:	48 8d 3d 63 18 00 00 	lea    0x1863(%rip),%rdi        # 7a94 <__func__.4838+0x344>
+    6231:	b8 00 00 00 00       	mov    $0x0,%eax
+    6236:	e8 d5 d2 ff ff       	callq  3510 <printf@plt>
 }
-    6143:	90                   	nop
-    6144:	c9                   	leaveq 
-    6145:	c3                   	retq   
+    623b:	90                   	nop
+    623c:	c9                   	leaveq 
+    623d:	c3                   	retq   
 
-0000000000006146 <ScreenResetMode>:
+000000000000623e <ScreenResetMode>:
 
 void ScreenResetMode(int mode) {
-    6146:	f3 0f 1e fa          	endbr64 
-    614a:	55                   	push   %rbp
-    614b:	48 89 e5             	mov    %rsp,%rbp
-    614e:	48 83 ec 10          	sub    $0x10,%rsp
-    6152:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    623e:	f3 0f 1e fa          	endbr64 
+    6242:	55                   	push   %rbp
+    6243:	48 89 e5             	mov    %rsp,%rbp
+    6246:	48 83 ec 10          	sub    $0x10,%rsp
+    624a:	89 7d fc             	mov    %edi,-0x4(%rbp)
 	printf("\x1b[=%dl", mode);
-    6155:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    6158:	89 c6                	mov    %eax,%esi
-    615a:	48 8d 3d 33 19 00 00 	lea    0x1933(%rip),%rdi        # 7a94 <__func__.4838+0x344>
-    6161:	b8 00 00 00 00       	mov    $0x0,%eax
-    6166:	e8 a5 d3 ff ff       	callq  3510 <printf@plt>
+    624d:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    6250:	89 c6                	mov    %eax,%esi
+    6252:	48 8d 3d 42 18 00 00 	lea    0x1842(%rip),%rdi        # 7a9b <__func__.4838+0x34b>
+    6259:	b8 00 00 00 00       	mov    $0x0,%eax
+    625e:	e8 ad d2 ff ff       	callq  3510 <printf@plt>
 }
-    616b:	90                   	nop
-    616c:	c9                   	leaveq 
-    616d:	c3                   	retq   
+    6263:	90                   	nop
+    6264:	c9                   	leaveq 
+    6265:	c3                   	retq   
 
-000000000000616e <ResetColor>:
+0000000000006266 <ResetColor>:
 
 void ResetColor() {
-    616e:	f3 0f 1e fa          	endbr64 
-    6172:	55                   	push   %rbp
-    6173:	48 89 e5             	mov    %rsp,%rbp
+    6266:	f3 0f 1e fa          	endbr64 
+    626a:	55                   	push   %rbp
+    626b:	48 89 e5             	mov    %rsp,%rbp
 	printf("\x1b[0m");
-    6176:	48 8d 3d d3 18 00 00 	lea    0x18d3(%rip),%rdi        # 7a50 <__func__.4838+0x300>
-    617d:	b8 00 00 00 00       	mov    $0x0,%eax
-    6182:	e8 89 d3 ff ff       	callq  3510 <printf@plt>
+    626e:	48 8d 3d e2 17 00 00 	lea    0x17e2(%rip),%rdi        # 7a57 <__func__.4838+0x307>
+    6275:	b8 00 00 00 00       	mov    $0x0,%eax
+    627a:	e8 91 d2 ff ff       	callq  3510 <printf@plt>
 }
-    6187:	90                   	nop
-    6188:	5d                   	pop    %rbp
-    6189:	c3                   	retq   
-    618a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    627f:	90                   	nop
+    6280:	5d                   	pop    %rbp
+    6281:	c3                   	retq   
+    6282:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+    6289:	00 00 00 
+    628c:	0f 1f 40 00          	nopl   0x0(%rax)
 
-0000000000006190 <__libc_csu_init>:
-    6190:	f3 0f 1e fa          	endbr64 
-    6194:	41 57                	push   %r15
-    6196:	4c 8d 3d 5b 3a 00 00 	lea    0x3a5b(%rip),%r15        # 9bf8 <__frame_dummy_init_array_entry>
-    619d:	41 56                	push   %r14
-    619f:	49 89 d6             	mov    %rdx,%r14
-    61a2:	41 55                	push   %r13
-    61a4:	49 89 f5             	mov    %rsi,%r13
-    61a7:	41 54                	push   %r12
-    61a9:	41 89 fc             	mov    %edi,%r12d
-    61ac:	55                   	push   %rbp
-    61ad:	48 8d 2d 4c 3a 00 00 	lea    0x3a4c(%rip),%rbp        # 9c00 <__do_global_dtors_aux_fini_array_entry>
-    61b4:	53                   	push   %rbx
-    61b5:	4c 29 fd             	sub    %r15,%rbp
-    61b8:	48 83 ec 08          	sub    $0x8,%rsp
-    61bc:	e8 3f ce ff ff       	callq  3000 <_init>
-    61c1:	48 c1 fd 03          	sar    $0x3,%rbp
-    61c5:	74 1f                	je     61e6 <__libc_csu_init+0x56>
-    61c7:	31 db                	xor    %ebx,%ebx
-    61c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
-    61d0:	4c 89 f2             	mov    %r14,%rdx
-    61d3:	4c 89 ee             	mov    %r13,%rsi
-    61d6:	44 89 e7             	mov    %r12d,%edi
-    61d9:	41 ff 14 df          	callq  *(%r15,%rbx,8)
-    61dd:	48 83 c3 01          	add    $0x1,%rbx
-    61e1:	48 39 dd             	cmp    %rbx,%rbp
-    61e4:	75 ea                	jne    61d0 <__libc_csu_init+0x40>
-    61e6:	48 83 c4 08          	add    $0x8,%rsp
-    61ea:	5b                   	pop    %rbx
-    61eb:	5d                   	pop    %rbp
-    61ec:	41 5c                	pop    %r12
-    61ee:	41 5d                	pop    %r13
-    61f0:	41 5e                	pop    %r14
-    61f2:	41 5f                	pop    %r15
-    61f4:	c3                   	retq   
-    61f5:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
-    61fc:	00 00 00 00 
+0000000000006290 <__libc_csu_init>:
+    6290:	f3 0f 1e fa          	endbr64 
+    6294:	41 57                	push   %r15
+    6296:	4c 8d 3d 5b 39 00 00 	lea    0x395b(%rip),%r15        # 9bf8 <__frame_dummy_init_array_entry>
+    629d:	41 56                	push   %r14
+    629f:	49 89 d6             	mov    %rdx,%r14
+    62a2:	41 55                	push   %r13
+    62a4:	49 89 f5             	mov    %rsi,%r13
+    62a7:	41 54                	push   %r12
+    62a9:	41 89 fc             	mov    %edi,%r12d
+    62ac:	55                   	push   %rbp
+    62ad:	48 8d 2d 4c 39 00 00 	lea    0x394c(%rip),%rbp        # 9c00 <__do_global_dtors_aux_fini_array_entry>
+    62b4:	53                   	push   %rbx
+    62b5:	4c 29 fd             	sub    %r15,%rbp
+    62b8:	48 83 ec 08          	sub    $0x8,%rsp
+    62bc:	e8 3f cd ff ff       	callq  3000 <_init>
+    62c1:	48 c1 fd 03          	sar    $0x3,%rbp
+    62c5:	74 1f                	je     62e6 <__libc_csu_init+0x56>
+    62c7:	31 db                	xor    %ebx,%ebx
+    62c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    62d0:	4c 89 f2             	mov    %r14,%rdx
+    62d3:	4c 89 ee             	mov    %r13,%rsi
+    62d6:	44 89 e7             	mov    %r12d,%edi
+    62d9:	41 ff 14 df          	callq  *(%r15,%rbx,8)
+    62dd:	48 83 c3 01          	add    $0x1,%rbx
+    62e1:	48 39 dd             	cmp    %rbx,%rbp
+    62e4:	75 ea                	jne    62d0 <__libc_csu_init+0x40>
+    62e6:	48 83 c4 08          	add    $0x8,%rsp
+    62ea:	5b                   	pop    %rbx
+    62eb:	5d                   	pop    %rbp
+    62ec:	41 5c                	pop    %r12
+    62ee:	41 5d                	pop    %r13
+    62f0:	41 5e                	pop    %r14
+    62f2:	41 5f                	pop    %r15
+    62f4:	c3                   	retq   
+    62f5:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+    62fc:	00 00 00 00 
 
-0000000000006200 <__libc_csu_fini>:
-    6200:	f3 0f 1e fa          	endbr64 
-    6204:	c3                   	retq   
+0000000000006300 <__libc_csu_fini>:
+    6300:	f3 0f 1e fa          	endbr64 
+    6304:	c3                   	retq   

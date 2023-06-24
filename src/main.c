@@ -367,7 +367,7 @@ noscript:
 		if (endswith(reqdata->truepath, ".php")) {
 			free(read_data.data);
 #ifdef DISABLE_CACHE
-			if (RabbitCallPHP(public_path, phpoutput_path, *reqdata, csock)) {
+			if (RabbitCallPHP(public_path, phpoutput_path, *reqdata, &read_data)) {
 #else
 			if (RabbitCallPHP(cached_path, phpoutput_path, *reqdata, &read_data)) {
 #endif
